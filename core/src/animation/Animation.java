@@ -11,7 +11,7 @@ public class Animation {
     private int frame;
 
     /**
-	 * Creates an array of texture regions based on a PNG image with multiple frames of animation.
+	 * Creates an array of texture regions based on a PNG image with multiple frames of animation
      * @author Michelle Vuong
 	 * @param region The TextureRegion of the PNG image that contains the animation.
      * @param frameCount The number of frames in the animation. Used to split the image into multiple texture regions for each frame.
