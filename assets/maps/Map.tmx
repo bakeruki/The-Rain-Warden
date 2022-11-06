@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="60" height="40" tilewidth="64" tileheight="64" infinite="0" nextlayerid="3" nextobjectid="41">
+ <tileset firstgid="1" source="Tileset.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="60" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztlDEOgDAMxAor//8vjAxFQZTomqstWYzU4kpruRwPukIvvU7QS68T9NLrBL30ZrBd7p1nNqre1d6rYrXeTFR3VAXb0RNtzm2T0ebcNunWEzHaO9vee+e5M9pbbR/VzjsKvVrfEN3RSr3Z/z9135/f3akXEREREb95Aih+JzM=
+  </data>
+ </layer>
+ <objectgroup id="2" name="Object Layer 1">
+  <object id="2" x="0" y="1792">
+   <polygon points="0,0 384,0 384,768 0,768"/>
+  </object>
+  <object id="3" x="1536" y="1920">
+   <polygon points="0,0 -1152,0 -1152,640 0,640"/>
+  </object>
+  <object id="4" x="1536" y="1920">
+   <polygon points="0,0 0,-704 384,-704 384,640 0,640"/>
+  </object>
+  <object id="5" x="1920" y="1664">
+   <polygon points="0,0 1920,0 1920,896 0,896"/>
+  </object>
+  <object id="6" x="576" y="1728">
+   <polygon points="0,0 320,0 320,64 0,64"/>
+  </object>
+  <object id="7" x="1024" y="1536">
+   <polygon points="0,0 0,-64 320,-64 320,0"/>
+  </object>
+  <object id="8" x="2048" y="1344">
+   <polygon points="0,0 384,0 384,-128 0,-128"/>
+  </object>
+  <object id="9" x="2560" y="1536">
+   <polygon points="0,0 384,0 384,-128 0,-128"/>
+  </object>
+  <object id="10" x="3008" y="1152">
+   <polygon points="0,0 384,0 384,-128 0,-128"/>
+  </object>
+  <object id="11" x="3456" y="896">
+   <polygon points="0,0 384,0 384,-128 0,-128"/>
+  </object>
+  <object id="39" x="1728" y="1024">
+   <polygon points="0,0 0,192 64,192 64,0"/>
+  </object>
+  <object id="12" x="1536" y="0">
+   <polygon points="0,0 384,0 384,1024 0,1024"/>
+  </object>
+  <object id="13" name="player" x="64" y="1664" width="64" height="86"/>
+  <object id="21" name="shinyRaindrop" x="1152" y="1216" width="64" height="64"/>
+  <object id="22" name="mango" x="576" y="1216" width="64" height="64"/>
+  <object id="23" name="mango" x="2688" y="960" width="64" height="64"/>
+  <object id="30" name="shinyRaindrop" x="2176" y="1088" width="64" height="64"/>
+  <object id="38" name="cameraSwitch" x="1536" y="1024" width="64" height="192"/>
+ </objectgroup>
+</map>
