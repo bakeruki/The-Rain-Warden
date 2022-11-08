@@ -81,7 +81,7 @@ public class MenuScreen extends ScreenAdapter{
         backgroundAnimation.update(delta);
         
         batch.begin();
-        batch.draw(backgroundAnimation.getFrame(), 0, 0);
+        batch.draw(backgroundAnimation.getFrame(), 0, 30);
         batch.end();
 
         startButton.center();
