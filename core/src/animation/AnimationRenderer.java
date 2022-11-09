@@ -51,6 +51,7 @@ public class AnimationRenderer{
         this.batch = batch;
         this.shinyRaindrops = new Array<ShinyRaindrop>();
 
+        //animation objects taken from assets/animmations
         this.idle = new Animation(new TextureRegion(new Texture("animations/player/idle.png")), 4, 4f);
         this.idleLeft = new Animation(new TextureRegion(new Texture("animations/player/idleLeft.png")), 4, 4f);
         this.walk = new Animation(new TextureRegion(new Texture("animations/player/walk.png")), 4, 0.5f);
@@ -110,7 +111,7 @@ public class AnimationRenderer{
             raindropDestroyedAnimation.update(delta);
         }
         
-        //idle animation
+        //idle animation - if player is not moving
         if(player.getVelX() == 0 && player.getVelY() == 0){
             if(player.isLeft()){
                 idleLeft.update(delta);
@@ -123,7 +124,7 @@ public class AnimationRenderer{
             idle.setFrame(0);
             idleLeft.setFrame(0);
         }
-
+        //walk animation - if player is moving
         if(player.getVelX() != 0 && player.getVelY() == 0){
             if(player.isLeft()){
                 walkLeft.update(delta);
@@ -137,7 +138,7 @@ public class AnimationRenderer{
             walkLeft.setFrame(0);
         }
 
-        //dash animation
+        //dash animation - if player is currently dashing
         if(player.getDashCounter() != 0){
             if(player.isLeft()){
                 dashLeft.update(delta);
@@ -151,7 +152,7 @@ public class AnimationRenderer{
             dashLeft.setFrame(0);
         }
 
-        //jump animation
+        //jump animation - if player y velocity is greater than 0 and they have not used their jumps yet
         if(player.getJumpCount() != 0 && player.getVelY() > 0){
             if(player.getJumpCount() == 1){
                 if(player.isLeft()){
@@ -179,7 +180,7 @@ public class AnimationRenderer{
             doubleJumpLeft.setFrame(0);
         }
 
-        //fall animation
+        //fall animation - if player y velocity is less than 0
         if(player.getVelY() < 0){
             if(player.isLeft()){
                 fallLeft.update(delta);

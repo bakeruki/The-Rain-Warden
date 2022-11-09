@@ -123,9 +123,11 @@ public class Player extends GameEntity {
 
     @Override
     public void update() {  
+        //these variables just keep track of the players position so it is easy to get them in other classes
         x = body.getPosition().x * Constants.PPM;
         y = body.getPosition().y * Constants.PPM;
         
+        //prevents movement during dash
         if(countDash == 0){
             checkUserInput();
         }else{

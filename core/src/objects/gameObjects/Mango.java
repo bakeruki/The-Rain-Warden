@@ -28,6 +28,7 @@ public class Mango extends InteractiveTileObject {
 
     @Override
     public void update() {
+        //destroying object in collision method causes issues
         if(toBeDestroyed != null){
             world.destroyBody(toBeDestroyed);
             toBeDestroyed = null;

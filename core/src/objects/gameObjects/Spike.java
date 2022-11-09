@@ -26,6 +26,7 @@ public class Spike extends InteractiveTileObject {
 
     @Override
     public void update() {
+        //trying to move the player in the collision method causes issues
         if(collided){
             gameScreen.respawnPlayer();
             collided = false;

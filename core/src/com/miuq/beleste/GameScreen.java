@@ -63,8 +63,6 @@ public class GameScreen extends ScreenAdapter {
         this.startPositions.add(new Vector2(64 / Constants.PPM, 1664 / Constants.PPM)); //level 1
         this.startPositions.add(new Vector2(1810 / Constants.PPM, 1350 / Constants.PPM)); //level 2
 
-        this.level = 0;
-
         this.batch = new SpriteBatch();
         this.world = new World(new Vector2(0, -25), false);
         this.game = game;
@@ -76,7 +74,9 @@ public class GameScreen extends ScreenAdapter {
         this.mangos = new Array<Mango>();
         this.cameraSwitches = new Array<CameraSwitchTrigger>();
         this.spikes = new Array<Spike>();
+
         this.mangosCollected = 0;
+        this.level = 0;
 
         this.tileMapHelper = new TileMapHelper(this);
         this.orthoganalTiledMapRenderer = tileMapHelper.setupMap();

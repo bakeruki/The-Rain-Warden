@@ -18,10 +18,10 @@ public class Animation {
      * @param cycleTime The amount of time it takes for one full cycle of the animation. Used to determine the speed at which the images change.
 	 */
     public Animation(TextureRegion region, int frameCount, float cycleTime){
-        frames = new Array<TextureRegion>();
-        int frameWidth = region.getRegionWidth() / frameCount;
+        frames = new Array<TextureRegion>(); //array of texture regions
+        int frameWidth = region.getRegionWidth() / frameCount; //determines width of each frame based on number of frames
         for(int i = 0; i < frameCount; i++){
-            frames.add(new TextureRegion(region, i*frameWidth, 0, frameWidth, region.getRegionHeight()));
+            frames.add(new TextureRegion(region, i*frameWidth, 0, frameWidth, region.getRegionHeight())); //splices each frame and stores in array
         }
         this.frameCount = frameCount;
         maxFrameTime = cycleTime / frameCount;
@@ -34,10 +34,12 @@ public class Animation {
 	 */
     public void update(float dt){
         currentFrameTime += dt;
+        //determines when to switch to next frame based on elapsed time
         if(currentFrameTime > maxFrameTime){
             frame++;
             currentFrameTime = 0;
         }
+        //determines when to reset the animation
         if(frame == frameCount){
             frame = 0;
         }
