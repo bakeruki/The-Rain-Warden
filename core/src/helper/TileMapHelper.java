@@ -21,6 +21,7 @@ import com.miuq.beleste.GameScreen;
 import objects.gameObjects.CameraSwitchTrigger;
 import objects.gameObjects.Mango;
 import objects.gameObjects.ShinyRaindrop;
+import objects.gameObjects.Spike;
 import objects.player.Player;
 
 public class TileMapHelper {
@@ -129,6 +130,25 @@ public class TileMapHelper {
                     shape.dispose();
 
                     gameScreen.cameraSwitches.add(new CameraSwitchTrigger(gameScreen.getWorld(), body, fixture));
+                }
+                if(rectangleName.equals("spike")){
+                    BodyDef bodyDef = new BodyDef();
+                    bodyDef.type = BodyType.StaticBody;
+                    bodyDef.position.set((rectangle.getX() / Constants.PPM) + (rectangle.getWidth() / 2 / Constants.PPM), (rectangle.getY() / Constants.PPM) + (rectangle.getHeight() / 2 / Constants.PPM));
+                    bodyDef.fixedRotation = true;
+                    Body body = gameScreen.getWorld().createBody(bodyDef);
+
+                    PolygonShape shape = new PolygonShape();
+                    shape.setAsBox(rectangle.getWidth() / 2 / Constants.PPM, rectangle.getHeight() / 2 / Constants.PPM);
+
+                    FixtureDef fixtureDef = new FixtureDef();
+                    fixtureDef.shape = shape;
+                    fixtureDef.friction = 0;
+                    fixtureDef.isSensor = true;
+                    Fixture fixture = body.createFixture(fixtureDef);
+                    shape.dispose();
+
+                    gameScreen.spikes.add(new Spike(gameScreen.getWorld(), body, fixture, gameScreen));
                 }
             }
         }

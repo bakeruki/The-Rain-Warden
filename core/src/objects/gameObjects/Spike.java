@@ -1,25 +1,35 @@
 package objects.gameObjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.miuq.beleste.GameScreen;
 
 public class Spike extends InteractiveTileObject {
 
-    public Spike(World world, Body body, Fixture sensorFixture) {
+    private GameScreen gameScreen;
+    private boolean collided;
+
+    public Spike(World world, Body body, Fixture sensorFixture, GameScreen gameScreen) {
         super(world, body, sensorFixture);
+        this.gameScreen = gameScreen;
         sensorFixture.setUserData(this);
+        collided = false;
     }
 
     @Override
     public void onCollision() {
-        // TODO make collision logic (reset player to start position for the level, play death animation, so on)
-
+        Gdx.app.log("Spike", "Collision");
+        collided = true;
     }
 
     @Override
     public void update() {
-
+        if(collided){
+            gameScreen.respawnPlayer();
+            collided = false;
+        }
     }
 
 }

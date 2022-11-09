@@ -6,6 +6,7 @@ import helper.WorldContactListener;
 import objects.gameObjects.CameraSwitchTrigger;
 import objects.gameObjects.Mango;
 import objects.gameObjects.ShinyRaindrop;
+import objects.gameObjects.Spike;
 import objects.player.Player;
 import animation.AnimationRenderer;
 
@@ -28,7 +29,7 @@ public class GameScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private Array<Vector3> cameraPositions;
     private Array<Vector2> startPositions;
-    private int cameraCount;
+    private int level;
     private FitViewport viewport;
     private SpriteBatch batch;
     private World world;
@@ -44,6 +45,7 @@ public class GameScreen extends ScreenAdapter {
     public Array<ShinyRaindrop> shinyRaindrops;
     public Array<Mango> mangos;
     public Array<CameraSwitchTrigger> cameraSwitches;
+    public Array<Spike> spikes;
     private int mangosCollected;
 
     private AnimationRenderer animationRenderer;
@@ -51,24 +53,29 @@ public class GameScreen extends ScreenAdapter {
     public GameScreen(OrthographicCamera camera, FitViewport viewport2, Beleste game){
         this.camera = camera;
         this.viewport = viewport2;
-        this.cameraPositions = new Array<Vector3>();
         //camera positions
+        this.cameraPositions = new Array<Vector3>();
         this.cameraPositions.add(new Vector3(824,1149,0)); //level 1
         this.cameraPositions.add(new Vector3(2745, 1348, 0)); //level 2
-        this.cameraCount = 0;
-
-        this.startPositions = new Array<Vector2>();
+        
         //spawn positions
-        this.startPositions.add(new Vector2(1800 / Constants.PPM, 1300 / Constants.PPM)); //level 2
+        this.startPositions = new Array<Vector2>();
+        this.startPositions.add(new Vector2(64 / Constants.PPM, 1664 / Constants.PPM)); //level 1
+        this.startPositions.add(new Vector2(1810 / Constants.PPM, 1350 / Constants.PPM)); //level 2
+
+        this.level = 0;
 
         this.batch = new SpriteBatch();
         this.world = new World(new Vector2(0, -25), false);
         this.game = game;
         
         this.box2dDebugRenderer = new Box2DDebugRenderer();
+
+        //objects
         this.shinyRaindrops = new Array<ShinyRaindrop>();
         this.mangos = new Array<Mango>();
         this.cameraSwitches = new Array<CameraSwitchTrigger>();
+        this.spikes = new Array<Spike>();
         this.mangosCollected = 0;
 
         this.tileMapHelper = new TileMapHelper(this);
@@ -110,10 +117,14 @@ public class GameScreen extends ScreenAdapter {
             CameraSwitchTrigger cameraSwitch = cameraSwitches.get(i);
             if(cameraSwitch.isRemoved()){
                 cameraSwitches.removeIndex(i);
-                cameraCount++;
-                player.body.setTransform(startPositions.get(cameraCount-1), player.body.getAngle());
+                level++;
+                player.body.setTransform(startPositions.get(level), player.body.getAngle());
             }
             cameraSwitch.update();
+        }
+
+        for(Spike spike: spikes){
+            spike.update();
         }
         
         animationRenderer.clearRaindrops();
@@ -129,9 +140,13 @@ public class GameScreen extends ScreenAdapter {
 
     private void cameraUpdate(){
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        camera.position.set(cameraPositions.get(cameraCount));
+        camera.position.set(cameraPositions.get(level));
         viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.update();
+    }
+
+    public void respawnPlayer(){
+        player.body.setTransform(startPositions.get(level), player.body.getAngle()); 
     }
 
     public void setPlayer(Player player){
