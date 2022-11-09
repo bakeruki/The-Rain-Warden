@@ -34,7 +34,7 @@ public class TileMapHelper {
     }
 
     public OrthogonalTiledMapRenderer setupMap(){
-        tiledMap = new TmxMapLoader().load("maps/Map.tmx");
+        tiledMap = new TmxMapLoader().load("assets/maps/Map.tmx");
         parseMapObjects(tiledMap.getLayers().get("Object Layer 1").getObjects());
         return new OrthogonalTiledMapRenderer(tiledMap);
     }
@@ -114,7 +114,7 @@ public class TileMapHelper {
                 if(rectangleName.equals("cameraSwitch")){
                     BodyDef bodyDef = new BodyDef();
                     bodyDef.type = BodyType.StaticBody;
-                    bodyDef.position.set((rectangle.getX() / Constants.PPM) + 0.5f, (rectangle.getY() / Constants.PPM) + 2);
+                    bodyDef.position.set((rectangle.getX() / Constants.PPM) + 1, (rectangle.getY() / Constants.PPM) + 3);
                     bodyDef.fixedRotation = true;
                     Body body = gameScreen.getWorld().createBody(bodyDef);
 
