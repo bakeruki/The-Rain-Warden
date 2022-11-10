@@ -8,8 +8,8 @@ public class DesktopLauncher {
 	public static void main (String[] args) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
-		config.useVsync(false);
-		config.setTitle("Beleste");
+		config.useVsync(true);
+		config.setTitle("TRW");
 		config.setWindowedMode(1920, 1080);
 		config.setResizable(false);
 		new Lwjgl3Application(new Beleste(), config);
