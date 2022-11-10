@@ -28,6 +28,7 @@ public class TileMapHelper {
     
     private TiledMap tiledMap;
     private GameScreen gameScreen;
+    private Player player;
 
 
     public TileMapHelper(GameScreen gameScreen){
@@ -71,7 +72,8 @@ public class TileMapHelper {
                         gameScreen.getWorld(),
                         body);
                     sensorFixture.setUserData("player");
-                    gameScreen.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body));
+                    player = new Player(rectangle.getWidth(), rectangle.getHeight(), body);
+                    gameScreen.setPlayer(player);
                 }
                 if(rectangleName.equals("shinyRaindrop")){
                     
@@ -148,7 +150,7 @@ public class TileMapHelper {
                     Fixture fixture = body.createFixture(fixtureDef);
                     shape.dispose();
 
-                    gameScreen.spikes.add(new Spike(gameScreen.getWorld(), body, fixture, gameScreen));
+                    gameScreen.spikes.add(new Spike(gameScreen.getWorld(), body, fixture, player));
                 }
             }
         }

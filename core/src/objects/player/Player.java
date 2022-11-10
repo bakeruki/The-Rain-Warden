@@ -14,6 +14,7 @@ public class Player extends GameEntity {
     private int dashCounter = 0;
     private int countDash = 0;
     private boolean left = false;
+    private boolean isDead = false;
 
     public Player(float width, float height, Body body){
         super(width, height, body);
@@ -87,6 +88,19 @@ public class Player extends GameEntity {
         return left;
     }
 
+    public void kill(){
+        isDead = true;
+    }
+
+    public void respawn(){
+        isDead = false;
+        
+    }
+
+    public boolean isDead(){
+        return isDead;
+    }
+
     public void resetDashCounter(){
         dashCounter = 0;
     }
@@ -127,12 +141,16 @@ public class Player extends GameEntity {
         x = body.getPosition().x * Constants.PPM;
         y = body.getPosition().y * Constants.PPM;
         
-        //prevents movement during dash
-        if(countDash == 0){
-            checkUserInput();
-        }else{
-            dash(25);
+        //prevents movement while dead
+        if(!isDead){
+            //prevents movement during dash
+            if(countDash == 0){
+                checkUserInput();
+            }else{
+                dash(25);
+            }
         }
+        
     }
 
     @Override

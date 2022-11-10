@@ -25,7 +25,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-public class GameScreen extends ScreenAdapter {
+public class GameScreen extends ScreenAdapter{
     private OrthographicCamera camera;
     private Array<Vector3> cameraPositions;
     private Array<Vector2> startPositions;
@@ -93,6 +93,11 @@ public class GameScreen extends ScreenAdapter {
 
         orthoganalTiledMapRenderer.setView(camera);
         batch.setProjectionMatrix(camera.combined);
+
+        if(player.isDead()){
+            respawnPlayer();
+        }
+
         player.update();
 
         for(int i = 0; i < shinyRaindrops.size; i++){
@@ -147,6 +152,7 @@ public class GameScreen extends ScreenAdapter {
 
     public void respawnPlayer(){
         player.body.setTransform(startPositions.get(level), player.body.getAngle()); 
+        player.respawn();
     }
 
     public void setPlayer(Player player){
@@ -181,5 +187,6 @@ public class GameScreen extends ScreenAdapter {
 
         orthoganalTiledMapRenderer.render();
         box2dDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
+        
     }
 }

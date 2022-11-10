@@ -52,21 +52,21 @@ public class AnimationRenderer{
         this.shinyRaindrops = new Array<ShinyRaindrop>();
 
         //animation objects taken from assets/animmations
-        this.idle = new Animation(new TextureRegion(new Texture("animations/player/idle.png")), 4, 4f);
-        this.idleLeft = new Animation(new TextureRegion(new Texture("animations/player/idleLeft.png")), 4, 4f);
-        this.walk = new Animation(new TextureRegion(new Texture("animations/player/walk.png")), 4, 0.5f);
-        this.walkLeft = new Animation(new TextureRegion(new Texture("animations/player/walkLeft.png")), 4, 0.5f);
-        this.dash = new Animation(new TextureRegion(new Texture("animations/player/dash.png")), 14, 0.58f);
-        this.dashLeft = new Animation(new TextureRegion(new Texture("animations/player/dashleft.png")), 14, 0.58f);
-        this.jump = new Animation(new TextureRegion(new Texture("animations/player/jump.png")), 8, 0.47f);
-        this.jumpLeft = new Animation(new TextureRegion(new Texture("animations/player/jumpLeft.png")), 8, 0.47f);
-        this.doubleJump = new Animation(new TextureRegion(new Texture("animations/player/doubleJump.png")), 6, 0.75f);
-        this.doubleJumpLeft = new Animation(new TextureRegion(new Texture("animations/player/doubleJumpLeft.png")), 6, 0.75f);
-        this.fall = new Animation(new TextureRegion(new Texture("animations/player/fall.png")), 3, 0.42f);
-        this.fallLeft = new Animation(new TextureRegion(new Texture("animations/player/fallLeft.png")), 3, 0.42f);
+        this.idle = new Animation(new TextureRegion(new Texture("assets/animations/player/idle.png")), 4, 4f);
+        this.idleLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/idleLeft.png")), 4, 4f);
+        this.walk = new Animation(new TextureRegion(new Texture("assets/animations/player/walk.png")), 4, 0.5f);
+        this.walkLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/walkLeft.png")), 4, 0.5f);
+        this.dash = new Animation(new TextureRegion(new Texture("assets/animations/player/dash.png")), 14, 0.58f);
+        this.dashLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/dashleft.png")), 14, 0.58f);
+        this.jump = new Animation(new TextureRegion(new Texture("assets/animations/player/jump.png")), 8, 0.47f);
+        this.jumpLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/jumpLeft.png")), 8, 0.47f);
+        this.doubleJump = new Animation(new TextureRegion(new Texture("assets/animations/player/doubleJump.png")), 6, 0.75f);
+        this.doubleJumpLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/doubleJumpLeft.png")), 6, 0.75f);
+        this.fall = new Animation(new TextureRegion(new Texture("assets/animations/player/fall.png")), 3, 0.42f);
+        this.fallLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/fallLeft.png")), 3, 0.42f);
 
-        this.shinyRaindropAnimation = new Animation(new TextureRegion(new Texture("animations/objects/shinyRaindrop.png")), 5, 0.71f);
-        this.raindropDestroyedAnimation = new Animation(new TextureRegion(new Texture("animations/objects/shinyRaindropDestroy.png")), 7, 0.54f);
+        this.shinyRaindropAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/shinyRaindrop.png")), 5, 0.71f);
+        this.raindropDestroyedAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/shinyRaindropDestroy.png")), 7, 0.54f);
         this.raindropDestroyed = false;
     }
 
@@ -90,6 +90,7 @@ public class AnimationRenderer{
         destroyedRaindrop = shinyRaindrop;
         raindropDestroyed = true;
     }
+
     /**
 	 * Draws all animations using the GameScreen's SpriteBatch.
      * @param delta Universal game time (GameScreen render method).
