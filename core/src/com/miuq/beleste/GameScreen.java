@@ -7,6 +7,7 @@ import objects.gameObjects.CameraSwitchTrigger;
 import objects.gameObjects.Mango;
 import objects.gameObjects.ShinyRaindrop;
 import objects.gameObjects.Spike;
+import objects.gameObjects.WindCurrent;
 import objects.player.Player;
 import animation.AnimationRenderer;
 
@@ -43,10 +44,12 @@ public class GameScreen extends ScreenAdapter{
 
     //objects
     private Player player;
-    public Array<ShinyRaindrop> shinyRaindrops;
-    public Array<Mango> mangos;
-    public Array<CameraSwitchTrigger> cameraSwitches;
-    public Array<Spike> spikes;
+    //these are public because they need to be accessed from the tilemaphelper to add each object from the tilemap
+    private Array<ShinyRaindrop> shinyRaindrops;
+    private Array<Mango> mangos;
+    private Array<CameraSwitchTrigger> cameraSwitches;
+    private Array<Spike> spikes;
+    private Array<WindCurrent> windCurrents;
     private int mangosCollected;
 
     private AnimationRenderer animationRenderer;
@@ -75,6 +78,7 @@ public class GameScreen extends ScreenAdapter{
         this.mangos = new Array<Mango>();
         this.cameraSwitches = new Array<CameraSwitchTrigger>();
         this.spikes = new Array<Spike>();
+        this.windCurrents = new Array<WindCurrent>();
 
         this.mangosCollected = 0;
         this.level = 0;
@@ -145,6 +149,25 @@ public class GameScreen extends ScreenAdapter{
         }
     }
 
+    @Override
+    public void render(float delta){
+        this.update();
+
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.begin();
+        batch.draw(backgroundImage, 0, 0);
+
+        animationRenderer.drawAnimations(delta);
+
+        batch.end();
+
+        orthoganalTiledMapRenderer.render();
+        box2dDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
+        
+    }
+
     private void cameraUpdate(){
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(cameraPositions.get(level));
@@ -173,22 +196,23 @@ public class GameScreen extends ScreenAdapter{
         return player;
     }
 
-    @Override
-    public void render(float delta){
-        this.update();
+    public void addCameraSwitch(CameraSwitchTrigger cameraSwitch){
+        cameraSwitches.add(cameraSwitch);
+    }
 
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    public void addMango(Mango mango){
+        mangos.add(mango);
+    }
 
-        batch.begin();
-        batch.draw(backgroundImage, 0, 0);
+    public void addShinyRaindrop(ShinyRaindrop raindrop){
+        shinyRaindrops.add(raindrop);
+    }
 
-        animationRenderer.drawAnimations(delta);
+    public void addSpike(Spike spike){
+        spikes.add(spike);
+    }
 
-        batch.end();
-
-        orthoganalTiledMapRenderer.render();
-        box2dDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
-        
+    public void addWindCurrents(WindCurrent windCurrent){
+        windCurrents.add(windCurrent);
     }
 }

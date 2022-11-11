@@ -22,6 +22,7 @@ import objects.gameObjects.CameraSwitchTrigger;
 import objects.gameObjects.Mango;
 import objects.gameObjects.ShinyRaindrop;
 import objects.gameObjects.Spike;
+import objects.gameObjects.WindCurrent;
 import objects.player.Player;
 
 public class TileMapHelper {
@@ -29,7 +30,6 @@ public class TileMapHelper {
     private TiledMap tiledMap;
     private GameScreen gameScreen;
     private Player player;
-
 
     public TileMapHelper(GameScreen gameScreen){
         this.gameScreen = gameScreen;
@@ -49,7 +49,7 @@ public class TileMapHelper {
     private void parseMapObjects(MapObjects mapObjects){
         for(MapObject mapObject : mapObjects){
             if(mapObject instanceof PolygonMapObject){
-                createStaticBody((PolygonMapObject)mapObject);
+                createMapBounds((PolygonMapObject)mapObject);
             }
             if(mapObject instanceof RectangleMapObject){
                 Rectangle rectangle = ((RectangleMapObject) mapObject).getRectangle();
@@ -76,93 +76,87 @@ public class TileMapHelper {
                     gameScreen.setPlayer(player);
                 }
                 if(rectangleName.equals("shinyRaindrop")){
-                    
-                    BodyDef bodyDef = new BodyDef();
-                    bodyDef.type = BodyType.StaticBody;
-                    bodyDef.position.set(rectangle.getX() / Constants.PPM, (rectangle.getY() / Constants.PPM) + 1);
-                    bodyDef.fixedRotation = true;
-                    Body body = gameScreen.getWorld().createBody(bodyDef);
+                    Body body = createBody(rectangle);
 
                     PolygonShape shape = new PolygonShape();
                     shape.setAsBox(rectangle.getWidth() / 2 / Constants.PPM, rectangle.getHeight() / 2 / Constants.PPM);
 
-                    FixtureDef fixtureDef = new FixtureDef();
-                    fixtureDef.shape = shape;
-                    fixtureDef.friction = 0;
-                    fixtureDef.isSensor = true;
-                    Fixture fixture = body.createFixture(fixtureDef);
+                    Fixture fixture = createSensorFixture(shape, body);
                     shape.dispose();
                     
-                    gameScreen.shinyRaindrops.add(new ShinyRaindrop(gameScreen.getWorld(), body, fixture, gameScreen.getPlayer())); 
+                    gameScreen.addShinyRaindrop(new ShinyRaindrop(gameScreen.getWorld(), body, fixture, gameScreen.getPlayer())); 
                 }
                 if(rectangleName.equals("mango")){
-                    BodyDef bodyDef = new BodyDef();
-                    bodyDef.type = BodyType.StaticBody;
-                    bodyDef.position.set(rectangle.getX() / Constants.PPM, (rectangle.getY() / Constants.PPM) + 1);
-                    bodyDef.fixedRotation = true;
-                    Body body = gameScreen.getWorld().createBody(bodyDef);
+                    Body body = createBody(rectangle);
 
                     PolygonShape shape = new PolygonShape();
                     shape.setAsBox(rectangle.getWidth() / 2 / Constants.PPM, rectangle.getHeight() / 2 / Constants.PPM);
 
-                    FixtureDef fixtureDef = new FixtureDef();
-                    fixtureDef.shape = shape;
-                    fixtureDef.friction = 0;
-                    fixtureDef.isSensor = true;
-                    Fixture fixture = body.createFixture(fixtureDef);
+                    Fixture fixture = createSensorFixture(shape, body);
                     shape.dispose();
 
-                    gameScreen.mangos.add(new Mango(gameScreen.getWorld(), body, fixture));
+                    gameScreen.addMango(new Mango(gameScreen.getWorld(), body, fixture));
                 }
                 if(rectangleName.equals("cameraSwitch")){
-                    BodyDef bodyDef = new BodyDef();
-                    bodyDef.type = BodyType.StaticBody;
-                    bodyDef.position.set((rectangle.getX() / Constants.PPM) + 1, (rectangle.getY() / Constants.PPM) + 3);
-                    bodyDef.fixedRotation = true;
-                    Body body = gameScreen.getWorld().createBody(bodyDef);
+                    Body body = createBody(rectangle);
 
                     PolygonShape shape = new PolygonShape();
                     shape.setAsBox(rectangle.getWidth() / 2 / Constants.PPM, rectangle.getHeight() / 2 / Constants.PPM);
 
-                    FixtureDef fixtureDef = new FixtureDef();
-                    fixtureDef.shape = shape;
-                    fixtureDef.friction = 0;
-                    fixtureDef.isSensor = true;
-                    Fixture fixture = body.createFixture(fixtureDef);
+                    Fixture fixture = createSensorFixture(shape, body);
                     shape.dispose();
 
-                    gameScreen.cameraSwitches.add(new CameraSwitchTrigger(gameScreen.getWorld(), body, fixture));
+                    gameScreen.addCameraSwitch(new CameraSwitchTrigger(gameScreen.getWorld(), body, fixture));
                 }
                 if(rectangleName.equals("spike")){
-                    BodyDef bodyDef = new BodyDef();
-                    bodyDef.type = BodyType.StaticBody;
-                    bodyDef.position.set((rectangle.getX() / Constants.PPM) + (rectangle.getWidth() / 2 / Constants.PPM), (rectangle.getY() / Constants.PPM) + (rectangle.getHeight() / 2 / Constants.PPM));
-                    bodyDef.fixedRotation = true;
-                    Body body = gameScreen.getWorld().createBody(bodyDef);
+                    Body body = createBody(rectangle);
 
                     PolygonShape shape = new PolygonShape();
                     shape.setAsBox(rectangle.getWidth() / 2 / Constants.PPM, rectangle.getHeight() / 2 / Constants.PPM);
 
-                    FixtureDef fixtureDef = new FixtureDef();
-                    fixtureDef.shape = shape;
-                    fixtureDef.friction = 0;
-                    fixtureDef.isSensor = true;
-                    Fixture fixture = body.createFixture(fixtureDef);
+                    Fixture fixture = createSensorFixture(shape, body);
                     shape.dispose();
 
-                    gameScreen.spikes.add(new Spike(gameScreen.getWorld(), body, fixture, player));
+                    gameScreen.addSpike(new Spike(gameScreen.getWorld(), body, fixture, player));
+                }
+                if(rectangleName.equals("windCurrent")){
+                    Body body = createBody(rectangle);
+
+                    PolygonShape shape = new PolygonShape();
+                    shape.setAsBox(rectangle.getWidth() / 2 / Constants.PPM, rectangle.getHeight() / 2 / Constants.PPM);
+
+                    Fixture fixture = createSensorFixture(shape, body);
+                    shape.dispose();
+
+                    gameScreen.addWindCurrents(new WindCurrent(gameScreen.getWorld(), body, fixture, player));
                 }
             }
         }
     }
 
-    private void createStaticBody(PolygonMapObject polygonMapObject){
+    private void createMapBounds(PolygonMapObject polygonMapObject){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         Body body = gameScreen.getWorld().createBody(bodyDef);
         Shape shape = createPolygonShape(polygonMapObject);
         body.createFixture(shape, 1000);
         shape.dispose();
+    }
+
+    private Body createBody(Rectangle rectangle){
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyType.StaticBody;
+        bodyDef.position.set((rectangle.getX() / Constants.PPM) + (rectangle.getWidth() / 2 / Constants.PPM), (rectangle.getY() / Constants.PPM) + (rectangle.getHeight() / 2 / Constants.PPM));
+        bodyDef.fixedRotation = true;
+        return gameScreen.getWorld().createBody(bodyDef);
+    }
+
+    private Fixture createSensorFixture(PolygonShape shape, Body body){
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.friction = 0;
+        fixtureDef.isSensor = true;
+        return body.createFixture(fixtureDef);
     }
 
     private Shape createPolygonShape(PolygonMapObject polygonMapObject){

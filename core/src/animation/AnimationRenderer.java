@@ -38,6 +38,7 @@ public class AnimationRenderer{
     private Animation shinyRaindropAnimation;
     private Animation raindropDestroyedAnimation;
     private boolean raindropDestroyed;
+    private boolean hasBeenCarried;
 
     
     /**
@@ -68,6 +69,7 @@ public class AnimationRenderer{
         this.shinyRaindropAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/shinyRaindrop.png")), 5, 0.71f);
         this.raindropDestroyedAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/shinyRaindropDestroy.png")), 7, 0.54f);
         this.raindropDestroyed = false;
+        this.hasBeenCarried = false;
     }
 
     public void clearRaindrops(){
@@ -113,7 +115,10 @@ public class AnimationRenderer{
         }
         
         //idle animation - if player is not moving
-        if(player.getVelX() == 0 && player.getVelY() == 0){
+        if(player.getVelX() == 0 && player.getVelY() == 0){ 
+            if(hasBeenCarried){
+                hasBeenCarried = false;
+            }
             if(player.isLeft()){
                 idleLeft.update(delta);
                 batch.draw(idleLeft.getFrame(), player.getX() - 64, player.getY() - 64);
@@ -155,7 +160,11 @@ public class AnimationRenderer{
 
         //jump animation - if player y velocity is greater than 0 and they have not used their jumps yet
         if(player.getJumpCount() != 0 && player.getVelY() > 0){
-            if(player.getJumpCount() == 1){
+            if(player.isCarried()){
+                hasBeenCarried = true;
+            }
+            
+            if(player.getJumpCount() == 1 && !hasBeenCarried){
                 if(player.isLeft()){
                     jumpLeft.update(delta);
                     batch.draw(jumpLeft.getFrame(), player.getX() - 64, player.getY() - 64);
@@ -163,7 +172,7 @@ public class AnimationRenderer{
                     jump.update(delta);
                     batch.draw(jump.getFrame(), player.getX() - 64, player.getY() - 64);
                 }
-            }else if(player.getJumpCount() == 2){
+            }else if(player.getJumpCount() == 2 && !hasBeenCarried){
                 if(player.isLeft()){
                     doubleJumpLeft.update(delta);
                     doubleJump.update(delta);
@@ -194,6 +203,14 @@ public class AnimationRenderer{
         }else{
             fall.setFrame(0);
             fallLeft.setFrame(0);
+        }
+
+        if(player.isCarried()){
+            if(player.isLeft()){
+                //left umbrella animation
+            }else{
+                //right umbrella animation
+            }
         }
     }
 }
