@@ -3,12 +3,12 @@ package com.miuq.beleste;
 import helper.Constants;
 import helper.TileMapHelper;
 import helper.WorldContactListener;
+import objects.entities.Player;
 import objects.gameObjects.CameraSwitchTrigger;
 import objects.gameObjects.Mango;
 import objects.gameObjects.ShinyRaindrop;
 import objects.gameObjects.Spike;
 import objects.gameObjects.WindCurrent;
-import objects.player.Player;
 import animation.AnimationRenderer;
 
 import com.badlogic.gdx.Gdx;

@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
+import objects.entities.Player;
 import objects.gameObjects.ShinyRaindrop;
-import objects.player.Player;
 
 /**
 	 * Handles all animations and when they should be played based on world events.

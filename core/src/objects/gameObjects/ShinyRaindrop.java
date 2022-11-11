@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 
 import helper.Constants;
-import objects.player.Player;
+import objects.entities.Player;
 
 public class ShinyRaindrop extends InteractiveTileObject {
 

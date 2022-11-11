@@ -18,12 +18,12 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.miuq.beleste.GameScreen;
 
+import objects.entities.Player;
 import objects.gameObjects.CameraSwitchTrigger;
 import objects.gameObjects.Mango;
 import objects.gameObjects.ShinyRaindrop;
 import objects.gameObjects.Spike;
 import objects.gameObjects.WindCurrent;
-import objects.player.Player;
 
 public class TileMapHelper {
     
