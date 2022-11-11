@@ -1,18 +1,18 @@
-package com.miuq.beleste;
+package com.miuq.TheRainWarden;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-public class Beleste extends Game{
-	public static Beleste INSTANCE;
+public class TheRainWarden extends Game{
+	public static TheRainWarden INSTANCE;
 	private int widthScreen;
 	private int heightScreen;
 	private OrthographicCamera camera;
 	private FitViewport viewport;
 
-	public Beleste(){
+	public TheRainWarden(){
 		INSTANCE = this;
 	}
 	

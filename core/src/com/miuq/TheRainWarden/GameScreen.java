@@ -1,4 +1,4 @@
-package com.miuq.beleste;
+package com.miuq.TheRainWarden;
 
 import helper.Constants;
 import helper.TileMapHelper;
@@ -35,7 +35,7 @@ public class GameScreen extends ScreenAdapter{
     private FitViewport viewport;
     private SpriteBatch batch;
     private World world;
-    private Beleste game;
+    private TheRainWarden game;
     private Texture backgroundImage;
     private Box2DDebugRenderer box2dDebugRenderer;
 
@@ -53,7 +53,7 @@ public class GameScreen extends ScreenAdapter{
 
     private AnimationRenderer animationRenderer;
     
-    public GameScreen(OrthographicCamera camera, FitViewport viewport2, Beleste game){
+    public GameScreen(OrthographicCamera camera, FitViewport viewport2, TheRainWarden game){
         this.camera = camera;
         this.viewport = viewport2;
         //camera positions

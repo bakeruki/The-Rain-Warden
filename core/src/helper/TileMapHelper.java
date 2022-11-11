@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.miuq.beleste.GameScreen;
+import com.miuq.TheRainWarden.GameScreen;
 
 import objects.entities.Player;
 import objects.gameObjects.CameraSwitchTrigger;

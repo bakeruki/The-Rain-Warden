@@ -1,4 +1,4 @@
-package com.miuq.beleste;
+package com.miuq.TheRainWarden;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -24,7 +24,7 @@ public class MenuScreen extends ScreenAdapter{
     private SpriteBatch batch;
     private Animation backgroundAnimation;
 
-    private Beleste game;
+    private TheRainWarden game;
 
     private ImageButton startButton;
     private ImageButton exitButton;
@@ -41,7 +41,7 @@ public class MenuScreen extends ScreenAdapter{
     private GameScreen gameScreen;
     private MenuScreen menuScreen;
 
-    public MenuScreen(OrthographicCamera camera, FitViewport viewport, Beleste game){
+    public MenuScreen(OrthographicCamera camera, FitViewport viewport, TheRainWarden game){
         camera.setToOrtho(false, 0, 0);
         this.batch = new SpriteBatch();
         this.backgroundAnimation = new Animation(new TextureRegion(new Texture("menuBackground.png")), 13, 2.1f);
