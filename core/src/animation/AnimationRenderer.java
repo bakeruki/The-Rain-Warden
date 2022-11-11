@@ -52,24 +52,28 @@ public class AnimationRenderer{
         this.batch = batch;
         this.shinyRaindrops = new Array<ShinyRaindrop>();
 
-        //animation objects taken from assets/animmations
-        this.idle = new Animation(new TextureRegion(new Texture("assets/animations/player/idle.png")), 4, 4f);
-        this.idleLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/idleLeft.png")), 4, 4f);
-        this.walk = new Animation(new TextureRegion(new Texture("assets/animations/player/walk.png")), 4, 0.5f);
-        this.walkLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/walkLeft.png")), 4, 0.5f);
-        this.dash = new Animation(new TextureRegion(new Texture("assets/animations/player/dash.png")), 14, 0.58f);
-        this.dashLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/dashleft.png")), 14, 0.58f);
-        this.jump = new Animation(new TextureRegion(new Texture("assets/animations/player/jump.png")), 8, 0.47f);
-        this.jumpLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/jumpLeft.png")), 8, 0.47f);
-        this.doubleJump = new Animation(new TextureRegion(new Texture("assets/animations/player/doubleJump.png")), 6, 0.75f);
-        this.doubleJumpLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/doubleJumpLeft.png")), 6, 0.75f);
-        this.fall = new Animation(new TextureRegion(new Texture("assets/animations/player/fall.png")), 3, 0.42f);
-        this.fallLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/fallLeft.png")), 3, 0.42f);
+        //player animations taken from assets/animmations/player
+        this.idle = new Animation(new TextureRegion(new Texture("assets/animations/player/idle.png")), 4, 4f); //idle animation
+        this.idleLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/idleLeft.png")), 4, 4f); //idle facing left animation
+        this.walk = new Animation(new TextureRegion(new Texture("assets/animations/player/walk.png")), 4, 0.5f); //walking animation
+        this.walkLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/walkLeft.png")), 4, 0.5f); //walking facing left animation
+        this.dash = new Animation(new TextureRegion(new Texture("assets/animations/player/dash.png")), 14, 0.58f); //dash animation
+        this.dashLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/dashleft.png")), 14, 0.58f); //dash facing left animation
+        this.jump = new Animation(new TextureRegion(new Texture("assets/animations/player/jump.png")), 8, 0.47f); //jump animation
+        this.jumpLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/jumpLeft.png")), 8, 0.47f); //jump facing left animation
+        this.doubleJump = new Animation(new TextureRegion(new Texture("assets/animations/player/doubleJump.png")), 6, 0.75f); //double jump animation
+        this.doubleJumpLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/doubleJumpLeft.png")), 6, 0.75f); //double jump facing left animation
+        this.fall = new Animation(new TextureRegion(new Texture("assets/animations/player/fall.png")), 3, 0.42f); //falling animation
+        this.fallLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/fallLeft.png")), 3, 0.42f); //falling facing left animation
 
-        this.shinyRaindropAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/shinyRaindrop.png")), 5, 0.71f);
-        this.raindropDestroyedAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/shinyRaindropDestroy.png")), 7, 0.54f);
-        this.raindropDestroyed = false;
-        this.hasBeenCarried = false;
+        //object animations taken frmo assets/animations/objects
+        this.shinyRaindropAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/shinyRaindrop.png")), 5, 0.71f); //raindrop animation
+        this.raindropDestroyedAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/shinyRaindropDestroy.png")), 7, 0.54f); //raindrop being destroyed animation
+        //TODO mango animation
+        //TODO mango destroyed animation
+        //TODO wind current animation
+        this.raindropDestroyed = false; //boolean for when the raindrop being destroyed animation should be played
+        this.hasBeenCarried = false; //boolean for whether jump animation should keep playing (wind currents bug)
     }
 
     public void clearRaindrops(){
@@ -207,9 +211,9 @@ public class AnimationRenderer{
 
         if(player.isCarried()){
             if(player.isLeft()){
-                //left umbrella animation
+                //TODO left umbrella animation
             }else{
-                //right umbrella animation
+                //TODO right umbrella animation
             }
         }
     }

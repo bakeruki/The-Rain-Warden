@@ -45,10 +45,12 @@ public class Animation {
         }
     }
 
+    //setters
     public void setFrame(int frame){
         this.frame = frame;
     }
 
+    //getters
     public int getFrameCount(){
         return frameCount;
     }

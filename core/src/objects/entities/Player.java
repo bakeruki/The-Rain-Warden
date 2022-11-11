@@ -13,6 +13,8 @@ public class Player extends GameEntity {
     private int jumpCounter = 0;
     private int dashCounter = 0;
     private int countDash = 0;
+    private int deathCounter = 0;
+    private float windForce = 0;
     private boolean left = false;
     private boolean isDead = false;
     private boolean isCarried = false;
@@ -36,7 +38,7 @@ public class Player extends GameEntity {
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && jumpCounter < 2){
             float force = body.getMass() * 18;
-            body.setLinearVelocity(body.getLinearVelocity().x, 0);
+            body.setLinearVelocity(body.getLinearVelocity().x, 0.1f);
             body.applyLinearImpulse(new Vector2(0, force), body.getPosition(), true);
             jumpCounter++;
         }
@@ -53,11 +55,11 @@ public class Player extends GameEntity {
             //only sets the dash count to 0 if a dash has been completed (prevents ability to get extra dash if you dash off a ledge)
             if(countDash == 0){
                 dashCounter = 0;
-            }
-            
+            } 
         }
     }
 
+    //getters
     public float getX(){
         return (body.getPosition().x * Constants.PPM);
     }
@@ -89,20 +91,39 @@ public class Player extends GameEntity {
         return jumpCounter;
     }
 
+    public int getDeathCounter(){
+        return deathCounter;
+    }
+
     public boolean isLeft(){
         return left;
     }
 
+    public boolean isDead(){
+        return isDead;
+    }
+
+    public boolean isCarried(){
+        return isCarried;
+    }
+
+    //setters
     public void kill(){
         isDead = true;
+        deathCounter++;
     }
 
     public void respawn(){
         isDead = false;
     }
 
-    public boolean isDead(){
-        return isDead;
+    public void startWindCarry(){
+        isCarried = true;
+    }
+
+    public void endWindCarry(){
+        isCarried = false;
+        windForce = 0;
     }
 
     public void resetDashCounter(){
@@ -125,10 +146,6 @@ public class Player extends GameEntity {
         }
     }
 
-    public boolean isCarried(){
-        return isCarried;
-    }
-
     private void dash(int distance){
         if(countDash < distance){
             if(left){
@@ -141,14 +158,6 @@ public class Player extends GameEntity {
             countDash = 0;
             left = false;
         }
-    }
-
-    public void startWindCarry(){
-        isCarried = true;
-    }
-
-    public void endWindCarry(){
-        isCarried = false;
     }
 
     @Override
@@ -165,14 +174,19 @@ public class Player extends GameEntity {
             }else{
                 dash(25);
             }
+        }else{
+            //makes sure the player doesnt keep moving if they were already moving before they died
+            body.setLinearVelocity(0,0);
         }
         
         //checks if the player is in a wind current and applies force if they are.
         // a boolean is used here to make sure the animationRenderer class can play the correct animation (umbrella).
         if(isCarried){
-            float force = body.getMass() * 12;
+            if(windForce < 20){
+                windForce += 0.5;
+            }
             body.setLinearVelocity(body.getLinearVelocity().x, 0);
-            body.applyLinearImpulse(new Vector2(0, force), body.getPosition(), true);
+            body.applyLinearImpulse(new Vector2(0, windForce), body.getPosition(), true);
         }
     }
 

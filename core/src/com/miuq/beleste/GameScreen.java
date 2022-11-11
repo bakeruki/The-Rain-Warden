@@ -44,7 +44,6 @@ public class GameScreen extends ScreenAdapter{
 
     //objects
     private Player player;
-    //these are public because they need to be accessed from the tilemaphelper to add each object from the tilemap
     private Array<ShinyRaindrop> shinyRaindrops;
     private Array<Mango> mangos;
     private Array<CameraSwitchTrigger> cameraSwitches;
@@ -68,7 +67,7 @@ public class GameScreen extends ScreenAdapter{
         this.startPositions.add(new Vector2(1810 / Constants.PPM, 1350 / Constants.PPM)); //level 2
 
         this.batch = new SpriteBatch();
-        this.world = new World(new Vector2(0, -25), false);
+        this.world = new World(new Vector2(0, -35), false);
         this.game = game;
         
         this.box2dDebugRenderer = new Box2DDebugRenderer();
@@ -180,10 +179,12 @@ public class GameScreen extends ScreenAdapter{
         player.respawn();
     }
 
+    //setters
     public void setPlayer(Player player){
         this.player = player;
     }
 
+    //getters
     public int getMangoCount(){
         return mangosCollected;
     }
@@ -196,6 +197,7 @@ public class GameScreen extends ScreenAdapter{
         return player;
     }
 
+    //adders
     public void addCameraSwitch(CameraSwitchTrigger cameraSwitch){
         cameraSwitches.add(cameraSwitch);
     }
