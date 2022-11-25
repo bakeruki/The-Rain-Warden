@@ -38,7 +38,7 @@ public class WorldContactListener implements ContactListener{
             Fixture player = fixA.getUserData() == "player" ? fixA : fixB;
             Fixture object = player == fixA ? fixB : fixA;
 
-            //checks if the collided object is a subclass of InteractiveTileObject
+            //checks if the collided object is a subclass of WindCurrent
             if(object.getUserData() != null && WindCurrent.class.isAssignableFrom(object.getUserData().getClass())){
                 ((WindCurrent) object.getUserData()).endContact();
             }

@@ -107,6 +107,22 @@ public class Player extends GameEntity {
         return isCarried;
     }
 
+    public boolean isFalling(){
+        if(body.getLinearVelocity().y < 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean isJumping(){
+        if(body.getLinearVelocity().y > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     //setters
     public void kill(){
         isDead = true;
@@ -130,20 +146,12 @@ public class Player extends GameEntity {
         dashCounter = 0;
     }
 
-    public boolean isFalling(){
-        if(body.getLinearVelocity().y < 0){
-            return true;
-        }else{
-            return false;
-        }
+    public void setVelocityX(int vX){
+        body.setLinearVelocity(vX, body.getLinearVelocity().y);
     }
 
-    public boolean isJumping(){
-        if(body.getLinearVelocity().y > 0){
-            return true;
-        }else{
-            return false;
-        }
+    public void setVelocityY(int vY){
+        body.setLinearVelocity(body.getLinearVelocity().x, vY);
     }
 
     private void dash(int distance){

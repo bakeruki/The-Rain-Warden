@@ -33,13 +33,14 @@ public class AnimationRenderer{
     private Animation doubleJumpLeft;
     private Animation fall;
     private Animation fallLeft;
+    private Animation death;
+    private Animation deathLeft;
 
     //object animations
     private Animation shinyRaindropAnimation;
     private Animation raindropDestroyedAnimation;
     private boolean raindropDestroyed;
     private boolean hasBeenCarried;
-
     
     /**
 	 * Constructor of the AnimationRenderer. Creates multiple animation objects for each animation that will be used.
@@ -53,27 +54,29 @@ public class AnimationRenderer{
         this.shinyRaindrops = new Array<ShinyRaindrop>();
 
         //player animations taken from assets/animmations/player
-        this.idle = new Animation(new TextureRegion(new Texture("animations/player/idle.png")), 4, 4f); //idle animation
-        this.idleLeft = new Animation(new TextureRegion(new Texture("animations/player/idleLeft.png")), 4, 4f); //idle facing left animation
-        this.walk = new Animation(new TextureRegion(new Texture("animations/player/walk.png")), 4, 0.5f); //walking animation
-        this.walkLeft = new Animation(new TextureRegion(new Texture("animations/player/walkLeft.png")), 4, 0.5f); //walking facing left animation
-        this.dash = new Animation(new TextureRegion(new Texture("animations/player/dash.png")), 14, 0.58f); //dash animation
-        this.dashLeft = new Animation(new TextureRegion(new Texture("animations/player/dashleft.png")), 14, 0.58f); //dash facing left animation
-        this.jump = new Animation(new TextureRegion(new Texture("animations/player/jump.png")), 8, 0.47f); //jump animation
-        this.jumpLeft = new Animation(new TextureRegion(new Texture("animations/player/jumpLeft.png")), 8, 0.47f); //jump facing left animation
-        this.doubleJump = new Animation(new TextureRegion(new Texture("animations/player/doubleJump.png")), 6, 0.75f); //double jump animation
-        this.doubleJumpLeft = new Animation(new TextureRegion(new Texture("animations/player/doubleJumpLeft.png")), 6, 0.75f); //double jump facing left animation
-        this.fall = new Animation(new TextureRegion(new Texture("animations/player/fall.png")), 3, 0.42f); //falling animation
-        this.fallLeft = new Animation(new TextureRegion(new Texture("animations/player/fallLeft.png")), 3, 0.42f); //falling facing left animation
+        this.idle = new Animation(new TextureRegion(new Texture("assets/animations/player/idle.png")), 4, 4f); //idle animation
+        this.idleLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/idleLeft.png")), 4, 4f); //idle facing left animation
+        this.walk = new Animation(new TextureRegion(new Texture("assets/animations/player/walk.png")), 4, 0.5f); //walking animation
+        this.walkLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/walkLeft.png")), 4, 0.5f); //walking facing left animation
+        this.dash = new Animation(new TextureRegion(new Texture("assets/animations/player/dash.png")), 14, 0.58f); //dash animation
+        this.dashLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/dashleft.png")), 14, 0.58f); //dash facing left animation
+        this.jump = new Animation(new TextureRegion(new Texture("assets/animations/player/jump.png")), 8, 0.47f); //jump animation
+        this.jumpLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/jumpLeft.png")), 8, 0.47f); //jump facing left animation
+        this.doubleJump = new Animation(new TextureRegion(new Texture("assets/animations/player/doubleJump.png")), 6, 0.75f); //double jump animation
+        this.doubleJumpLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/doubleJumpLeft.png")), 6, 0.75f); //double jump facing left animation
+        this.fall = new Animation(new TextureRegion(new Texture("assets/animations/player/fall.png")), 3, 0.42f); //falling animation
+        this.fallLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/fallLeft.png")), 3, 0.42f); //falling facing left animation
+        this.death = new Animation(new TextureRegion(new Texture("assets/animations/player/death.png")), 12, 0.71f); //death animation
+        this.deathLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/deathLeft.png")), 12, 0.71f); //death facing left animation
 
-        //object animations taken frmo assets/animations/objects
-        this.shinyRaindropAnimation = new Animation(new TextureRegion(new Texture("animations/objects/shinyRaindrop.png")), 5, 0.71f); //raindrop animation
-        this.raindropDestroyedAnimation = new Animation(new TextureRegion(new Texture("animations/objects/shinyRaindropDestroy.png")), 7, 0.54f); //raindrop being destroyed animation
+        //object animations taken from assets/animations/objects
+        this.shinyRaindropAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/shinyRaindrop.png")), 5, 0.71f); //raindrop animation
+        this.raindropDestroyedAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/shinyRaindropDestroy.png")), 7, 0.54f); //raindrop being destroyed animation
         //TODO mango animation
         //TODO mango destroyed animation
         //TODO wind current animation
         this.raindropDestroyed = false; //boolean for when the raindrop being destroyed animation should be played
-        this.hasBeenCarried = false; //boolean for whether jump animation should keep playing (wind currents bug)
+        this.hasBeenCarried = false; //boolean for whether jump animation should keep playing (wind currents bug)   
     }
 
     public void clearRaindrops(){
@@ -97,6 +100,15 @@ public class AnimationRenderer{
         raindropDestroyed = true;
     }
 
+    public boolean isDeathAnimationFinished(){
+        if(deathLeft.getFrameCount()-1 == deathLeft.getFrameNum() || death.getFrameCount()-1 == death.getFrameNum()){
+            deathLeft.setFrame(0);
+            death.setFrame(0);
+            return true;
+        }
+        return false;
+    }
+
     /**
 	 * Draws all animations using the GameScreen's SpriteBatch.
      * @param delta Universal game time (GameScreen render method).
@@ -117,103 +129,118 @@ public class AnimationRenderer{
             batch.draw(raindropDestroyedAnimation.getFrame(), destroyedRaindrop.getX() - 64, destroyedRaindrop.getY() - 64);
             raindropDestroyedAnimation.update(delta);
         }
-        
-        //idle animation - if player is not moving
-        if(player.getVelX() == 0 && player.getVelY() == 0){ 
-            if(hasBeenCarried){
-                hasBeenCarried = false;
-            }
-            if(player.isLeft()){
-                idleLeft.update(delta);
-                batch.draw(idleLeft.getFrame(), player.getX() - 64, player.getY() - 64);
-            }else{
-                idle.update(delta);
-                batch.draw(idle.getFrame(), player.getX() - 64, player.getY() - 64);
-            }
-        }else{
-            idle.setFrame(0);
-            idleLeft.setFrame(0);
-        }
-        //walk animation - if player is moving
-        if(player.getVelX() != 0 && player.getVelY() == 0){
-            if(player.isLeft()){
-                walkLeft.update(delta);
-                batch.draw(walkLeft.getFrame(), player.getX() - 64, player.getY() - 64);
-            }else{
-                walk.update(delta);
-                batch.draw(walk.getFrame(), player.getX() - 64, player.getY() - 64);
-            }
-        }else{
-            walk.setFrame(0);
-            walkLeft.setFrame(0);
-        }
 
-        //dash animation - if player is currently dashing
-        if(player.getDashCounter() != 0){
+        if(player.isDead()){
             if(player.isLeft()){
-                dashLeft.update(delta);
-                batch.draw(dashLeft.getFrame(), player.getX() -92, player.getY() - 64);
+                player.setVelocityX(0);
+                player.setVelocityY(0);
+                deathLeft.update(delta);
+                batch.draw(deathLeft.getFrame(), player.getX() - 64, player.getY() - 64);
             }else{
-                dash.update(delta);
-                batch.draw(dash.getFrame(), player.getX() -32, player.getY() - 64);
+                player.setVelocityX(0);
+                player.setVelocityY(0);
+                death.update(delta);
+                batch.draw(death.getFrame(), player.getX() - 64, player.getY() - 64);
             }
-        }else{
-            dash.setFrame(0);
-            dashLeft.setFrame(0);
         }
+        if(!player.isDead()){
+            //idle animation - if player is not moving
+            if(player.getVelX() == 0 && player.getVelY() == 0){ 
+                if(hasBeenCarried){
+                    hasBeenCarried = false;
+                }
+                if(player.isLeft()){
+                    idleLeft.update(delta);
+                    batch.draw(idleLeft.getFrame(), player.getX() - 64, player.getY() - 64);
+                }else{
+                    idle.update(delta);
+                    batch.draw(idle.getFrame(), player.getX() - 64, player.getY() - 64);
+                }
+            }else{
+                idle.setFrame(0);
+                idleLeft.setFrame(0);
+            }
+            //walk animation - if player is moving
+            if(player.getVelX() != 0 && player.getVelY() == 0){
+                if(player.isLeft()){
+                    walkLeft.update(delta);
+                    batch.draw(walkLeft.getFrame(), player.getX() - 64, player.getY() - 64);
+                }else{
+                    walk.update(delta);
+                    batch.draw(walk.getFrame(), player.getX() - 64, player.getY() - 64);
+                }
+            }else{
+                walk.setFrame(0);
+                walkLeft.setFrame(0);
+            }
 
-        //jump animation - if player y velocity is greater than 0 and they have not used their jumps yet
-        if(player.getJumpCount() != 0 && player.getVelY() > 0){
+            //dash animation - if player is currently dashing
+            if(player.getDashCounter() != 0){
+                if(player.isLeft()){
+                    dashLeft.update(delta);
+                    batch.draw(dashLeft.getFrame(), player.getX() -92, player.getY() - 64);
+                }else{
+                    dash.update(delta);
+                    batch.draw(dash.getFrame(), player.getX() -32, player.getY() - 64);
+                }
+            }else{
+                dash.setFrame(0);
+                dashLeft.setFrame(0);
+            }
+
+            //jump animation - if player y velocity is greater than 0 and they have not used their jumps yet
+            if(player.getJumpCount() != 0 && player.getVelY() > 0){
+                if(player.isCarried()){
+                    hasBeenCarried = true;
+                }
+                
+                if(player.getJumpCount() == 1 && !hasBeenCarried){
+                    if(player.isLeft()){
+                        jumpLeft.update(delta);
+                        batch.draw(jumpLeft.getFrame(), player.getX() - 64, player.getY() - 64);
+                    }else{
+                        jump.update(delta);
+                        batch.draw(jump.getFrame(), player.getX() - 64, player.getY() - 64);
+                    }
+                }else if(player.getJumpCount() == 2 && !hasBeenCarried){
+                    if(player.isLeft()){
+                        doubleJumpLeft.update(delta);
+                        doubleJump.update(delta);
+                        batch.draw(doubleJumpLeft.getFrame(), player.getX() - 64, player.getY() - 64);
+                    }else{
+                        doubleJump.update(delta);
+                        doubleJumpLeft.update(delta);
+                        batch.draw(doubleJump.getFrame(), player.getX() - 64, player.getY() - 64);
+                    }
+                }
+            }else{
+                jump.setFrame(0);
+                jumpLeft.setFrame(0);
+                doubleJump.setFrame(0);
+                doubleJumpLeft.setFrame(0);
+            }
+
+            //fall animation - if player y velocity is less than 0
+            if(player.getVelY() < 0){
+                if(player.isLeft()){
+                    fallLeft.update(delta);
+                    batch.draw(fallLeft.getFrame(), player.getX()-64, player.getY()-64);
+                }else{
+                    fall.update(delta);
+                    batch.draw(fall.getFrame(), player.getX()-64, player.getY()-64);
+
+                }
+            }else{
+                fall.setFrame(0);
+                fallLeft.setFrame(0);
+            }
+
             if(player.isCarried()){
-                hasBeenCarried = true;
-            }
-            
-            if(player.getJumpCount() == 1 && !hasBeenCarried){
                 if(player.isLeft()){
-                    jumpLeft.update(delta);
-                    batch.draw(jumpLeft.getFrame(), player.getX() - 64, player.getY() - 64);
+                    //TODO left umbrella animation
                 }else{
-                    jump.update(delta);
-                    batch.draw(jump.getFrame(), player.getX() - 64, player.getY() - 64);
+                    //TODO right umbrella animation
                 }
-            }else if(player.getJumpCount() == 2 && !hasBeenCarried){
-                if(player.isLeft()){
-                    doubleJumpLeft.update(delta);
-                    doubleJump.update(delta);
-                    batch.draw(doubleJumpLeft.getFrame(), player.getX() - 64, player.getY() - 64);
-                }else{
-                    doubleJump.update(delta);
-                    doubleJumpLeft.update(delta);
-                    batch.draw(doubleJump.getFrame(), player.getX() - 64, player.getY() - 64);
-                }
-            }
-        }else{
-            jump.setFrame(0);
-            jumpLeft.setFrame(0);
-            doubleJump.setFrame(0);
-            doubleJumpLeft.setFrame(0);
-        }
-
-        //fall animation - if player y velocity is less than 0
-        if(player.getVelY() < 0){
-            if(player.isLeft()){
-                fallLeft.update(delta);
-                batch.draw(fallLeft.getFrame(), player.getX()-64, player.getY()-64);
-            }else{
-                fall.update(delta);
-                batch.draw(fall.getFrame(), player.getX()-64, player.getY()-64);
-
-            }
-        }else{
-            fall.setFrame(0);
-            fallLeft.setFrame(0);
-        }
-
-        if(player.isCarried()){
-            if(player.isLeft()){
-                //TODO left umbrella animation
-            }else{
-                //TODO right umbrella animation
             }
         }
     }

@@ -44,18 +44,18 @@ public class MenuScreen extends ScreenAdapter{
     public MenuScreen(OrthographicCamera camera, FitViewport viewport, TheRainWarden game){
         camera.setToOrtho(false, 0, 0);
         this.batch = new SpriteBatch();
-        this.backgroundAnimation = new Animation(new TextureRegion(new Texture("menuBackground.png")), 13, 2.1f);
+        this.backgroundAnimation = new Animation(new TextureRegion(new Texture("assets/menuBackground.png")), 13, 2.1f);
 
-        this.startDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/startButton/start.png")));
-        this.startDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/startButton/startDown.png")));
+        this.startDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/startButton/start.png")));
+        this.startDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/startButton/startDown.png")));
         this.startStyle = new ImageButtonStyle();
         startStyle.up = startDrawable;
         startStyle.over = startDownDrawable;
         this.startButton = new ImageButton(startStyle);
         this.startButton.setPosition(870, 300);
 
-        this.exitDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/exitButton/exitButton.png")));
-        this.exitDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/exitButton/exitButtonDown.png")));
+        this.exitDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/exitButton/exitButton.png")));
+        this.exitDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/exitButton/exitButtonDown.png")));
         this.exitStyle = new ImageButtonStyle();
         exitStyle.up = exitDrawable;
         exitStyle.over = exitDownDrawable;

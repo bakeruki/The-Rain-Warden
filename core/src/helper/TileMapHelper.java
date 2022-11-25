@@ -36,7 +36,7 @@ public class TileMapHelper {
     }
 
     public OrthogonalTiledMapRenderer setupMap(){
-        tiledMap = new TmxMapLoader().load("maps/Map.tmx");
+        tiledMap = new TmxMapLoader().load("assets/maps/Map.tmx");
         parseMapObjects(tiledMap.getLayers().get("Object Layer 1").getObjects());
         return new OrthogonalTiledMapRenderer(tiledMap);
     }
@@ -62,7 +62,7 @@ public class TileMapHelper {
                         rectangle.getWidth(), rectangle.getHeight(), 
                         false, 
                         gameScreen.getWorld());
-                    
+
                     Fixture sensorFixture = BodyHelperService.createSensorFixture(
                         rectangle.getX(), 
                         rectangle.getY(), 

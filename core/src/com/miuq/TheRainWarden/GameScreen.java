@@ -16,7 +16,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Cursor.SystemCursor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -36,7 +35,6 @@ public class GameScreen extends ScreenAdapter{
     private SpriteBatch batch;
     private World world;
     private TheRainWarden game;
-    private Texture backgroundImage;
     private Box2DDebugRenderer box2dDebugRenderer;
 
     private OrthogonalTiledMapRenderer orthoganalTiledMapRenderer;
@@ -45,6 +43,7 @@ public class GameScreen extends ScreenAdapter{
     //objects
     private Player player;
     private Array<ShinyRaindrop> shinyRaindrops;
+    private Array<ShinyRaindrop> destroyedRaindrops;
     private Array<Mango> mangos;
     private Array<CameraSwitchTrigger> cameraSwitches;
     private Array<Spike> spikes;
@@ -74,6 +73,7 @@ public class GameScreen extends ScreenAdapter{
 
         //objects
         this.shinyRaindrops = new Array<ShinyRaindrop>();
+        this.destroyedRaindrops = new Array<ShinyRaindrop>();
         this.mangos = new Array<Mango>();
         this.cameraSwitches = new Array<CameraSwitchTrigger>();
         this.spikes = new Array<Spike>();
@@ -84,7 +84,6 @@ public class GameScreen extends ScreenAdapter{
 
         this.tileMapHelper = new TileMapHelper(this);
         this.orthoganalTiledMapRenderer = tileMapHelper.setupMap();
-        this.backgroundImage = new Texture("maps/Background_Beleste.png");
 
         this.animationRenderer = new AnimationRenderer(player, batch);
 
@@ -98,9 +97,11 @@ public class GameScreen extends ScreenAdapter{
 
         orthoganalTiledMapRenderer.setView(camera);
         batch.setProjectionMatrix(camera.combined);
-
+        
         if(player.isDead()){
-            respawnPlayer();
+            if(animationRenderer.isDeathAnimationFinished()){
+                respawnPlayer();
+            }
         }
 
         player.update();
@@ -110,6 +111,7 @@ public class GameScreen extends ScreenAdapter{
             if(shinyRaindrop.isRemoved()){
                 shinyRaindrops.removeIndex(i);
                 animationRenderer.destroyedRaindropAnimation(shinyRaindrop);
+                destroyedRaindrops.add(shinyRaindrop);
             }
             shinyRaindrop.update();
         }
@@ -156,7 +158,6 @@ public class GameScreen extends ScreenAdapter{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        batch.draw(backgroundImage, 0, 0);
 
         animationRenderer.drawAnimations(delta);
 
@@ -177,6 +178,11 @@ public class GameScreen extends ScreenAdapter{
     public void respawnPlayer(){
         player.body.setTransform(startPositions.get(level), player.body.getAngle()); 
         player.respawn();
+
+        for(ShinyRaindrop shinyRaindrop : destroyedRaindrops){
+            shinyRaindrop.respawn();
+            shinyRaindrops.add(shinyRaindrop);
+        }
     }
 
     //setters

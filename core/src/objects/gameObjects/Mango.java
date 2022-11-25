@@ -45,6 +45,10 @@ public class Mango extends InteractiveTileObject {
         }
     }
 
+    public void respawn(){
+        isRemoved = false;
+    }
+
     private void removeBody(Body body){
         toBeDestroyed = body;
     }

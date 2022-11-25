@@ -14,6 +14,10 @@ public class ShinyRaindrop extends InteractiveTileObject {
     private Body body;
     private Body toBeDestroyed;
 
+    private float x;
+    private float y;
+
+
     private boolean isRemoved;
 
     public ShinyRaindrop(World world, Body body, Fixture sensorFixture, Player player) {
@@ -24,19 +28,23 @@ public class ShinyRaindrop extends InteractiveTileObject {
         this.body = body;
         this.sensorFixture = sensorFixture;
         this.isRemoved = false;
+
+        this.x = body.getPosition().x * Constants.PPM;
+        this.y = body.getPosition().y * Constants.PPM;
     }
 
     @Override
     public void onCollision(){
-        Gdx.app.log("Shiny Raindrop", "Collision");
-        player.resetDashCounter();
-        removeBody(body);
+        if(!isRemoved){
+            Gdx.app.log("Shiny Raindrop", "Collision");
+            player.resetDashCounter();
+            removeBody(body);
+        }
     }
 
     @Override
     public void update(){
         if(toBeDestroyed != null){
-            world.destroyBody(toBeDestroyed);
             toBeDestroyed = null;
             isRemoved = true;
         }
@@ -50,12 +58,16 @@ public class ShinyRaindrop extends InteractiveTileObject {
         }
     }
 
+    public void respawn(){
+        isRemoved = false;
+    }
+
     public float getX(){
-        return body.getPosition().x * Constants.PPM;
+        return x;
     }
 
     public float getY(){
-        return body.getPosition().y * Constants.PPM;
+        return y;
     }
 
     public void removeBody(Body body){
