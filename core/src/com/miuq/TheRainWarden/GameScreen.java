@@ -141,8 +141,14 @@ public class GameScreen extends ScreenAdapter{
         
         animationRenderer.clearRaindrops();
 
-        for(int i = 0; i < shinyRaindrops.size; i++){
-            animationRenderer.addRaindrops(shinyRaindrops.get(i));
+        for(ShinyRaindrop shinyRaindrop: shinyRaindrops){
+            animationRenderer.addRaindrops(shinyRaindrop);
+        }
+
+        animationRenderer.clearMangos();
+
+        for(Mango mango: mangos){
+            animationRenderer.addMangos(mango);
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)){

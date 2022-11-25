@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
 import objects.entities.Player;
+import objects.gameObjects.Mango;
 import objects.gameObjects.ShinyRaindrop;
 
 /**
@@ -19,6 +20,7 @@ public class AnimationRenderer{
     private SpriteBatch batch;
     private ShinyRaindrop destroyedRaindrop;
     private Array<ShinyRaindrop> shinyRaindrops;
+    private Array<Mango> mangos;
 
     //player animations
     private Animation idle;
@@ -39,6 +41,7 @@ public class AnimationRenderer{
     //object animations
     private Animation shinyRaindropAnimation;
     private Animation raindropDestroyedAnimation;
+    private Animation mangoAnimation;
     private boolean raindropDestroyed;
     private boolean hasBeenCarried;
     
@@ -52,6 +55,7 @@ public class AnimationRenderer{
         this.player = player;
         this.batch = batch;
         this.shinyRaindrops = new Array<ShinyRaindrop>();
+        this.mangos = new Array<Mango>();
 
         //player animations taken from assets/animmations/player
         this.idle = new Animation(new TextureRegion(new Texture("assets/animations/player/idle.png")), 4, 4f); //idle animation
@@ -72,7 +76,7 @@ public class AnimationRenderer{
         //object animations taken from assets/animations/objects
         this.shinyRaindropAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/shinyRaindrop.png")), 5, 0.71f); //raindrop animation
         this.raindropDestroyedAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/shinyRaindropDestroy.png")), 7, 0.54f); //raindrop being destroyed animation
-        //TODO mango animation
+        this.mangoAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/mango.png")), 2, 1f); //mango animation
         //TODO mango destroyed animation
         //TODO wind current animation
         this.raindropDestroyed = false; //boolean for when the raindrop being destroyed animation should be played
@@ -82,6 +86,11 @@ public class AnimationRenderer{
     public void clearRaindrops(){
         shinyRaindrops.clear();
     }
+
+    public void clearMangos(){
+        mangos.clear();
+    }
+
     /**
 	 * Adds all game ShinyRaindrop objects into an array so that animations can be drawn for each raindrop.
      * @param shinyRaindrop The shinyRaindrop object to be added to the array.
@@ -89,6 +98,9 @@ public class AnimationRenderer{
 	 */
     public void addRaindrops(ShinyRaindrop shinyRaindrop){
         shinyRaindrops.add(shinyRaindrop);
+    }
+    public void addMangos(Mango mango){
+        mangos.add(mango);
     }
     /**
 	 * Tells the program which raindrop has been destroyed, and that it should start playing the destroyed raindrop animation.
@@ -116,9 +128,14 @@ public class AnimationRenderer{
 	 */
     public void drawAnimations(float delta){
         shinyRaindropAnimation.update(delta);
+        mangoAnimation.update(delta);
         
         for(ShinyRaindrop shinyRaindrop : shinyRaindrops){
             batch.draw(shinyRaindropAnimation.getFrame(), shinyRaindrop.getX() - 32, shinyRaindrop.getY() - 32);
+        }
+
+        for(Mango mango : mangos){
+            batch.draw(mangoAnimation.getFrame(), mango.getX() - 32, mango.getY() - 32);
         }
 
         if(raindropDestroyed == true){

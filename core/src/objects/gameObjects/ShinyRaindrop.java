@@ -17,7 +17,6 @@ public class ShinyRaindrop extends InteractiveTileObject {
     private float x;
     private float y;
 
-
     private boolean isRemoved;
 
     public ShinyRaindrop(World world, Body body, Fixture sensorFixture, Player player) {
