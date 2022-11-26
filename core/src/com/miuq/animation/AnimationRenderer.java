@@ -1,13 +1,12 @@
-package animation;
+package com.miuq.animation;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-
-import objects.entities.Player;
-import objects.gameObjects.Mango;
-import objects.gameObjects.ShinyRaindrop;
+import com.miuq.objects.entities.Player;
+import com.miuq.objects.gameObjects.Mango;
+import com.miuq.objects.gameObjects.ShinyRaindrop;
 
 /**
 	 * Handles all animations and when they should be played based on world events.

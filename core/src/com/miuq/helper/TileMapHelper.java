@@ -1,4 +1,4 @@
-package helper;
+package com.miuq.helper;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -17,13 +17,12 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.miuq.TheRainWarden.GameScreen;
-
-import objects.entities.Player;
-import objects.gameObjects.CameraSwitchTrigger;
-import objects.gameObjects.Mango;
-import objects.gameObjects.ShinyRaindrop;
-import objects.gameObjects.Spike;
-import objects.gameObjects.WindCurrent;
+import com.miuq.objects.entities.Player;
+import com.miuq.objects.gameObjects.CameraSwitchTrigger;
+import com.miuq.objects.gameObjects.Mango;
+import com.miuq.objects.gameObjects.ShinyRaindrop;
+import com.miuq.objects.gameObjects.Spike;
+import com.miuq.objects.gameObjects.WindCurrent;
 
 public class TileMapHelper {
     

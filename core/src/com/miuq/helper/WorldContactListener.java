@@ -1,13 +1,12 @@
-package helper;
+package com.miuq.helper;
 
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-
-import objects.gameObjects.InteractiveTileObject;
-import objects.gameObjects.WindCurrent;
+import com.miuq.objects.gameObjects.InteractiveTileObject;
+import com.miuq.objects.gameObjects.WindCurrent;
 
 public class WorldContactListener implements ContactListener{
 

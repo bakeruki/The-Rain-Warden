@@ -1,25 +1,28 @@
-package objects.gameObjects;
+package com.miuq.objects.gameObjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
+import com.miuq.helper.Constants;
+import com.miuq.objects.entities.Player;
 
-import helper.Constants;
+public class ShinyRaindrop extends InteractiveTileObject {
 
-public class Mango extends InteractiveTileObject {
-
-    private boolean isRemoved;
+    private Player player;
+    private Body body;
     private Body toBeDestroyed;
 
     private float x;
     private float y;
 
-    public Mango(World world, Body body, Fixture sensorFixture) {
+    private boolean isRemoved;
+
+    public ShinyRaindrop(World world, Body body, Fixture sensorFixture, Player player) {
         super(world, body, sensorFixture);
         sensorFixture.setUserData(this);
-
         this.world = world;
+        this.player = player;
         this.body = body;
         this.sensorFixture = sensorFixture;
         this.isRemoved = false;
@@ -29,20 +32,20 @@ public class Mango extends InteractiveTileObject {
     }
 
     @Override
-    public void onCollision() {
-        Gdx.app.log("Mango", "Collision");
-        removeBody(body);
+    public void onCollision(){
+        if(!isRemoved){
+            Gdx.app.log("Shiny Raindrop", "Collision");
+            player.resetDashCounter();
+            removeBody(body);
+        }
     }
 
     @Override
-    public void update() {
-        //destroying object in collision method causes issues
+    public void update(){
         if(toBeDestroyed != null){
-            world.destroyBody(toBeDestroyed);
             toBeDestroyed = null;
             isRemoved = true;
         }
-
     }
 
     public boolean isRemoved(){
@@ -57,10 +60,6 @@ public class Mango extends InteractiveTileObject {
         isRemoved = false;
     }
 
-    private void removeBody(Body body){
-        toBeDestroyed = body;
-    }
-
     public float getX(){
         return x;
     }
@@ -69,4 +68,7 @@ public class Mango extends InteractiveTileObject {
         return y;
     }
 
+    public void removeBody(Body body){
+        toBeDestroyed = body;
+    }
 }

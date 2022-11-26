@@ -1,4 +1,4 @@
-package objects.entities;
+package com.miuq.objects.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;

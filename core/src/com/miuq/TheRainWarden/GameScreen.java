@@ -1,16 +1,5 @@
 package com.miuq.TheRainWarden;
 
-import helper.Constants;
-import helper.TileMapHelper;
-import helper.WorldContactListener;
-import objects.entities.Player;
-import objects.gameObjects.CameraSwitchTrigger;
-import objects.gameObjects.Mango;
-import objects.gameObjects.ShinyRaindrop;
-import objects.gameObjects.Spike;
-import objects.gameObjects.WindCurrent;
-import animation.AnimationRenderer;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -25,6 +14,16 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.miuq.animation.AnimationRenderer;
+import com.miuq.helper.Constants;
+import com.miuq.helper.TileMapHelper;
+import com.miuq.helper.WorldContactListener;
+import com.miuq.objects.entities.Player;
+import com.miuq.objects.gameObjects.CameraSwitchTrigger;
+import com.miuq.objects.gameObjects.Mango;
+import com.miuq.objects.gameObjects.ShinyRaindrop;
+import com.miuq.objects.gameObjects.Spike;
+import com.miuq.objects.gameObjects.WindCurrent;
 
 public class GameScreen extends ScreenAdapter{
     private OrthographicCamera camera;
