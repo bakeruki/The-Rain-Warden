@@ -170,7 +170,6 @@ public class GameScreen extends ScreenAdapter{
 
         orthoganalTiledMapRenderer.render();
         box2dDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
-        
     }
 
     private void cameraUpdate(){
