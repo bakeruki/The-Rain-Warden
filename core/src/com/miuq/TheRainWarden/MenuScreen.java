@@ -37,9 +37,9 @@ public class MenuScreen extends ScreenAdapter{
     private ImageButtonStyle exitStyle;
 
     private Stage stage;
-    private GameScreen gameScreen;
+    // private GameScreen gameScreen;
     private MenuScreen menuScreen;
-    //private CutsceneScreen cutsceneScreen;
+    private CutsceneScreen cutsceneScreen;
 
     public MenuScreen(OrthographicCamera camera, FitViewport viewport, TheRainWarden game){
         camera.setToOrtho(false, 0, 0);
@@ -63,8 +63,9 @@ public class MenuScreen extends ScreenAdapter{
         this.exitButton.setPosition(startButton.getX(), startButton.getY() - 150);
 
         this.game = game;
-        this.gameScreen = new GameScreen(camera, viewport, game);
+        // this.gameScreen = new GameScreen(camera, viewport, game);
         this.menuScreen = this;
+        this.cutsceneScreen = new CutsceneScreen(camera, viewport, game);
 
         this.stage = new Stage(viewport);
 
@@ -87,12 +88,14 @@ public class MenuScreen extends ScreenAdapter{
         batch.draw(backgroundAnimation.getFrame(), 0, 30);
         batch.end();
         
-        //TODO go to cutscene first instead of game
         startButton.center();
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y){
-                game.setScreen(gameScreen);
+                game.setScreen(cutsceneScreen);
+                Gdx.input.setInputProcessor(cutsceneScreen.getStage());
+                stage.dispose();
+                batch.dispose();
                 menuScreen.dispose();
             }
         });
