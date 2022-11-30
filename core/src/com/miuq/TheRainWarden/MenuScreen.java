@@ -39,6 +39,7 @@ public class MenuScreen extends ScreenAdapter{
     private Stage stage;
     private GameScreen gameScreen;
     private MenuScreen menuScreen;
+    //private CutsceneScreen cutsceneScreen;
 
     public MenuScreen(OrthographicCamera camera, FitViewport viewport, TheRainWarden game){
         camera.setToOrtho(false, 0, 0);
@@ -48,16 +49,16 @@ public class MenuScreen extends ScreenAdapter{
         this.startDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/startButton/start.png")));
         this.startDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/startButton/startDown.png")));
         this.startStyle = new ImageButtonStyle();
-        startStyle.up = startDrawable;
-        startStyle.over = startDownDrawable;
+        this.startStyle.up = startDrawable;
+        this.startStyle.over = startDownDrawable;
         this.startButton = new ImageButton(startStyle);
         this.startButton.setPosition(870, 300);
 
         this.exitDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/exitButton/exitButton.png")));
         this.exitDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/exitButton/exitButtonDown.png")));
         this.exitStyle = new ImageButtonStyle();
-        exitStyle.up = exitDrawable;
-        exitStyle.over = exitDownDrawable;
+        this.exitStyle.up = exitDrawable;
+        this.exitStyle.over = exitDownDrawable;
         this.exitButton = new ImageButton(exitStyle);
         this.exitButton.setPosition(startButton.getX(), startButton.getY() - 150);
 
@@ -85,7 +86,8 @@ public class MenuScreen extends ScreenAdapter{
         batch.begin();
         batch.draw(backgroundAnimation.getFrame(), 0, 30);
         batch.end();
-
+        
+        //TODO go to cutscene first instead of game
         startButton.center();
         startButton.addListener(new ClickListener() {
             @Override
