@@ -17,6 +17,7 @@ public class Player extends GameEntity {
     private boolean left = false;
     private boolean isDead = false;
     private boolean isCarried = false;
+    private boolean isPressingCarryButton = false;
 
     public Player(float width, float height, Body body){
         super(width, height, body);
@@ -45,6 +46,12 @@ public class Player extends GameEntity {
         if(Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT) && dashCounter < 1){
             countDash = 1;
             dashCounter++;
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.E)){
+            isPressingCarryButton = true;
+        }else{
+            isPressingCarryButton = false;
         }
         
         body.setLinearVelocity(velX*speed, body.getLinearVelocity().y < 25 ? body.getLinearVelocity().y : 25);
@@ -188,7 +195,7 @@ public class Player extends GameEntity {
         
         //checks if the player is in a wind current and applies force if they are.
         // a boolean is used here to make sure the animationRenderer class can play the correct animation (umbrella).
-        if(isCarried){
+        if(isCarried && isPressingCarryButton){
             if(windForce < 20){
                 windForce += 0.5;
             }
