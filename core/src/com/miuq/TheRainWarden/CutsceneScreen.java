@@ -90,7 +90,6 @@ public class CutsceneScreen extends ScreenAdapter{
 
         this.stage = new Stage(viewport);
         this.stage.addActor(continueButton); 
-        stage.setDebugAll(true);  
     }
 
     @Override

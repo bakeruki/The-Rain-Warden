@@ -59,7 +59,7 @@ public class MenuScreen extends ScreenAdapter{
         this.exitButton = new ImageButton(exitStyle);
         this.exitButton.setPosition(startButton.getX(), startButton.getY() - 150);
 
-        this.backgroundImage = new Image(new Texture("assets/menuBackground.png"));
+        this.backgroundImage = new Image(new Texture("assets/screens/menuScreen.png"));
 
         this.game = game;
         // this.gameScreen = new GameScreen(camera, viewport, game); leave this here in case we get annoyed with watching the cutscene every time
@@ -71,7 +71,7 @@ public class MenuScreen extends ScreenAdapter{
         this.stage.addActor(backgroundImage);
         this.stage.addActor(startButton); 
         this.stage.addActor(exitButton);
-        this.stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1)));
+        //this.stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1)));
 
         Gdx.input.setInputProcessor(stage);
         Gdx.graphics.setSystemCursor(SystemCursor.Arrow);

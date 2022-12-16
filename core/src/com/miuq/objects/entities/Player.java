@@ -18,6 +18,7 @@ public class Player extends GameEntity {
     private boolean isDead = false;
     private boolean isCarried = false;
     private boolean isPressingCarryButton = false;
+    private boolean dashUnlocked = false;
 
     public Player(float width, float height, Body body){
         super(width, height, body);
@@ -43,7 +44,7 @@ public class Player extends GameEntity {
             jumpCounter++;
         }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT) && dashCounter < 1){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT) && dashCounter < 1 && dashUnlocked){
             countDash = 1;
             dashCounter++;
         }
@@ -158,6 +159,10 @@ public class Player extends GameEntity {
 
     public void setVelocityY(int vY){
         body.setLinearVelocity(body.getLinearVelocity().x, vY);
+    }
+
+    public void unlockDash(){
+        dashUnlocked = true;
     }
 
     private void dash(int distance){

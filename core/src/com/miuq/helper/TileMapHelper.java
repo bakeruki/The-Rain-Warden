@@ -34,14 +34,17 @@ public class TileMapHelper {
         this.gameScreen = gameScreen;
     }
 
-    public OrthogonalTiledMapRenderer setupMap(){
-        tiledMap = new TmxMapLoader().load("assets/maps/Map.tmx");
+    public OrthogonalTiledMapRenderer setupMap(String mapPath){
+        tiledMap = new TmxMapLoader().load(mapPath);
         parseMapObjects(tiledMap.getLayers().get("Object Layer 1").getObjects());
         return new OrthogonalTiledMapRenderer(tiledMap);
     }
     /**
 	 * Initializes objects from the tilemap file and creates Body and Fixture objects
      * to allow the player (and other objects) to collide with them.
+     * In our tilemap, rectangle objects represent objects that have interactability, such
+     * as the player or objects that can be collected in game. The polygon objects represent
+     * the bounds of the map and define floors, walls, ceilings, etc. 
 	 * @param mapObjects The objects in the tilemap (use parseMapObjects)
      * @author Luqman Patel
 	 */
