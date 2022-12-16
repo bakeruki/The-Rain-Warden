@@ -19,6 +19,8 @@ Lila also comes across strong wind currents while adventuring in the mountains. 
 While adventuring, Lila comes across a few different objects that she can collect. Mangos are purely for show, as they are often in difficult to reach locations. However, there is a special object that she can pick up called a Shiny Raindrop. Shiny Raindrops reimbue power into her pendant after it has already been used. In other words, picking up a Shiny Raindrop allows Lila to perform an extra dash in the air.
 
 # Developers
+Created using libGDX by:
+
 Luqman Patel
 
 Michelle Vuong
