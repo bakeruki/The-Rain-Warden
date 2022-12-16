@@ -62,5 +62,4 @@ public class CameraSwitchTrigger extends InteractiveTileObject {
     private void removeBody(Body body){
         toBeDestroyed = body;
     }
-
 }

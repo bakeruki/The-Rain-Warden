@@ -90,6 +90,10 @@ public class AnimationRenderer{
         mangos.clear();
     }
 
+    public void setPlayer(Player player){
+        this.player = player;
+    }
+
     /**
 	 * Adds all game ShinyRaindrop objects into an array so that animations can be drawn for each raindrop.
      * @param shinyRaindrop The shinyRaindrop object to be added to the array.
@@ -146,7 +150,7 @@ public class AnimationRenderer{
             raindropDestroyedAnimation.update(delta);
         }
 
-        if(player.isDead()){
+        if(player.isDead()){           
             if(player.isLeft()){
                 player.setVelocityX(0);
                 player.setVelocityY(0);

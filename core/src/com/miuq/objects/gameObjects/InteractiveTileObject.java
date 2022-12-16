@@ -24,6 +24,5 @@ public abstract class InteractiveTileObject {
 
     public abstract void onCollision();
 
-    public abstract void update();
-    
+    public abstract void update();    
 }
