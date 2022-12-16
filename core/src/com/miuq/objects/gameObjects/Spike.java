@@ -28,8 +28,13 @@ public class Spike extends InteractiveTileObject {
     public void update() {
         //trying to move the player in the collision method causes issues
         if(collided){
+            System.out.println("collided event triggered");
             player.kill();
             collided = false;
         }
+    }
+
+    public void setPlayer(Player player){
+        this.player = player;
     }
 }

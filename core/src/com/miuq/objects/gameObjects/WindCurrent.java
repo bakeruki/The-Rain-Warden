@@ -30,6 +30,5 @@ public class WindCurrent extends InteractiveTileObject{
     @Override
     public void update() {
         
-    }
-    
+    }    
 }

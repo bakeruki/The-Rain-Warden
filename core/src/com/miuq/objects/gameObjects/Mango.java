@@ -67,5 +67,4 @@ public class Mango extends InteractiveTileObject {
     public float getY(){
         return y;
     }
-
 }

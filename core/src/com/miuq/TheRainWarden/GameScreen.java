@@ -54,6 +54,16 @@ public class GameScreen extends ScreenAdapter{
     private OrthographicCamera camera;
 
     /**
+     * Tells the game if a new map is currently being loaded.
+     */
+    private boolean switchingLevels;
+
+    /**
+     * Keeps track of all map file paths.
+     */
+    private Array<String> mapPaths;
+
+    /**
      * Viewport that the game uses.
      */
     private FitViewport viewport;
@@ -149,19 +159,29 @@ public class GameScreen extends ScreenAdapter{
     public GameScreen(OrthographicCamera camera, FitViewport viewport2, TheRainWarden game){
         this.camera = camera;
         this.viewport = viewport2;
+        this.switchingLevels = false;
+        this.mapPaths = new Array<String>();
+        //all map file paths
+        this.mapPaths.add("assets/maps/TutorialMap.tmx");
+        this.mapPaths.add("assets/maps/SnowStage.tmx");
+
         //camera positions
         this.cameraPositions = new Array<Vector3>();
         //tutorial positions-------------------------------------
         this.cameraPositions.add(new Vector3(1000, 735, 0)); //level 1
         this.cameraPositions.add(new Vector3(3005, 735, 0)); //level 2
         //world 1 positions-------------------------------------
-        
+        this.cameraPositions.add(new Vector3(1000, 735, 0)); //level 1
+        this.cameraPositions.add(new Vector3(3080, 735, 0)); //level 2
+
         //spawn positions
         this.startPositions = new Array<Vector2>();
         //tutorial positions-------------------------------------
         this.startPositions.add(new Vector2(256 / Constants.PPM, 704 / Constants.PPM)); //level 1
         this.startPositions.add(new Vector2(2050 / Constants.PPM, 450 / Constants.PPM)); //level 2
         //world 1 positions-------------------------------------
+        this.startPositions.add(new Vector2(200 / Constants.PPM, 500 / Constants.PPM)); //level 1
+        this.startPositions.add(new Vector2(2136 / Constants.PPM, 800 / Constants.PPM)); //level 2
 
         this.pauseImage = new Texture("assets/screens/pauseScreen.png");
         this.batch = new SpriteBatch();
@@ -183,7 +203,7 @@ public class GameScreen extends ScreenAdapter{
         this.level = 0;
 
         this.tileMapHelper = new TileMapHelper(this);
-        this.orthoganalTiledMapRenderer = tileMapHelper.setupMap("assets/maps/TutorialMap.tmx");
+        this.orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(0));
 
         this.animationRenderer = new AnimationRenderer(player, batch);
 
@@ -248,6 +268,8 @@ public class GameScreen extends ScreenAdapter{
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             gameState = GAME_PAUSED;
         }
+
+        loadMap(level);
     }
 
     /**
@@ -287,6 +309,25 @@ public class GameScreen extends ScreenAdapter{
             shinyRaindrops.add(shinyRaindrop);
         }
     }
+    /**
+     * Loads the map of each world based on the current level.
+     * @param level The current level
+     * @author Luqman Patel
+     */
+    private void loadMap(int level){
+        if(switchingLevels){
+            System.out.println("switching levels");
+            switch(level){
+                case 2:
+                    System.out.println("switching to snow world");
+                    setMap(mapPaths.get(1));
+                        switchingLevels = false;
+                    break;
+                default:
+                    return;
+            }
+        }
+    }
 
     //setters
     /**
@@ -298,40 +339,109 @@ public class GameScreen extends ScreenAdapter{
         this.player = player;
     }
 
+    /**
+     * Disposes the current world and tilemap and replaces them with a new world and tilemap.
+     * Note: this method will result in a new player object! ensure that all objects are updated
+     * with the most recent player, or collisions wont work!!
+     * @param mapPath The file handle of the new map to be loaded.
+     * @author Luqman Patel
+     */
     private void setMap(String mapPath){
-        orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPath);
+        clearObjectArrays();
+        world.dispose();
+        world = new World(new Vector2(0, -35), false);
+
+        orthoganalTiledMapRenderer.dispose();
+        orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(1));
+    
+        world.setContactListener(new WorldContactListener());
+        updateAllObjectClasses(player, world);
+    }
+
+    /**
+     * Updates all object classes with the most recent variables. Used when new map is loaded.
+     * @param player The current player object.
+     * @param world The current world object.
+     * @author Luqman Patel
+     */
+    public void updateAllObjectClasses(Player player, World world){
+        animationRenderer.setPlayer(player);
+
+        for(Spike spike : spikes){
+            spike.setPlayer(player);
+        }
     }
 
     //getters
+    /**
+     * Returns number of mangos collected.
+     * @return Number of mangos collected.
+     * @author Luqman Patel
+     */
     public int getMangoCount(){
         return mangosCollected;
     }
 
+    /**
+     * Returns the current world.
+     * @return The current world object.
+     * @author Luqman Patel
+     */
     public World getWorld(){
         return world;
     }
 
+    /**
+     * Returns the current player.
+     * @return The current player object.
+     * @author Luqman Patel
+     */
     public Player getPlayer(){
         return player;
     }
 
     //adders
+    /**
+     * Adds cameraSwitch objects to an arrayList.
+     * @param cameraSwitch Camera switch to add.
+     * @author Luqman Patel
+     */
     public void addCameraSwitch(CameraSwitchTrigger cameraSwitch){
         cameraSwitches.add(cameraSwitch);
     }
 
+    /**
+     * Adds mango objects to an arrayList.
+     * @param mango Mango to add.
+     * @author Luqman Patel
+     */
     public void addMango(Mango mango){
         mangos.add(mango);
     }
 
+    /**
+     * Adds shiny raindrop objects to an arrayList.
+     * @param raindrop Raindrop to add.
+     * @author Luqman Patel
+     */
     public void addShinyRaindrop(ShinyRaindrop raindrop){
         shinyRaindrops.add(raindrop);
     }
 
+    /**
+     * Adds spike objects to an arrayList.
+     * @param spike Spike to add.
+     * @author Luqman Patel
+     */
     public void addSpike(Spike spike){
         spikes.add(spike);
     }
 
+    /**
+     * Adds wind current objects to an arrayList.
+     * @param windCurrent Wind current to add.
+     * @author Luqman Patel
+     */
     public void addWindCurrents(WindCurrent windCurrent){
         windCurrents.add(windCurrent);
     }
@@ -380,9 +490,27 @@ public class GameScreen extends ScreenAdapter{
             if(cameraSwitch.isRemoved()){
                 cameraSwitches.removeIndex(i);
                 level++;
+                checkWorldSwitch(level);
                 player.body.setTransform(startPositions.get(level), player.body.getAngle());
             }
             cameraSwitch.update();
+        }
+    }
+
+    /**
+     * Checks whether it is time to switch maps (using this function as a buffer
+     * ensures that the game will not try to switch worlds multiple times in the 
+     * update methods)
+     * @param level The current level.
+     */
+    private void checkWorldSwitch(int level){
+        switch(level){
+            case 2:
+                switchingLevels = true;
+                break;
+            default:
+                switchingLevels = false;
+                break;
         }
     }
 
@@ -432,6 +560,14 @@ public class GameScreen extends ScreenAdapter{
         float x = position.x;
         float y = position.y;
         batch.draw(pauseImage, x - 600, y - 300);
+    }
+
+    private void clearObjectArrays(){
+        shinyRaindrops.clear();
+        destroyedRaindrops.clear();
+        mangos.clear();
+        cameraSwitches.clear();
+        spikes.clear();
     }
 
     /**
