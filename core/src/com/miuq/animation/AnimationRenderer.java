@@ -122,7 +122,7 @@ public class AnimationRenderer{
 
     /**
 	 * Draws all animations using the GameScreen's SpriteBatch.
-     * @param delta Universal game time (GameScreen render method).
+     * @param delta Time since last render.
      * @author Michelle Vuong
 	 */
     public void drawAnimations(float delta){

@@ -26,36 +26,124 @@ import com.miuq.objects.gameObjects.ShinyRaindrop;
 import com.miuq.objects.gameObjects.Spike;
 import com.miuq.objects.gameObjects.WindCurrent;
 
+/**
+ * The GameScreen class holds, combines, and manages all logic for the game when it is being played. It also uses helper classes to 
+ * draw required assets.
+ * @author Luqman Patel
+ */
 public class GameScreen extends ScreenAdapter{
+    //Game Neccesities
+    /**
+     * Used to indicate that the game is in the run state.
+     */
     private final int GAME_RUNNING = 1;
+
+    /**
+     * Used to indicate that the game is in the paused state.
+     */
     private final int GAME_PAUSED = 2;
+
+    /**
+     * Keeps track of the current state of the game.
+     */
     private int gameState;
 
+    /**
+     * Camera that the gameScreen uses.
+     */
     private OrthographicCamera camera;
-    private Array<Vector3> cameraPositions;
-    private Array<Vector2> startPositions;
-    private int level;
+
+    /**
+     * Viewport that the game uses.
+     */
     private FitViewport viewport;
+
+    /**
+     * SpriteBatch that the game uses to draw assets.
+     */
     private SpriteBatch batch;
+
+    /**
+     * Keeps track of all positions that the camera will switch to during the game.
+     */
+    private Array<Vector3> cameraPositions;
+
+    /**
+     * Keeps track of all positions that the player will need to be moved to, from either starting a level or dying.
+     */
+    private Array<Vector2> startPositions;
+
+    /**
+     * Keeps track of the current level that the player is on.
+     */
+    private int level;
+    
+    /**
+     * World that the game uses.
+     */
     private World world;
+
+    /**
+     * Game object used to switch screens.
+     */
     private TheRainWarden game;
+
+    /**
+     * Used for debugging (draws collision boxes).
+     */
     private Box2DDebugRenderer box2dDebugRenderer;
 
+    /**
+     * Draws tile map.
+     */
     private OrthogonalTiledMapRenderer orthoganalTiledMapRenderer;
+
+    /**
+     * Helper class used to parse tile map from tile map file.
+     */
     private TileMapHelper tileMapHelper;
 
-    private Texture pauseImage;
-
-    //objects
+    //Game Objects
+    /**
+     * Player object.
+     */
     private Player player;
+    /**
+     * Keeps all shiny raindrop objects.
+     */
     private Array<ShinyRaindrop> shinyRaindrops;
+    /**
+     * Keeps all destroyed shiny raindrop objects so that they can be drawn again after the player dies.
+     */
     private Array<ShinyRaindrop> destroyedRaindrops;
+    /**
+     * Keeps all mango objects.
+     */
     private Array<Mango> mangos;
+    /**
+     * Keeps all camera switches.
+     */
     private Array<CameraSwitchTrigger> cameraSwitches;
+    /**
+     * Keeps all spikes.
+     */
     private Array<Spike> spikes;
+    /**
+     * Keeps all wind currents.
+     */
     private Array<WindCurrent> windCurrents;
+    /**
+     * Keeps track of how many mangos have been collected by the player.
+     */
     private int mangosCollected;
-
+    /**
+     * Image drawn when the game is paused.
+     */
+    private Texture pauseImage;
+    
+    /**
+     * Helper class used to draw all animations.
+     */
     private AnimationRenderer animationRenderer;
     
     public GameScreen(OrthographicCamera camera, FitViewport viewport2, TheRainWarden game){
@@ -103,8 +191,14 @@ public class GameScreen extends ScreenAdapter{
         Gdx.graphics.setSystemCursor(SystemCursor.None);
     }
 
+
+    /**
+     * Updates all states of the game while the gameScreen is the active screen.
+     * Uses a switch statement to check which screen is currently active, and then executes that screen's
+     * update method respectively.
+     * @author Luqman Patel
+     */
     private void update(){
-        System.out.println(gameState);
         switch(gameState){
             case GAME_RUNNING:
                 updateRunning();
@@ -115,6 +209,10 @@ public class GameScreen extends ScreenAdapter{
         }
     }
 
+    /**
+     * Updates the running state of the game.
+     * @author Luqman Patel
+     */
     private void updateRunning(){
         world.step(1/60f, 6, 2);
         cameraUpdate();
@@ -152,6 +250,10 @@ public class GameScreen extends ScreenAdapter{
         }
     }
 
+    /**
+     * Updates the paused state of the game.
+     * @author Luqman Patel
+     */
     private void updatePaused(){
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             gameState = GAME_RUNNING;
@@ -161,6 +263,10 @@ public class GameScreen extends ScreenAdapter{
         }
     }
 
+    /**
+     * Updates the camera's position, ortho, and the viewport.
+     * @author Luqman Patel
+     */
     private void cameraUpdate(){
         camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.position.set(cameraPositions.get(level));
@@ -168,6 +274,10 @@ public class GameScreen extends ScreenAdapter{
         camera.update();
     }
 
+    /**
+     * Moves the player to the current level's starting position as specified in the startPositions arrayList.
+     * @author Luqman Patel
+     */
     public void respawnPlayer(){
         player.body.setTransform(startPositions.get(level), player.body.getAngle()); 
         player.respawn();
@@ -179,6 +289,11 @@ public class GameScreen extends ScreenAdapter{
     }
 
     //setters
+    /**
+     * Sets the player.
+     * @param player The player object that the gameScreen will use as the player.
+     * @author Luqman Patel
+     */
     public void setPlayer(Player player){
         this.player = player;
     }
@@ -221,6 +336,11 @@ public class GameScreen extends ScreenAdapter{
         windCurrents.add(windCurrent);
     }
 
+    /**
+     * Loops through each shinyRaindrop in the shinyRaindrop arrayList and calls their update methods. Also removes
+     * shinyRaindrops from the array that have been removed from the world.
+     * @author Luqman Patel
+     */
     private void updateRaindrops(){
         for(int i = 0; i < shinyRaindrops.size; i++){
             ShinyRaindrop shinyRaindrop = shinyRaindrops.get(i);
@@ -233,6 +353,11 @@ public class GameScreen extends ScreenAdapter{
         }
     }
 
+    /**
+     * Loops through each cameraSwitch in the cameraSwitches arrayList and calls their update methods. Also removes
+     * mangos from the array that have been removed from the world.
+     * @author Luqman Patel
+     */
     private void updateMangos(){
         for(int i = 0; i < mangos.size; i++){
             Mango mango = mangos.get(i);
@@ -244,6 +369,11 @@ public class GameScreen extends ScreenAdapter{
         }
     }
 
+    /**
+     * Loops through each cameraSwitch in the cameraSwitches arrayList and calls their update methods. If a cameraSwitch has 
+     * been touched, it increases the level counter by 1 and moves the player to the next levels starting position.
+     * @author Luqman Patel
+     */
     private void updateCameraSwitches(){
         for(int i = 0; i < cameraSwitches.size; i++){
             CameraSwitchTrigger cameraSwitch = cameraSwitches.get(i);
@@ -256,12 +386,22 @@ public class GameScreen extends ScreenAdapter{
         }
     }
 
+    /**
+     * Loops through each spike and calls its update method.
+     * @author Luqman Patel
+     */
     private void updateSpikes(){
         for(Spike spike: spikes){
             spike.update();
         }
     }
 
+    /**
+     * Main draw function of the entire game. Responsible for drawing all sprites seen on screen. Uses a switch
+     * statement to check which game state is active, and draws the assets required for that state.
+     * @param delta Time in seconds since last render.
+     * @author Luqman Patel
+     */
     private void draw(float delta){
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -279,11 +419,14 @@ public class GameScreen extends ScreenAdapter{
         }   
 
         batch.end();
-
         
         box2dDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
     }
 
+    /**
+     * Draws all assets required for the pause screen.
+     * @author Luqman Patel
+     */
     private void drawPaused(){
         Vector3 position = cameraPositions.get(level);
         float x = position.x;
@@ -291,6 +434,10 @@ public class GameScreen extends ScreenAdapter{
         batch.draw(pauseImage, x - 600, y - 300);
     }
 
+    /**
+     * Draws all assets required for the game screen that are not drawn by the tilemap.
+     * @author Luqman Patel
+     */
     private void drawRunning(float delta){
         animationRenderer.drawAnimations(delta);
     }
