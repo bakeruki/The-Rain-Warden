@@ -168,20 +168,22 @@ public class GameScreen extends ScreenAdapter{
         //camera positions
         this.cameraPositions = new Array<Vector3>();
         //tutorial positions-------------------------------------
-        this.cameraPositions.add(new Vector3(1000, 735, 0)); //level 1
-        this.cameraPositions.add(new Vector3(3005, 735, 0)); //level 2
+        this.cameraPositions.add(new Vector3(1000, 735, 0)); //level 0
+        this.cameraPositions.add(new Vector3(3005, 735, 0)); //level 1
         //world 1 positions-------------------------------------
-        this.cameraPositions.add(new Vector3(1000, 735, 0)); //level 1
-        this.cameraPositions.add(new Vector3(3080, 735, 0)); //level 2
+        this.cameraPositions.add(new Vector3(1000, 735, 0)); //level 2
+        this.cameraPositions.add(new Vector3(3080, 735, 0)); //level 3
+        this.cameraPositions.add(new Vector3(5080, 735, 0)); //level 4
 
         //spawn positions
         this.startPositions = new Array<Vector2>();
         //tutorial positions-------------------------------------
-        this.startPositions.add(new Vector2(256 / Constants.PPM, 704 / Constants.PPM)); //level 1
-        this.startPositions.add(new Vector2(2050 / Constants.PPM, 450 / Constants.PPM)); //level 2
+        this.startPositions.add(new Vector2(256 / Constants.PPM, 704 / Constants.PPM)); //level 0
+        this.startPositions.add(new Vector2(2050 / Constants.PPM, 450 / Constants.PPM)); //level 1
         //world 1 positions-------------------------------------
-        this.startPositions.add(new Vector2(200 / Constants.PPM, 500 / Constants.PPM)); //level 1
-        this.startPositions.add(new Vector2(2136 / Constants.PPM, 800 / Constants.PPM)); //level 2
+        this.startPositions.add(new Vector2(200 / Constants.PPM, 500 / Constants.PPM)); //level 2
+        this.startPositions.add(new Vector2(2136 / Constants.PPM, 800 / Constants.PPM)); //level 3
+        this.startPositions.add(new Vector2(4142 / Constants.PPM, 800 / Constants.PPM)); //level 4
 
         this.pauseImage = new Texture("assets/screens/pauseScreen.png");
         this.batch = new SpriteBatch();
@@ -270,6 +272,7 @@ public class GameScreen extends ScreenAdapter{
         }
 
         loadMap(level);
+        levelSpecificTasks(level);
     }
 
     /**
@@ -309,6 +312,18 @@ public class GameScreen extends ScreenAdapter{
             shinyRaindrops.add(shinyRaindrop);
         }
     }
+
+    /**
+     * This function handles all level specific tasks (events that will be triggered based on the level
+     * that the player is on).
+     * @author Luqman Patel
+     */
+    public void levelSpecificTasks(int level){
+        if(level == 4){
+            player.unlockDash();
+        }
+    }
+
     /**
      * Loads the map of each world based on the current level.
      * @param level The current level
