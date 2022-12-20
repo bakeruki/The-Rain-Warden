@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.miuq.TheRainWarden.cutscenes.CutsceneOne;
 
 
 public class MenuScreen extends ScreenAdapter{
@@ -38,7 +39,7 @@ public class MenuScreen extends ScreenAdapter{
     private Stage stage;
     // private GameScreen gameScreen;
     private MenuScreen menuScreen;
-    private CutsceneScreen cutsceneScreen;
+    private CutsceneOne cutsceneScreen;
 
     public MenuScreen(OrthographicCamera camera, FitViewport viewport, TheRainWarden game){
         camera.setToOrtho(false, 0, 0);
@@ -64,7 +65,7 @@ public class MenuScreen extends ScreenAdapter{
         this.game = game;
         // this.gameScreen = new GameScreen(camera, viewport, game); leave this here in case we get annoyed with watching the cutscene every time
         this.menuScreen = this;
-        this.cutsceneScreen = new CutsceneScreen(camera, viewport, game);
+        this.cutsceneScreen = new CutsceneOne(camera, viewport, game, new GameScreen(camera, viewport, game));
 
         this.stage = new Stage(viewport);
 

@@ -27,8 +27,8 @@ import com.miuq.objects.gameObjects.Spike;
 import com.miuq.objects.gameObjects.WindCurrent;
 
 /**
- * The GameScreen class holds, combines, and manages all logic for the game when it is being played. It also uses helper classes to 
- * draw required assets.
+ * The GameScreen class holds, combines, and manages all logic for the game when 
+ * it is being played. It also uses helper classes to draw required assets.
  * @author Luqman Patel
  */
 public class GameScreen extends ScreenAdapter{
