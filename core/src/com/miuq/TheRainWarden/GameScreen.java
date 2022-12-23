@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.miuq.animation.AnimationRenderer;
 import com.miuq.helper.Constants;
+import com.miuq.helper.GameCutsceneLoader;
 import com.miuq.helper.TileMapHelper;
 import com.miuq.helper.WorldContactListener;
 import com.miuq.objects.entities.Player;
@@ -155,6 +156,10 @@ public class GameScreen extends ScreenAdapter{
      * Helper class used to draw all animations.
      */
     private AnimationRenderer animationRenderer;
+    /**
+     * Helper class used to control all cutscene logic.
+     */
+    private GameCutsceneLoader cutscene;
     
     public GameScreen(OrthographicCamera camera, FitViewport viewport2, TheRainWarden game){
         this.camera = camera;
@@ -162,28 +167,37 @@ public class GameScreen extends ScreenAdapter{
         this.switchingLevels = false;
         this.mapPaths = new Array<String>();
         //all map file paths
-        this.mapPaths.add("assets/maps/TutorialMap.tmx");
-        this.mapPaths.add("assets/maps/SnowStage.tmx");
+        this.mapPaths.add("assets/maps/TutorialMap.tmx"); //world 0
+        this.mapPaths.add("assets/maps/SnowStage.tmx"); //world 1
+        this.mapPaths.add("assets/maps/ForestStage.tmx"); //world 2
 
         //camera positions
         this.cameraPositions = new Array<Vector3>();
-        //tutorial positions-------------------------------------
+        //tutorial positions------------------------------------
         this.cameraPositions.add(new Vector3(1000, 735, 0)); //level 0
         this.cameraPositions.add(new Vector3(3005, 735, 0)); //level 1
         //world 1 positions-------------------------------------
         this.cameraPositions.add(new Vector3(1000, 735, 0)); //level 2
         this.cameraPositions.add(new Vector3(3080, 735, 0)); //level 3
         this.cameraPositions.add(new Vector3(5080, 735, 0)); //level 4
+        //world 2 positions-------------------------------------
+        this.cameraPositions.add(new Vector3(1000,735,0)); //level 5
+        //level 6
+        //level 7
 
         //spawn positions
         this.startPositions = new Array<Vector2>();
-        //tutorial positions-------------------------------------
+        //tutorial positions------------------------------------
         this.startPositions.add(new Vector2(256 / Constants.PPM, 704 / Constants.PPM)); //level 0
         this.startPositions.add(new Vector2(2050 / Constants.PPM, 450 / Constants.PPM)); //level 1
         //world 1 positions-------------------------------------
         this.startPositions.add(new Vector2(200 / Constants.PPM, 500 / Constants.PPM)); //level 2
         this.startPositions.add(new Vector2(2136 / Constants.PPM, 800 / Constants.PPM)); //level 3
         this.startPositions.add(new Vector2(4142 / Constants.PPM, 800 / Constants.PPM)); //level 4
+        //world 2 positions-------------------------------------
+        this.startPositions.add(new Vector2(200 / Constants.PPM, 500 / Constants.PPM));//level 5
+        //level 6
+        //level 7
 
         this.pauseImage = new Texture("assets/screens/pauseScreen.png");
         this.batch = new SpriteBatch();
@@ -203,6 +217,8 @@ public class GameScreen extends ScreenAdapter{
 
         this.mangosCollected = 0;
         this.level = 0;
+
+        this.cutscene = new GameCutsceneLoader(camera, viewport2, game);
 
         this.tileMapHelper = new TileMapHelper(this);
         this.orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(0));
@@ -249,30 +265,15 @@ public class GameScreen extends ScreenAdapter{
         }
 
         player.update();
+        updateGameObjects();
 
-        updateRaindrops();
-        updateMangos();
-        updateCameraSwitches();
-        updateSpikes();
-        
-        animationRenderer.clearRaindrops();
-
-        for(ShinyRaindrop shinyRaindrop: shinyRaindrops){
-            animationRenderer.addRaindrops(shinyRaindrop);
-        }
-
-        animationRenderer.clearMangos();
-
-        for(Mango mango: mangos){
-            animationRenderer.addMangos(mango);
-        }
+        loadMap(level);
+        levelSpecificTasks(level);
+        cutscene.update(level, this);
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             gameState = GAME_PAUSED;
         }
-
-        loadMap(level);
-        levelSpecificTasks(level);
     }
 
     /**
@@ -303,7 +304,7 @@ public class GameScreen extends ScreenAdapter{
      * Moves the player to the current level's starting position as specified in the startPositions arrayList.
      * @author Luqman Patel
      */
-    public void respawnPlayer(){
+    private void respawnPlayer(){
         player.body.setTransform(startPositions.get(level), player.body.getAngle()); 
         player.respawn();
 
@@ -318,7 +319,7 @@ public class GameScreen extends ScreenAdapter{
      * that the player is on).
      * @author Luqman Patel
      */
-    public void levelSpecificTasks(int level){
+    private void levelSpecificTasks(int level){
         if(level == 4){
             player.unlockDash();
         }
@@ -336,7 +337,12 @@ public class GameScreen extends ScreenAdapter{
                 case 2:
                     System.out.println("switching to snow world");
                     setMap(mapPaths.get(1));
-                        switchingLevels = false;
+                    switchingLevels = false;
+                    break;
+                case 5:
+                    System.out.println("switching to forest world");
+                    setMap(mapPaths.get(2));
+                    switchingLevels = false;
                     break;
                 default:
                     return;
@@ -367,7 +373,7 @@ public class GameScreen extends ScreenAdapter{
         world = new World(new Vector2(0, -35), false);
 
         orthoganalTiledMapRenderer.dispose();
-        orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(1));
+        orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPath);
     
         world.setContactListener(new WorldContactListener());
         updateAllObjectClasses(player, world);
@@ -462,6 +468,17 @@ public class GameScreen extends ScreenAdapter{
     }
 
     /**
+     * Updates all game objects in the world.
+     */
+    public void updateGameObjects(){
+        animationRenderer.updateGameObjects(shinyRaindrops, mangos);
+        updateRaindrops();
+        updateMangos();
+        updateCameraSwitches();
+        updateSpikes();
+    }
+
+    /**
      * Loops through each shinyRaindrop in the shinyRaindrop arrayList and calls their update methods. Also removes
      * shinyRaindrops from the array that have been removed from the world.
      * @author Luqman Patel
@@ -521,6 +538,9 @@ public class GameScreen extends ScreenAdapter{
     private void checkWorldSwitch(int level){
         switch(level){
             case 2:
+                switchingLevels = true;
+                break;
+            case 5:
                 switchingLevels = true;
                 break;
             default:

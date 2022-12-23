@@ -7,6 +7,11 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
+/**
+ * Credit: Small Pixel Games on YouTube
+ * https://www.youtube.com/watch?v=8rBG7IWdDis&ab_channel=SmallPixelGames
+ * Code is not the exactly the same, but was mainly taken from this video.
+ */
 public class BodyHelperService {
    
     public static Body createBody(float x, float y, float width, float height, boolean isStatic, World world){

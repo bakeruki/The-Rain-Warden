@@ -71,7 +71,7 @@ public abstract class Cutscene extends ScreenAdapter {
     /**
      * Holds the current frame that the cutscene is on.
      */
-    private int frame;
+    protected int frame;
 
     /**
      * Holds the stage used to add the continue button.
@@ -99,7 +99,6 @@ public abstract class Cutscene extends ScreenAdapter {
 
         this.hasIncremented = false;
         this.frame = 0;
-
         this.stage = new Stage(viewport);
 
         this.continueButtonUp = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/continueButton/continue.png")));
@@ -119,13 +118,14 @@ public abstract class Cutscene extends ScreenAdapter {
         });
 
         this.stage.addActor(continueButton); 
+        Gdx.input.setInputProcessor(stage);
     }
 
     /**
      * Handles code to be executed when the continue button is clicked.
      * @author Luqman Patel
      */
-    protected void handleContinueClick(){
+    private void handleContinueClick(){
         if(!cutsceneTexts.get(frame).hasFinished()){
             cutsceneTexts.get(frame).skipAnimation();
         }else{
@@ -140,19 +140,21 @@ public abstract class Cutscene extends ScreenAdapter {
      * Handles all rendering for cutscene images and text. Put this method in the
      * child class render method to get the images and text specified to show up.
      * @param delta Time since last render.
+     * @author Luqman Patel
      */
     protected void renderCutscene(float delta){
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
+
         batch.begin();
         font.getData().setScale(2f);
         updateCutscene(delta);
         batch.end();
 
         if(frame == cutsceneImages.size()){
-            game.setScreen(gameScreen);
             batch.dispose();
+            stage.dispose();
+            game.setScreen(gameScreen);
             this.dispose();
         }
 
@@ -165,6 +167,7 @@ public abstract class Cutscene extends ScreenAdapter {
     /**
      * Updates current image and text being displayed in cutscene.
      * @param delta Time since last render.
+     * @author Luqman Patel
      */
     private void updateCutscene(float delta){
         if(frame < cutsceneImages.size()){
@@ -178,6 +181,7 @@ public abstract class Cutscene extends ScreenAdapter {
     /**
      * Gets the stage.
      * @return The stage object.
+     * @author Luqman Patel
      */
     public Stage getStage(){
         return stage;

@@ -82,16 +82,32 @@ public class AnimationRenderer{
         this.hasBeenCarried = false; //boolean for whether jump animation should keep playing (wind currents bug)   
     }
 
-    public void clearRaindrops(){
-        shinyRaindrops.clear();
-    }
-
-    public void clearMangos(){
-        mangos.clear();
-    }
+    
 
     public void setPlayer(Player player){
         this.player = player;
+    }
+
+    public void updateGameObjects(Array<ShinyRaindrop> shinyRaindrops, Array<Mango> mangos){
+        clearRaindrops();
+
+        for(ShinyRaindrop shinyRaindrop: shinyRaindrops){
+            addRaindrops(shinyRaindrop);
+        }
+
+        clearMangos();
+
+        for(Mango mango: mangos){
+            addMangos(mango);
+        }
+    }
+
+    private void clearRaindrops(){
+        shinyRaindrops.clear();
+    }
+
+    private void clearMangos(){
+        mangos.clear();
     }
 
     /**
@@ -99,10 +115,11 @@ public class AnimationRenderer{
      * @param shinyRaindrop The shinyRaindrop object to be added to the array.
      * @author Michelle Vuong
 	 */
-    public void addRaindrops(ShinyRaindrop shinyRaindrop){
+    private void addRaindrops(ShinyRaindrop shinyRaindrop){
         shinyRaindrops.add(shinyRaindrop);
     }
-    public void addMangos(Mango mango){
+
+    private void addMangos(Mango mango){
         mangos.add(mango);
     }
     /**

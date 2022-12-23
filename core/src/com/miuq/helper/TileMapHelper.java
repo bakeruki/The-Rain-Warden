@@ -24,6 +24,11 @@ import com.miuq.objects.gameObjects.ShinyRaindrop;
 import com.miuq.objects.gameObjects.Spike;
 import com.miuq.objects.gameObjects.WindCurrent;
 
+/**
+ * Credit: Small Pixel Games on YouTube
+ * https://www.youtube.com/watch?v=8rBG7IWdDis&ab_channel=SmallPixelGames
+ * Code is not the exactly the same, but was mainly taken from this video.
+ */
 public class TileMapHelper {
     
     private TiledMap tiledMap;
@@ -45,8 +50,7 @@ public class TileMapHelper {
      * In our tilemap, rectangle objects represent objects that have interactability, such
      * as the player or objects that can be collected in game. The polygon objects represent
      * the bounds of the map and define floors, walls, ceilings, etc. 
-	 * @param mapObjects The objects in the tilemap (use parseMapObjects)
-     * @author Luqman Patel
+	 * @param mapObjects The objects in the tilemap.
 	 */
     private void parseMapObjects(MapObjects mapObjects){
         for(MapObject mapObject : mapObjects){
