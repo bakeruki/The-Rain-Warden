@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.miuq.animation.AnimationRenderer;
 import com.miuq.helper.Constants;
 import com.miuq.helper.GameCutsceneLoader;
+import com.miuq.helper.GameSaveHandler;
 import com.miuq.helper.TileMapHelper;
 import com.miuq.helper.WorldContactListener;
 import com.miuq.objects.entities.Player;
@@ -89,6 +90,8 @@ public class GameScreen extends ScreenAdapter{
      */
     private int level;
     
+    private int saveNum;
+
     /**
      * World that the game uses.
      */
@@ -160,9 +163,12 @@ public class GameScreen extends ScreenAdapter{
      * Helper class used to control all cutscene logic.
      */
     private GameCutsceneLoader cutscene;
+
+    private GameSaveHandler gameSaveHandler;
     
     public GameScreen(OrthographicCamera camera, FitViewport viewport2, TheRainWarden game){
         this.camera = camera;
+        this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.viewport = viewport2;
         this.switchingLevels = false;
         this.mapPaths = new Array<String>();
@@ -215,20 +221,22 @@ public class GameScreen extends ScreenAdapter{
         this.spikes = new Array<Spike>();
         this.windCurrents = new Array<WindCurrent>();
 
-        this.mangosCollected = 0;
-        this.level = 0;
+        this.gameSaveHandler = new GameSaveHandler();
+        this.saveNum = 0;
+
+        this.mangosCollected = gameSaveHandler.getMangosFromSave(saveNum);
+        this.level = gameSaveHandler.getLevelFromSave(saveNum);
 
         this.cutscene = new GameCutsceneLoader(camera, viewport2, game);
 
         this.tileMapHelper = new TileMapHelper(this);
-        this.orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(0));
+        initializeMap(level);
 
         this.animationRenderer = new AnimationRenderer(player, batch);
 
         world.setContactListener(new WorldContactListener());
         Gdx.graphics.setSystemCursor(SystemCursor.None);
     }
-
 
     /**
      * Updates all states of the game while the gameScreen is the active screen.
@@ -285,6 +293,7 @@ public class GameScreen extends ScreenAdapter{
             gameState = GAME_RUNNING;
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.Q)){
+            gameSaveHandler.updateSaveFiles(saveNum, level, mangosCollected);
             game.setScreen(new MenuScreen(camera, viewport, game));
         }
     }
@@ -325,6 +334,22 @@ public class GameScreen extends ScreenAdapter{
         }
     }
 
+    private void initializeMap(int level){
+        if(level != 0){
+            if(level < 2){
+                this.orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(0));
+            }else if(level < 5){
+                this.orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(1));
+            }else if(level < 8){
+                this.orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(2));
+            }
+            player.body.setTransform(startPositions.get(level), player.body.getAngle()); 
+            this.camera.position.set(cameraPositions.get(level));
+        }else{
+            this.orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(0));
+        }
+    }
+
     /**
      * Loads the map of each world based on the current level.
      * @param level The current level
@@ -333,19 +358,18 @@ public class GameScreen extends ScreenAdapter{
     private void loadMap(int level){
         if(switchingLevels){
             System.out.println("switching levels");
-            switch(level){
-                case 2:
-                    System.out.println("switching to snow world");
-                    setMap(mapPaths.get(1));
-                    switchingLevels = false;
-                    break;
-                case 5:
-                    System.out.println("switching to forest world");
-                    setMap(mapPaths.get(2));
-                    switchingLevels = false;
-                    break;
-                default:
-                    return;
+            if(level < 2){
+                System.out.println("switching to tutorial world");
+                setMap(mapPaths.get(0));
+                switchingLevels = false;
+            }else if(level < 5){
+                System.out.println("switching to forest world");
+                setMap(mapPaths.get(1));
+                switchingLevels = false;
+            }else if(level < 8){
+                System.out.println("switching to forest world");
+                setMap(mapPaths.get(2));
+                switchingLevels = false;
             }
         }
     }
