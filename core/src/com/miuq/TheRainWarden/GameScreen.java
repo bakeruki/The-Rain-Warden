@@ -329,7 +329,7 @@ public class GameScreen extends ScreenAdapter{
      * @author Luqman Patel
      */
     private void levelSpecificTasks(int level){
-        if(level == 4){
+        if(level >= 4){
             player.unlockDash();
         }
     }
