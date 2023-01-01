@@ -12,7 +12,7 @@ public class CutsceneTwo extends Cutscene {
     public CutsceneTwo(OrthographicCamera camera, FitViewport viewport, TheRainWarden game, GameScreen gameScreen) {
         super(camera, viewport, game, gameScreen);
 
-        this.cutsceneImages.add(new Texture(Gdx.files.internal("assets/cutscene/filler.png")));
+        this.cutsceneImages.add(new Texture(Gdx.files.internal("assets/cutscene/cutscene2/frame1.png")));
         this.cutsceneImages.add(new Texture(Gdx.files.internal("assets/cutscene/filler.png")));
         this.cutsceneImages.add(new Texture(Gdx.files.internal("assets/cutscene/filler.png")));
 
