@@ -236,6 +236,8 @@ public class GameScreen extends ScreenAdapter{
 
         world.setContactListener(new WorldContactListener());
         Gdx.graphics.setSystemCursor(SystemCursor.None);
+
+        updateAllObjectClasses(player, world);
     }
 
     /**
