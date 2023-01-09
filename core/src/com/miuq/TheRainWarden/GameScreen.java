@@ -188,8 +188,8 @@ public class GameScreen extends ScreenAdapter{
         this.cameraPositions.add(new Vector3(5080, 735, 0)); //level 4
         //world 2 positions-------------------------------------
         this.cameraPositions.add(new Vector3(1000,735,0)); //level 5
-        //level 6
-        //level 7
+        this.cameraPositions.add(new Vector3(3005, 735, 0));//level 6
+        this.cameraPositions.add(new Vector3(4995, 735, 0));//level 7
 
         //spawn positions
         this.startPositions = new Array<Vector2>();
@@ -202,8 +202,8 @@ public class GameScreen extends ScreenAdapter{
         this.startPositions.add(new Vector2(4142 / Constants.PPM, 800 / Constants.PPM)); //level 4
         //world 2 positions-------------------------------------
         this.startPositions.add(new Vector2(200 / Constants.PPM, 500 / Constants.PPM));//level 5
-        //level 6
-        //level 7
+        this.startPositions.add(new Vector2(2300 / Constants.PPM, 400 / Constants.PPM));//level 6
+        this.startPositions.add(new Vector2(4142 / Constants.PPM, 1100 / Constants.PPM));//level 7
 
         this.pauseImage = new Texture("assets/screens/pauseScreen.png");
         this.batch = new SpriteBatch();
