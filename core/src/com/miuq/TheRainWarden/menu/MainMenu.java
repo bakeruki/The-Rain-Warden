@@ -1,4 +1,4 @@
-package com.miuq.TheRainWarden;
+package com.miuq.TheRainWarden.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -17,10 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.miuq.TheRainWarden.cutscenes.CutsceneOne;
+import com.miuq.TheRainWarden.TheRainWarden;
 
-
-public class MenuScreen extends ScreenAdapter{
+public class MainMenu extends ScreenAdapter{
     private TheRainWarden game;
 
     private ImageButton startButton;
@@ -38,10 +37,10 @@ public class MenuScreen extends ScreenAdapter{
 
     private Stage stage;
     // private GameScreen gameScreen;
-    private MenuScreen menuScreen;
-    private CutsceneOne cutsceneScreen;
+    private MainMenu menuScreen;
+    private StartMenu startMenu;
 
-    public MenuScreen(OrthographicCamera camera, FitViewport viewport, TheRainWarden game){
+    public MainMenu(OrthographicCamera camera, FitViewport viewport, TheRainWarden game){
         camera.setToOrtho(false, 0, 0);
 
         this.startDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/startButton/start.png")));
@@ -65,38 +64,19 @@ public class MenuScreen extends ScreenAdapter{
         this.game = game;
         // this.gameScreen = new GameScreen(camera, viewport, game); leave this here in case we get annoyed with watching the cutscene every time
         this.menuScreen = this;
-        this.cutsceneScreen = new CutsceneOne(camera, viewport, game, new GameScreen(camera, viewport, game));
+        this.startMenu = new StartMenu(game, camera, viewport);
 
         this.stage = new Stage(viewport);
 
         this.stage.addActor(backgroundImage);
         this.stage.addActor(startButton); 
         this.stage.addActor(exitButton);
-        //this.stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1)));
 
-        Gdx.input.setInputProcessor(stage);
-        Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
-        Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-    }
-
-    @Override
-    public void render(float delta){
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        
         startButton.center();
         startButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y){
-                stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(2), Actions.run(new Runnable(){
-                    @Override
-                    public void run(){
-                        game.setScreen(cutsceneScreen);
-                    Gdx.input.setInputProcessor(cutsceneScreen.getStage());
-                    stage.dispose();
-                    menuScreen.dispose();
-                    }
-                })));
+                handleStartClick();
             }
         });
         
@@ -104,9 +84,37 @@ public class MenuScreen extends ScreenAdapter{
         exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                Gdx.app.exit();
+                handleExitClick();
             }
         });
+
+        //this.stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1)));
+
+        Gdx.input.setInputProcessor(stage);
+        Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
+        Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+    }
+
+    private void handleStartClick(){
+        stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(2), Actions.run(new Runnable(){
+            @Override
+            public void run(){
+                game.setScreen(startMenu);
+                Gdx.input.setInputProcessor(startMenu.getStage());
+                stage.dispose();
+                menuScreen.dispose();
+            }
+        })));
+    }
+
+    private void handleExitClick(){
+        Gdx.app.exit();
+    }
+
+    @Override
+    public void render(float delta){
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.act(delta);
         stage.draw();

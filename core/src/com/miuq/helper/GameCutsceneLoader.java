@@ -9,6 +9,7 @@ import com.miuq.TheRainWarden.cutscenes.CutsceneTwo;
 
 public class GameCutsceneLoader {
     private boolean cutscenePlayed;
+    private boolean recentlyLoadedSave;
     private OrthographicCamera camera;
     private FitViewport viewport;
     private TheRainWarden game;
@@ -30,6 +31,10 @@ public class GameCutsceneLoader {
         checkCutscene(level, gameScreen);
     }
 
+    public void recentlyLoadedSave(){
+        recentlyLoadedSave = true;
+    }
+
     /**
      * Changes the cutscenePlayed boolean to false 1 level after a cutscene has finished. This ensures
      * that the cutscene does not repeatedly play after it has been finished.
@@ -38,11 +43,22 @@ public class GameCutsceneLoader {
      */
     private void updateCutscenePlayedBoolean(int level){
         switch(level){
+            case 1:
+                recentlyLoadedSave = false;
+                break;
             case 3:
                 cutscenePlayed = false;
+                recentlyLoadedSave = false;
+                break;
+            case 4:
+                recentlyLoadedSave = false;
                 break;
             case 6:
                 cutscenePlayed = false;
+                recentlyLoadedSave = false;
+                break;
+            case 7:
+                recentlyLoadedSave = false;
                 break;
         }
     }
@@ -71,7 +87,7 @@ public class GameCutsceneLoader {
      * @author Luqman Patel
      */
     private void loadCutscene(int cutsceneNum, GameScreen gameScreen){
-        if(!cutscenePlayed){
+        if(!cutscenePlayed && !recentlyLoadedSave){
             cutscenePlayed = true;
             switch(cutsceneNum){
                 case 2:

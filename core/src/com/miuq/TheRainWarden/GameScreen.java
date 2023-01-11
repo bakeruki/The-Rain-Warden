@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.miuq.TheRainWarden.menu.MainMenu;
 import com.miuq.animation.AnimationRenderer;
 import com.miuq.helper.Constants;
 import com.miuq.helper.GameCutsceneLoader;
@@ -90,6 +91,9 @@ public class GameScreen extends ScreenAdapter{
      */
     private int level;
     
+    /**
+     * Keeps track of the selected save file's number.
+     */
     private int saveNum;
 
     /**
@@ -164,9 +168,12 @@ public class GameScreen extends ScreenAdapter{
      */
     private GameCutsceneLoader cutscene;
 
+    /**
+     * Helper class used to save the game data to a text file.
+     */
     private GameSaveHandler gameSaveHandler;
     
-    public GameScreen(OrthographicCamera camera, FitViewport viewport2, TheRainWarden game){
+    public GameScreen(OrthographicCamera camera, FitViewport viewport2, TheRainWarden game, int level, int mangosCollected){
         this.camera = camera;
         this.camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         this.viewport = viewport2;
@@ -221,13 +228,13 @@ public class GameScreen extends ScreenAdapter{
         this.spikes = new Array<Spike>();
         this.windCurrents = new Array<WindCurrent>();
 
-        this.gameSaveHandler = new GameSaveHandler();
-        this.saveNum = 0;
+        this.mangosCollected = mangosCollected;
+        this.level = level;
 
-        this.mangosCollected = gameSaveHandler.getMangosFromSave(saveNum);
-        this.level = gameSaveHandler.getLevelFromSave(saveNum);
+        this.gameSaveHandler = new GameSaveHandler();
 
         this.cutscene = new GameCutsceneLoader(camera, viewport2, game);
+        this.cutscene.recentlyLoadedSave();
 
         this.tileMapHelper = new TileMapHelper(this);
         initializeMap(level);
@@ -238,6 +245,10 @@ public class GameScreen extends ScreenAdapter{
         Gdx.graphics.setSystemCursor(SystemCursor.None);
 
         updateAllObjectClasses(player, world);
+    }
+
+    public void setSaveNum(int saveNum){
+        this.saveNum = saveNum;
     }
 
     /**
@@ -296,7 +307,7 @@ public class GameScreen extends ScreenAdapter{
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.Q)){
             gameSaveHandler.updateSaveFiles(saveNum, level, mangosCollected);
-            game.setScreen(new MenuScreen(camera, viewport, game));
+            game.setScreen(new MainMenu(camera, viewport, game));
         }
     }
 
