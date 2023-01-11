@@ -23,14 +23,18 @@ public class MainMenu extends ScreenAdapter{
     private TheRainWarden game;
 
     private ImageButton startButton;
+    private ImageButton optionsButton;
     private ImageButton exitButton;
 
     private Drawable startDownDrawable;
     private Drawable startDrawable;
+    private Drawable optionsDrawable;
+    private Drawable optionsDownDrawable;
     private Drawable exitDownDrawable;
     private Drawable exitDrawable;
 
     private ImageButtonStyle startStyle;
+    private ImageButtonStyle optionsStyle;
     private ImageButtonStyle exitStyle;
 
     private Image backgroundImage;
@@ -38,6 +42,7 @@ public class MainMenu extends ScreenAdapter{
     private Stage stage;
     // private GameScreen gameScreen;
     private MainMenu menuScreen;
+    private OptionsMenu optionsMenu;
     private StartMenu startMenu;
 
     public MainMenu(OrthographicCamera camera, FitViewport viewport, TheRainWarden game){
@@ -50,6 +55,14 @@ public class MainMenu extends ScreenAdapter{
         this.startStyle.over = startDownDrawable;
         this.startButton = new ImageButton(startStyle);
         this.startButton.setPosition(870, 300);
+
+        this.optionsDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/optionsButton/optionsButton.png")));
+        this.optionsDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/optionsButton/optionsButtonDown.png")));
+        this.optionsStyle = new ImageButtonStyle();
+        this.optionsStyle.up = optionsDrawable;
+        this.optionsStyle.over = optionsDownDrawable;
+        this.optionsButton = new ImageButton(optionsStyle);
+        this.optionsButton.setPosition(1720, 20);
 
         this.exitDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/exitButton/exitButton.png")));
         this.exitDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/exitButton/exitButtonDown.png")));
@@ -65,11 +78,13 @@ public class MainMenu extends ScreenAdapter{
         // this.gameScreen = new GameScreen(camera, viewport, game); leave this here in case we get annoyed with watching the cutscene every time
         this.menuScreen = this;
         this.startMenu = new StartMenu(game, camera, viewport);
+        this.optionsMenu = new OptionsMenu(game);
 
         this.stage = new Stage(viewport);
 
         this.stage.addActor(backgroundImage);
         this.stage.addActor(startButton); 
+        this.stage.addActor(optionsButton);
         this.stage.addActor(exitButton);
 
         startButton.center();
@@ -77,6 +92,14 @@ public class MainMenu extends ScreenAdapter{
             @Override
             public void clicked(InputEvent event, float x, float y){
                 handleStartClick();
+            }
+        });
+
+        optionsButton.center();
+        optionsButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                handleOptionsClick();
             }
         });
         
@@ -107,8 +130,24 @@ public class MainMenu extends ScreenAdapter{
         })));
     }
 
+    private void handleOptionsClick(){
+        stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(2), Actions.run(new Runnable(){
+            @Override
+            public void run(){
+                game.setScreen(optionsMenu);
+                Gdx.input.setInputProcessor(optionsMenu.getStage());
+                stage.dispose();
+                menuScreen.dispose();
+            }
+        })));
+    }
+
     private void handleExitClick(){
         Gdx.app.exit();
+    }
+
+    public Stage getStage(){
+        return stage;
     }
 
     @Override

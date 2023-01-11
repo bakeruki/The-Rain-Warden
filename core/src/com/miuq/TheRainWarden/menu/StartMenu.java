@@ -2,9 +2,13 @@ package com.miuq.TheRainWarden.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -12,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.miuq.TheRainWarden.GameScreen;
 import com.miuq.TheRainWarden.TheRainWarden;
@@ -27,9 +32,14 @@ public class StartMenu extends ScreenAdapter{
     private OrthographicCamera camera;
     private FitViewport viewport;
 
+    private BitmapFont font;
+    private GlyphLayout layout;
+    private SpriteBatch batch;
+
     private ImageButton newGame1Button;
     private ImageButton newGame2Button;
     private ImageButton newGame3Button;
+    private ImageButton backButton;
 
     private Drawable newGame1Drawable;
     private Drawable newGame1DownDrawable;
@@ -37,15 +47,22 @@ public class StartMenu extends ScreenAdapter{
     private Drawable newGame2DownDrawable;
     private Drawable newGame3Drawable;
     private Drawable newGame3DownDrawable;
+    private Drawable backButtonDrawable;
+    private Drawable backButtonHoverDrawable;
 
     private ImageButtonStyle newGame1ButtonStyle;
     private ImageButtonStyle newGame2ButtonStyle;
     private ImageButtonStyle newGame3ButtonStyle;
+    private ImageButtonStyle backButtonStyle;
 
     public StartMenu(TheRainWarden game, OrthographicCamera camera, FitViewport viewport){
         this.game = game;
         this.camera = camera;
         this.viewport = viewport;
+
+        this.layout = new GlyphLayout();
+        this.font = new BitmapFont();
+        this.batch = new SpriteBatch();
 
         this.save = new GameSaveHandler();
         
@@ -55,6 +72,8 @@ public class StartMenu extends ScreenAdapter{
         this.newGame2DownDrawable = new TextureRegionDrawable(new Texture("assets/buttons/newGame2Button/newGame2Hovered.png"));
         this.newGame3Drawable = new TextureRegionDrawable(new Texture("assets/buttons/newGame3Button/newGame3NotHovered.png"));
         this.newGame3DownDrawable = new TextureRegionDrawable(new Texture("assets/buttons/newGame3Button/newGame3Hovered.png"));
+        this.backButtonDrawable = new TextureRegionDrawable(new Texture("assets/buttons/backSaveButton/backButton.png"));
+        this.backButtonHoverDrawable = new TextureRegionDrawable(new Texture("assets/buttons/backSaveButton/backButtonHover.png"));
 
         this.newGame1ButtonStyle = new ImageButtonStyle();
         this.newGame1ButtonStyle.up = newGame1Drawable;
@@ -65,15 +84,20 @@ public class StartMenu extends ScreenAdapter{
         this.newGame3ButtonStyle = new ImageButtonStyle();
         this.newGame3ButtonStyle.up = newGame3Drawable;
         this.newGame3ButtonStyle.over = newGame3DownDrawable;
+        this.backButtonStyle = new ImageButtonStyle();
+        this.backButtonStyle.up = backButtonDrawable;
+        this.backButtonStyle.over = backButtonHoverDrawable;
         
         this.newGame1Button = new ImageButton(newGame1ButtonStyle);
         this.newGame2Button = new ImageButton(newGame2ButtonStyle);
         this.newGame3Button = new ImageButton(newGame3ButtonStyle);
+        this.backButton = new ImageButton(backButtonStyle);
 
         this.stage = new Stage();
         this.stage.addActor(newGame1Button);
         this.stage.addActor(newGame2Button);
         this.stage.addActor(newGame3Button);
+        this.stage.addActor(backButton);
 
         newGame1Button.center();
         newGame1Button.addListener(new ClickListener(){
@@ -96,16 +120,32 @@ public class StartMenu extends ScreenAdapter{
                 handleSaveClick(2);
             }
         });
+        backButton.center();
+        backButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                handleBackClick();
+            }
+        });
 
         newGame1Button.setPosition(Gdx.graphics.getWidth() / 2 - 246, 900);
         newGame2Button.setPosition(Gdx.graphics.getWidth() / 2 - 246, 600);
         newGame3Button.setPosition(Gdx.graphics.getWidth() / 2 - 246, 300);
+        backButton.setPosition(Gdx.graphics.getWidth() / 2 - 170, 100);
 
         Gdx.input.setInputProcessor(stage);
     }
 
     public Stage getStage(){
         return stage;
+    }
+
+    private void handleBackClick(){
+        MainMenu mainMenu = new MainMenu(camera, viewport, game);
+        game.setScreen(mainMenu);
+        Gdx.input.setInputProcessor(mainMenu.getStage());
+        stage.dispose();
+        this.dispose();
     }
 
     private void handleSaveClick(int saveNum){
@@ -120,11 +160,23 @@ public class StartMenu extends ScreenAdapter{
         gameScreen.setSaveNum(saveNum);
         if(level < 2){
             game.setScreen(new CutsceneOne(camera, viewport, game, gameScreen));
+            batch.dispose();
+            this.dispose();
         }else if(level < 5){
             game.setScreen(new CutsceneTwo(camera, viewport, game, gameScreen));
+            batch.dispose();
+            this.dispose();
         }else if(level < 8){
             game.setScreen(new CutsceneThree(camera, viewport, game, gameScreen));
+            batch.dispose();
+            this.dispose();
         }
+    }
+    
+    private void drawSaveText(int saveNum, float x, float y){
+        font.getData().setScale(2f);
+        layout.setText(font, "Level: " + save.getLevelFromSave(saveNum) + 1, Color.WHITE, 500, Align.center, true);
+        font.draw(batch, layout, x, y);
     }
 
     @Override
@@ -132,6 +184,12 @@ public class StartMenu extends ScreenAdapter{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
+        batch.begin();
+        drawSaveText(0, Gdx.graphics.getWidth()/2, 880);
+        drawSaveText(1, Gdx.graphics.getWidth()/2, 580);
+        drawSaveText(2, Gdx.graphics.getWidth()/2, 280);
+        batch.end();
+
         stage.act(delta);
         stage.draw();
     }
