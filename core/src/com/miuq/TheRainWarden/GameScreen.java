@@ -319,7 +319,7 @@ public class GameScreen extends ScreenAdapter{
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.Q)){
             gameSaveHandler.updateSaveFiles(saveNum, level, mangosCollected);
-            game.setScreen(new MainMenu(camera, viewport, game));
+            game.setScreen(new MainMenu(camera, viewport, game, true));
         }
     }
 

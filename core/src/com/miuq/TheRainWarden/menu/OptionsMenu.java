@@ -80,7 +80,7 @@ public class OptionsMenu extends ScreenAdapter{
     }
 
     private void handleBackClick(){
-        MainMenu mainMenu = new MainMenu(camera, viewport, game);
+        MainMenu mainMenu = new MainMenu(camera, viewport, game, false);
         game.setScreen(mainMenu);
         Gdx.input.setInputProcessor(mainMenu.getStage());
         stage.dispose();

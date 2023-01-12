@@ -172,7 +172,7 @@ public class StartMenu extends ScreenAdapter{
     }
 
     private void handleBackClick(){
-        MainMenu mainMenu = new MainMenu(camera, viewport, game);
+        MainMenu mainMenu = new MainMenu(camera, viewport, game, false);
         game.setScreen(mainMenu);
         Gdx.input.setInputProcessor(mainMenu.getStage());
         stage.dispose();
@@ -234,7 +234,6 @@ public class StartMenu extends ScreenAdapter{
         
         if(fadingOut){
             alpha -= (1f / 60f) / 1;
-            System.out.println(alpha);
         }
 
         batch.begin();

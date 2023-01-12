@@ -18,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.miuq.TheRainWarden.TheRainWarden;
-import com.miuq.helper.GameOptionsHandler;
 
 public class MainMenu extends ScreenAdapter{
     private TheRainWarden game;
@@ -46,7 +45,7 @@ public class MainMenu extends ScreenAdapter{
     private OptionsMenu optionsMenu;
     private StartMenu startMenu;
 
-    public MainMenu(OrthographicCamera camera, FitViewport viewport, TheRainWarden game){
+    public MainMenu(OrthographicCamera camera, FitViewport viewport, TheRainWarden game, boolean doFade){
         camera.setToOrtho(false, 0, 0);
 
         this.startDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/startButton/start.png")));
@@ -112,7 +111,10 @@ public class MainMenu extends ScreenAdapter{
             }
         });
 
-        //this.stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1)));
+        if(doFade){
+            this.stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1)));
+        }
+        
 
         Gdx.input.setInputProcessor(stage);
         Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
@@ -127,15 +129,10 @@ public class MainMenu extends ScreenAdapter{
     }
 
     private void handleOptionsClick(){
-        stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(2), Actions.run(new Runnable(){
-            @Override
-            public void run(){
-                game.setScreen(optionsMenu);
-                Gdx.input.setInputProcessor(optionsMenu.getStage());
-                stage.dispose();
-                menuScreen.dispose();
-            }
-        })));
+        game.setScreen(optionsMenu);
+        Gdx.input.setInputProcessor(optionsMenu.getStage());
+        stage.dispose();
+        menuScreen.dispose();
     }
 
     private void handleExitClick(){

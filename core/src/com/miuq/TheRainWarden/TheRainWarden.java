@@ -25,6 +25,6 @@ public class TheRainWarden extends Game{
 		this.camera = new OrthographicCamera();
 		this.camera.setToOrtho(false, widthScreen, heightScreen);
 		this.viewport = new FitViewport(widthScreen, heightScreen, camera);
-		setScreen(new MainMenu(camera, viewport, this));
+		setScreen(new MainMenu(camera, viewport, this, true));
 	}
 }
