@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -31,6 +32,8 @@ public class StartMenu extends ScreenAdapter{
     private GameSaveHandler save;
     private OrthographicCamera camera;
     private FitViewport viewport;
+    private float alpha;
+    private boolean fadingOut;
 
     private BitmapFont font;
     private GlyphLayout layout;
@@ -63,6 +66,7 @@ public class StartMenu extends ScreenAdapter{
         this.layout = new GlyphLayout();
         this.font = new BitmapFont();
         this.batch = new SpriteBatch();
+        this.alpha = 1f;
 
         this.save = new GameSaveHandler();
         
@@ -103,21 +107,45 @@ public class StartMenu extends ScreenAdapter{
         newGame1Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                handleSaveClick(0);
+                fadingOut = true;
+                stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1), Actions.run(new Runnable(){
+                    @Override
+                    public void run(){
+                        int level = save.getLevelFromSave(0);
+                        int mangos = save.getMangosFromSave(0);
+                        playCutscene(level, mangos, 0);
+                    }
+                })));
             }
         });
         newGame2Button.center();
         newGame2Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                handleSaveClick(1);
+                fadingOut = true;
+                stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1), Actions.run(new Runnable(){
+                    @Override
+                    public void run(){
+                        int level = save.getLevelFromSave(1);
+                        int mangos = save.getMangosFromSave(1);
+                        playCutscene(level, mangos, 1);
+                    }
+                })));
             }
         });
         newGame3Button.center();
         newGame3Button.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
-                handleSaveClick(2);
+                fadingOut = true;
+                stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(1), Actions.run(new Runnable(){
+                    @Override
+                    public void run(){
+                        int level = save.getLevelFromSave(2);
+                        int mangos = save.getMangosFromSave(2);
+                        playCutscene(level, mangos, 2);
+                    }
+                })));
             }
         });
         backButton.center();
@@ -148,13 +176,6 @@ public class StartMenu extends ScreenAdapter{
         this.dispose();
     }
 
-    private void handleSaveClick(int saveNum){
-        int level = save.getLevelFromSave(saveNum);
-        int mangos = save.getMangosFromSave(saveNum);
-
-        playCutscene(level, mangos, saveNum);
-    }
-
     private void playCutscene(int level, int mangos, int saveNum){
         GameScreen gameScreen = new GameScreen(camera, viewport, game, level, mangos);
         gameScreen.setSaveNum(saveNum);
@@ -175,8 +196,14 @@ public class StartMenu extends ScreenAdapter{
     
     private void drawSaveText(int saveNum, float x, float y){
         font.getData().setScale(2f);
-        layout.setText(font, "Level: " + save.getLevelFromSave(saveNum) + 1, Color.WHITE, 500, Align.center, true);
-        font.draw(batch, layout, x, y);
+        float level = save.getLevelFromSave(saveNum);
+        font.setColor(1,1,1, alpha);
+        font.draw(batch, "Level: " + ((int)level + 1) + "/17", x, y);
+        font.draw(batch, "Mangos Collected: " + save.getMangosFromSave(saveNum) + "/2", x, y-75);
+
+        float completion = level / 17;
+        completion = completion * 100;
+        font.draw(batch, "Completion: " + (int)completion + "%", x-300, y-35);
     }
 
     @Override
@@ -184,6 +211,11 @@ public class StartMenu extends ScreenAdapter{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         
+        if(fadingOut){
+            alpha -= (1f / 60f) / 1;
+            System.out.println(alpha);
+        }
+
         batch.begin();
         drawSaveText(0, Gdx.graphics.getWidth()/2, 880);
         drawSaveText(1, Gdx.graphics.getWidth()/2, 580);

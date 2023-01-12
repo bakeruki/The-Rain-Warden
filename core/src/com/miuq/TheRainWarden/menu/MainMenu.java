@@ -119,15 +119,10 @@ public class MainMenu extends ScreenAdapter{
     }
 
     private void handleStartClick(){
-        stage.addAction(Actions.sequence(Actions.alpha(1), Actions.fadeOut(2), Actions.run(new Runnable(){
-            @Override
-            public void run(){
-                game.setScreen(startMenu);
-                Gdx.input.setInputProcessor(startMenu.getStage());
-                stage.dispose();
-                menuScreen.dispose();
-            }
-        })));
+        game.setScreen(startMenu);
+        Gdx.input.setInputProcessor(startMenu.getStage());
+        stage.dispose();
+        menuScreen.dispose();
     }
 
     private void handleOptionsClick(){

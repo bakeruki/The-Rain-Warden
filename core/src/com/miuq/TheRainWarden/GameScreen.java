@@ -242,7 +242,6 @@ public class GameScreen extends ScreenAdapter{
         this.animationRenderer = new AnimationRenderer(player, batch);
 
         world.setContactListener(new WorldContactListener());
-        Gdx.graphics.setSystemCursor(SystemCursor.None);
 
         updateAllObjectClasses(player, world);
     }
@@ -274,6 +273,7 @@ public class GameScreen extends ScreenAdapter{
      */
     private void updateRunning(){
         world.step(1/60f, 6, 2);
+        Gdx.graphics.setSystemCursor(SystemCursor.None);
         cameraUpdate();
 
         orthoganalTiledMapRenderer.setView(camera);
@@ -648,6 +648,13 @@ public class GameScreen extends ScreenAdapter{
      */
     private void drawRunning(float delta){
         animationRenderer.drawAnimations(delta);
+        levelSpecificDraw();
+    }
+
+    private void levelSpecificDraw(){
+        if(level == 0){
+            batch.draw(new Texture("assets/tutorial/WASD.png"), 250, 500);
+        }
     }
 
     @Override
