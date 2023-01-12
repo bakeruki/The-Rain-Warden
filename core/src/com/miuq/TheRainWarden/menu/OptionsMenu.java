@@ -2,6 +2,7 @@ package com.miuq.TheRainWarden.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -13,11 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.miuq.TheRainWarden.TheRainWarden;
+import com.miuq.helper.GameOptionsHandler;
 
 public class OptionsMenu extends ScreenAdapter{
     private TheRainWarden game;
     private FitViewport viewport;
     private OrthographicCamera camera;
+    private GameOptionsHandler options;
 
     private Drawable backButtonDrawable;
     private Drawable backButtonHoverDrawable;
@@ -35,6 +38,7 @@ public class OptionsMenu extends ScreenAdapter{
         this.game = game;
         this.viewport = viewport;
         this.camera = camera;
+        this.options = new GameOptionsHandler();
         
         this.backButtonDrawable = new TextureRegionDrawable(new Texture("assets/buttons/backSaveButton/backButton.png"));
         this.backButtonHoverDrawable = new TextureRegionDrawable(new Texture("assets/buttons/backSaveButton/backButtonHover.png"));
@@ -84,7 +88,15 @@ public class OptionsMenu extends ScreenAdapter{
     }
 
     private void handleSpeedrunClick(){
-        //disable cutscenes and dialogue
+        options.updateOptions(0);
+    }
+
+    private void updateButtons(){
+        if(options.cutscenesDisabled()){
+            speedrunButtonStyle.up = speedrunButtonCheckedDrawable;
+        }else{
+            speedrunButtonStyle.up = speedrunButtonUncheckedDrawable;
+        }
     }
 
     private void handleDeathClick(){
@@ -101,6 +113,10 @@ public class OptionsMenu extends ScreenAdapter{
 
     @Override
     public void render(float delta){
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        updateButtons();
         stage.act(delta);
         stage.draw();
     }
