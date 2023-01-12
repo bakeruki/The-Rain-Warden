@@ -19,6 +19,7 @@ import com.miuq.TheRainWarden.menu.MainMenu;
 import com.miuq.animation.AnimationRenderer;
 import com.miuq.helper.Constants;
 import com.miuq.helper.GameCutsceneLoader;
+import com.miuq.helper.GameOptionsHandler;
 import com.miuq.helper.GameSaveHandler;
 import com.miuq.helper.TileMapHelper;
 import com.miuq.helper.WorldContactListener;
@@ -120,6 +121,11 @@ public class GameScreen extends ScreenAdapter{
      * Helper class used to parse tile map from tile map file.
      */
     private TileMapHelper tileMapHelper;
+
+    /**
+     * Helper class that holds the games options settings.
+     */
+    private GameOptionsHandler options;
 
     //Game Objects
     /**
@@ -233,8 +239,14 @@ public class GameScreen extends ScreenAdapter{
 
         this.gameSaveHandler = new GameSaveHandler();
 
+        this.options = new GameOptionsHandler();
+
         this.cutscene = new GameCutsceneLoader(camera, viewport2, game);
         this.cutscene.recentlyLoadedSave();
+
+        if(options.cutscenesDisabled()){
+            cutscene.disableCutscene();
+        }
 
         this.tileMapHelper = new TileMapHelper(this);
         initializeMap(level);

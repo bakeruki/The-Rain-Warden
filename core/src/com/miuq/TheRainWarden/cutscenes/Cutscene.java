@@ -50,6 +50,8 @@ public abstract class Cutscene extends ScreenAdapter {
 
     private float alpha;
 
+    private boolean cutscenesDisabled;
+
     /**
      * Access by child classes to add Images for the cutscene.
      */
@@ -152,6 +154,10 @@ public abstract class Cutscene extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if(cutscenesDisabled){
+            game.setScreen(gameScreen); 
+        }
+        
         if(alpha < 1){
             alpha += (1f / 60f) / 1;
         }
@@ -197,5 +203,13 @@ public abstract class Cutscene extends ScreenAdapter {
      */
     public Stage getStage(){
         return stage;
+    }
+
+    public void disableCutscene(){
+        cutscenesDisabled = true;
+    }
+
+    public void enableCutscene(){
+        cutscenesDisabled = false;
     }
 }

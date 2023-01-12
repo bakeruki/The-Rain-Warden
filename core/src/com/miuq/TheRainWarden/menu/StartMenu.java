@@ -24,6 +24,7 @@ import com.miuq.TheRainWarden.TheRainWarden;
 import com.miuq.TheRainWarden.cutscenes.CutsceneOne;
 import com.miuq.TheRainWarden.cutscenes.CutsceneThree;
 import com.miuq.TheRainWarden.cutscenes.CutsceneTwo;
+import com.miuq.helper.GameOptionsHandler;
 import com.miuq.helper.GameSaveHandler;
 
 public class StartMenu extends ScreenAdapter{
@@ -34,6 +35,7 @@ public class StartMenu extends ScreenAdapter{
     private FitViewport viewport;
     private float alpha;
     private boolean fadingOut;
+    private GameOptionsHandler options;
 
     private BitmapFont font;
     private GlyphLayout layout;
@@ -69,6 +71,7 @@ public class StartMenu extends ScreenAdapter{
         this.alpha = 1f;
 
         this.save = new GameSaveHandler();
+        this.options = new GameOptionsHandler();
         
         this.newGame1Drawable = new TextureRegionDrawable(new Texture("assets/buttons/newGame1Button/newGame1NotHovered.png"));
         this.newGame1DownDrawable = new TextureRegionDrawable(new Texture("assets/buttons/newGame1Button/newGame1Hovered.png"));
@@ -180,17 +183,35 @@ public class StartMenu extends ScreenAdapter{
         GameScreen gameScreen = new GameScreen(camera, viewport, game, level, mangos);
         gameScreen.setSaveNum(saveNum);
         if(level < 2){
-            game.setScreen(new CutsceneOne(camera, viewport, game, gameScreen));
-            batch.dispose();
-            this.dispose();
+            if(options.cutscenesDisabled()){
+                game.setScreen(gameScreen);
+                batch.dispose();
+                this.dispose();
+            }else{
+                game.setScreen(new CutsceneOne(camera, viewport, game, gameScreen));
+                batch.dispose();
+                this.dispose();
+            }
         }else if(level < 5){
-            game.setScreen(new CutsceneTwo(camera, viewport, game, gameScreen));
-            batch.dispose();
-            this.dispose();
+            if(options.cutscenesDisabled()){
+                game.setScreen(gameScreen);
+                batch.dispose();
+                this.dispose();
+            }else{
+                game.setScreen(new CutsceneTwo(camera, viewport, game, gameScreen));
+                batch.dispose();
+                this.dispose();
+            }
         }else if(level < 8){
-            game.setScreen(new CutsceneThree(camera, viewport, game, gameScreen));
-            batch.dispose();
-            this.dispose();
+            if(options.cutscenesDisabled()){
+                game.setScreen(gameScreen);
+                batch.dispose();
+                this.dispose();
+            }else{
+                game.setScreen(new CutsceneThree(camera, viewport, game, gameScreen));
+                batch.dispose();
+                this.dispose();
+            }
         }
     }
     

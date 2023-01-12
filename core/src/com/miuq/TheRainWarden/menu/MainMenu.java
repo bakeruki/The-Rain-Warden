@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.miuq.TheRainWarden.TheRainWarden;
+import com.miuq.helper.GameOptionsHandler;
 
 public class MainMenu extends ScreenAdapter{
     private TheRainWarden game;
@@ -78,7 +79,7 @@ public class MainMenu extends ScreenAdapter{
         // this.gameScreen = new GameScreen(camera, viewport, game); leave this here in case we get annoyed with watching the cutscene every time
         this.menuScreen = this;
         this.startMenu = new StartMenu(game, camera, viewport);
-        this.optionsMenu = new OptionsMenu(game);
+        this.optionsMenu = new OptionsMenu(game, camera, viewport);
 
         this.stage = new Stage(viewport);
 
