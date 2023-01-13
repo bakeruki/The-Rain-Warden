@@ -34,7 +34,7 @@ public class GameSaveHandler {
         System.out.println("loading game files");
         for(FileHandle save : savePaths){
             if(!save.exists()){
-                save.writeString("0@0", false);
+                save.writeString("0@0@0", false);
             }
         }
     }
@@ -46,10 +46,11 @@ public class GameSaveHandler {
      * @param mangos The number of mangos that the player has collected.
      * @author Luqman Patel
      */
-    public void updateSaveFiles(int saveNum, int level, int mangos){
+    public void updateSaveFiles(int saveNum, int level, int mangos, int deaths){
         String levelString = Integer.toString(level);
         String mangosString = Integer.toString(mangos);
-        String data = levelString + "@" + mangosString;
+        String deathsString = Integer.toString(deaths);
+        String data = levelString + "@" + mangosString + "@" + deathsString;
         this.savePaths.get(saveNum).writeString(data, false);
     }
 
@@ -75,5 +76,11 @@ public class GameSaveHandler {
         String[] data = savePaths.get(saveNum).readString().split("@");
         int mangos = Integer.parseInt(data[1]);
         return mangos;
+    }
+
+    public int getDeathsFromSave(int saveNum){
+        String[] data = savePaths.get(saveNum).readString().split("@");
+        int deaths = Integer.parseInt(data[2]);
+        return deaths;
     }
 }

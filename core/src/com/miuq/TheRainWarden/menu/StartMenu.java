@@ -2,12 +2,10 @@ package com.miuq.TheRainWarden.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.miuq.TheRainWarden.GameScreen;
 import com.miuq.TheRainWarden.TheRainWarden;
@@ -39,7 +36,6 @@ public class StartMenu extends ScreenAdapter{
     private GameOptionsHandler options;
 
     private BitmapFont font;
-    private GlyphLayout layout;
     private SpriteBatch batch;
 
     private ImageButton newGame1Button;
@@ -66,7 +62,6 @@ public class StartMenu extends ScreenAdapter{
         this.camera = camera;
         this.viewport = viewport;
 
-        this.layout = new GlyphLayout();
         this.font = new BitmapFont();
         this.batch = new SpriteBatch();
         this.alpha = 1f;

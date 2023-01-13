@@ -26,11 +26,15 @@ public class OptionsMenu extends ScreenAdapter{
     private Drawable backButtonHoverDrawable;
     private Drawable speedrunButtonCheckedDrawable;
     private Drawable speedrunButtonUncheckedDrawable;
+    private Drawable retryButtonCheckedDrawable;
+    private Drawable retryButtonUncheckedDrawable;
 
     private ImageButtonStyle backButtonStyle;
     private ImageButtonStyle speedrunButtonStyle;
+    private ImageButtonStyle retryButtonStyle;
     private ImageButton backButton;
     private ImageButton speedrunButton;
+    private ImageButton retryButton;
 
     private Stage stage;
 
@@ -44,6 +48,8 @@ public class OptionsMenu extends ScreenAdapter{
         this.backButtonHoverDrawable = new TextureRegionDrawable(new Texture("assets/buttons/backSaveButton/backButtonHover.png"));
         this.speedrunButtonCheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/speedrun/speedrunModeOn.png"));
         this.speedrunButtonUncheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/speedrun/speedrunModeOff.png"));
+        this.retryButtonCheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/retry/RetryCounterOn.png"));
+        this.retryButtonUncheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/retry/retryCounterOff.png"));
 
         this.backButtonStyle = new ImageButtonStyle();
         this.backButtonStyle.up = backButtonDrawable;
@@ -51,13 +57,17 @@ public class OptionsMenu extends ScreenAdapter{
 
         this.speedrunButtonStyle = new ImageButtonStyle();
         this.speedrunButtonStyle.up = speedrunButtonUncheckedDrawable;
+        this.retryButtonStyle = new ImageButtonStyle();
+        this.retryButtonStyle.up = retryButtonUncheckedDrawable;
 
         this.backButton = new ImageButton(backButtonStyle);
         this.speedrunButton = new ImageButton(speedrunButtonStyle);
+        this.retryButton = new ImageButton(retryButtonStyle);
 
         this.stage = new Stage();
         this.stage.addActor(backButton);
         this.stage.addActor(speedrunButton);
+        this.stage.addActor(retryButton);
 
         this.backButton.center();
         this.backButton.addListener(new ClickListener(){
@@ -75,7 +85,16 @@ public class OptionsMenu extends ScreenAdapter{
             }
         });
 
-        this.speedrunButton.setPosition(Gdx.graphics.getWidth() / 2 - 250, 300);
+        this.retryButton.center();
+        this.retryButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent e, float x, float y){
+                handleRetryClick();
+            }
+        });
+
+        this.speedrunButton.setPosition(Gdx.graphics.getWidth() / 2 - 250, 900);
+        this.retryButton.setPosition(Gdx.graphics.getWidth() / 2 - 250, 600);
         this.backButton.setPosition(Gdx.graphics.getWidth() / 2 - 170, 100);
     }
 
@@ -91,20 +110,26 @@ public class OptionsMenu extends ScreenAdapter{
         options.updateOptions(0);
     }
 
+    private void handleRetryClick(){
+        options.updateOptions(1);
+    }
+
+    private void handleGodModeClick(){
+        //player starts with all abilities unlocked
+    }
+
     private void updateButtons(){
         if(options.cutscenesDisabled()){
             speedrunButtonStyle.up = speedrunButtonCheckedDrawable;
         }else{
             speedrunButtonStyle.up = speedrunButtonUncheckedDrawable;
         }
-    }
 
-    private void handleDeathClick(){
-        //show the death counter in the top right of the gamescreen
-    }
-
-    private void handleGodModeClick(){
-        //player starts with all abilities unlocked
+        if(options.showDeathCounter()){
+            retryButtonStyle.up = retryButtonCheckedDrawable;
+        }else{
+            retryButtonStyle.up = retryButtonUncheckedDrawable;
+        }
     }
 
     public Stage getStage(){

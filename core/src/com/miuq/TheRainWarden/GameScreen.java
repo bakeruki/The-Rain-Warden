@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Cursor.SystemCursor;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -178,6 +179,8 @@ public class GameScreen extends ScreenAdapter{
      * Helper class used to save the game data to a text file.
      */
     private GameSaveHandler gameSaveHandler;
+
+    private BitmapFont font;
     
     public GameScreen(OrthographicCamera camera, FitViewport viewport2, TheRainWarden game, int level, int mangosCollected){
         this.camera = camera;
@@ -232,6 +235,7 @@ public class GameScreen extends ScreenAdapter{
         this.world = new World(new Vector2(0, -35), false);
         this.game = game;
         this.gameState = GAME_RUNNING;
+        this.font = new BitmapFont();
         
         this.box2dDebugRenderer = new Box2DDebugRenderer();
 
@@ -269,6 +273,7 @@ public class GameScreen extends ScreenAdapter{
 
     public void setSaveNum(int saveNum){
         this.saveNum = saveNum;
+        this.player.setDeathCounter(gameSaveHandler.getDeathsFromSave(saveNum));
     }
 
     /**
@@ -327,7 +332,8 @@ public class GameScreen extends ScreenAdapter{
             gameState = GAME_RUNNING;
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.Q)){
-            gameSaveHandler.updateSaveFiles(saveNum, level, mangosCollected);
+            System.out.println("player deaths when saving: " + player.getDeathCounter());
+            gameSaveHandler.updateSaveFiles(saveNum, level, mangosCollected, player.getDeathCounter());
             game.setScreen(new MainMenu(camera, viewport, game, true));
         }
     }
@@ -437,7 +443,12 @@ public class GameScreen extends ScreenAdapter{
         world = new World(new Vector2(0, -35), false);
 
         orthoganalTiledMapRenderer.dispose();
+
+        int deaths = player.getDeathCounter();
+
         orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPath);
+
+        player.setDeathCounter(deaths);
     
         world.setContactListener(new WorldContactListener());
         updateAllObjectClasses(player, world);
@@ -679,6 +690,15 @@ public class GameScreen extends ScreenAdapter{
     private void drawRunning(float delta){
         animationRenderer.drawAnimations(delta);
         levelSpecificDraw();
+
+        if(options.showDeathCounter()){
+            Vector3 position = cameraPositions.get(level);
+            float x = position.x;
+            float y = position.y;
+            font.getData().setScale(2f);
+            font.setColor(255, 255, 255, 1f);
+            font.draw(batch, "Retries: " + player.getDeathCounter(), x + 820, y + 515);
+        }
     }
 
     private void levelSpecificDraw(){

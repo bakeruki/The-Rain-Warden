@@ -153,6 +153,10 @@ public class Player extends GameEntity {
         dashCounter = 0;
     }
 
+    public void setDeathCounter(int deaths){
+        deathCounter = deaths;
+    }
+
     public void setVelocityX(int vX){
         body.setLinearVelocity(vX, body.getLinearVelocity().y);
     }
