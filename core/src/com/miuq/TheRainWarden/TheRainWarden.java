@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.miuq.TheRainWarden.menu.MainMenu;
 
 public class TheRainWarden extends Game{
 	public static TheRainWarden INSTANCE;
@@ -24,6 +25,6 @@ public class TheRainWarden extends Game{
 		this.camera = new OrthographicCamera();
 		this.camera.setToOrtho(false, widthScreen, heightScreen);
 		this.viewport = new FitViewport(widthScreen, heightScreen, camera);
-		setScreen(new MenuScreen(camera, viewport, this));
+		setScreen(new MainMenu(camera, viewport, this, true));
 	}
 }

@@ -8,12 +8,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Cursor.SystemCursor;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -45,6 +47,10 @@ public abstract class Cutscene extends ScreenAdapter {
      * Holds the active gameScreen.
      */
     private GameScreen gameScreen;
+
+    private float alpha;
+
+    private boolean cutscenesDisabled;
 
     /**
      * Access by child classes to add Images for the cutscene.
@@ -118,6 +124,8 @@ public abstract class Cutscene extends ScreenAdapter {
         });
 
         this.stage.addActor(continueButton); 
+        this.stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1)));
+        Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -146,6 +154,14 @@ public abstract class Cutscene extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if(cutscenesDisabled){
+            game.setScreen(gameScreen); 
+        }
+        
+        if(alpha < 1){
+            alpha += (1f / 60f) / 1;
+        }
+
         batch.begin();
         font.getData().setScale(2f);
         updateCutscene(delta);
@@ -170,8 +186,10 @@ public abstract class Cutscene extends ScreenAdapter {
      * @author Luqman Patel
      */
     private void updateCutscene(float delta){
+        batch.setColor(1.0f, 1.0f, 1.0f, alpha);
         if(frame < cutsceneImages.size()){
             batch.draw(cutsceneImages.get(frame), Gdx.graphics.getWidth() / 2 - 640, 250);
+            font.setColor(1, 1, 1, alpha);
             layout.setText(font,cutsceneTexts.get(frame).getText(), Color.WHITE, 500, Align.center, true);
             font.draw(batch, layout, Gdx.graphics.getWidth()/2-250, 300);
             cutsceneTexts.get(frame).update(delta);
@@ -185,5 +203,13 @@ public abstract class Cutscene extends ScreenAdapter {
      */
     public Stage getStage(){
         return stage;
+    }
+
+    public void disableCutscene(){
+        cutscenesDisabled = true;
+    }
+
+    public void enableCutscene(){
+        cutscenesDisabled = false;
     }
 }

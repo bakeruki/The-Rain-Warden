@@ -9,9 +9,11 @@ import com.miuq.TheRainWarden.cutscenes.CutsceneTwo;
 
 public class GameCutsceneLoader {
     private boolean cutscenePlayed;
+    private boolean recentlyLoadedSave;
     private OrthographicCamera camera;
     private FitViewport viewport;
     private TheRainWarden game;
+    private boolean cutsceneDisabled;
 
     public GameCutsceneLoader(OrthographicCamera camera, FitViewport viewport, TheRainWarden game){
         this.camera = camera;
@@ -25,9 +27,17 @@ public class GameCutsceneLoader {
      * @param level The players current level.
      * @param gameScreen The current Game Screen.
      */
-    public void update(int level, GameScreen gameScreen){
+    public void update(int level, GameScreen gameScreen){        
         updateCutscenePlayedBoolean(level);
         checkCutscene(level, gameScreen);
+    }
+
+    public void recentlyLoadedSave(){
+        recentlyLoadedSave = true;
+    }
+    
+    public void disableCutscene(){
+        cutsceneDisabled = true;
     }
 
     /**
@@ -38,11 +48,22 @@ public class GameCutsceneLoader {
      */
     private void updateCutscenePlayedBoolean(int level){
         switch(level){
+            case 1:
+                recentlyLoadedSave = false;
+                break;
             case 3:
                 cutscenePlayed = false;
+                recentlyLoadedSave = false;
+                break;
+            case 4:
+                recentlyLoadedSave = false;
                 break;
             case 6:
                 cutscenePlayed = false;
+                recentlyLoadedSave = false;
+                break;
+            case 7:
+                recentlyLoadedSave = false;
                 break;
         }
     }
@@ -71,14 +92,22 @@ public class GameCutsceneLoader {
      * @author Luqman Patel
      */
     private void loadCutscene(int cutsceneNum, GameScreen gameScreen){
-        if(!cutscenePlayed){
+        if(!cutscenePlayed && !recentlyLoadedSave){
             cutscenePlayed = true;
             switch(cutsceneNum){
                 case 2:
-                    game.setScreen(new CutsceneTwo(camera, viewport, game, gameScreen));
+                    CutsceneTwo cutscene = new CutsceneTwo(camera, viewport, game, gameScreen);
+                    game.setScreen(cutscene);
+                    if(cutsceneDisabled){
+                        cutscene.disableCutscene();
+                    }
                     break;
                 case 3:
-                    game.setScreen(new CutsceneThree(camera, viewport, game, gameScreen));
+                    CutsceneThree cutscene2 = new CutsceneThree(camera, viewport, game, gameScreen);
+                    game.setScreen(cutscene2);
+                    if(cutsceneDisabled){
+                        cutscene2.disableCutscene();
+                    }
                     break;
             }
         }
