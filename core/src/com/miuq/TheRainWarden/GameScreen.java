@@ -181,6 +181,8 @@ public class GameScreen extends ScreenAdapter{
     private GameSaveHandler gameSaveHandler;
 
     private BitmapFont font;
+
+    private boolean godMode;
     
     public GameScreen(OrthographicCamera camera, FitViewport viewport2, TheRainWarden game, int level, int mangosCollected){
         this.camera = camera;
@@ -259,6 +261,12 @@ public class GameScreen extends ScreenAdapter{
 
         if(options.cutscenesDisabled()){
             cutscene.disableCutscene();
+        }
+
+        if(options.godEnabled()){
+            godMode = true;
+        }else{
+            godMode = false;
         }
 
         this.tileMapHelper = new TileMapHelper(this);
@@ -369,6 +377,11 @@ public class GameScreen extends ScreenAdapter{
      * @author Luqman Patel
      */
     private void levelSpecificTasks(int level){
+        if(godMode){
+            player.unlockDash();
+            return;
+        }
+        
         if(level >= 4){
             player.unlockDash();
         }

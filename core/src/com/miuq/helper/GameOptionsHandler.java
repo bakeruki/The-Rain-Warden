@@ -53,7 +53,7 @@ public class GameOptionsHandler {
                 break;
             case 2:
                 if(option3 == 0){
-                    option3 = 0;
+                    option3 = 1;
                 }else{
                     option3 = 0;
                 }

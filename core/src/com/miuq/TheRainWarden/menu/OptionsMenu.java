@@ -5,6 +5,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -21,6 +22,7 @@ public class OptionsMenu extends ScreenAdapter{
     private FitViewport viewport;
     private OrthographicCamera camera;
     private GameOptionsHandler options;
+    private SpriteBatch batch;
 
     private Drawable backButtonDrawable;
     private Drawable backButtonHoverDrawable;
@@ -28,13 +30,21 @@ public class OptionsMenu extends ScreenAdapter{
     private Drawable speedrunButtonUncheckedDrawable;
     private Drawable retryButtonCheckedDrawable;
     private Drawable retryButtonUncheckedDrawable;
+    private Drawable godButtonCheckedDrawable;
+    private Drawable godButtonUncheckedDrawable;
 
     private ImageButtonStyle backButtonStyle;
     private ImageButtonStyle speedrunButtonStyle;
     private ImageButtonStyle retryButtonStyle;
+    private ImageButtonStyle godButtonStyle;
     private ImageButton backButton;
     private ImageButton speedrunButton;
     private ImageButton retryButton;
+    private ImageButton godButton;
+
+    private Texture speedrunDescription;
+    private Texture retryDescription;
+    private Texture godDescription;
 
     private Stage stage;
 
@@ -43,6 +53,7 @@ public class OptionsMenu extends ScreenAdapter{
         this.viewport = viewport;
         this.camera = camera;
         this.options = new GameOptionsHandler();
+        this.batch = new SpriteBatch();
         
         this.backButtonDrawable = new TextureRegionDrawable(new Texture("assets/buttons/backSaveButton/backButton.png"));
         this.backButtonHoverDrawable = new TextureRegionDrawable(new Texture("assets/buttons/backSaveButton/backButtonHover.png"));
@@ -50,6 +61,8 @@ public class OptionsMenu extends ScreenAdapter{
         this.speedrunButtonUncheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/speedrun/speedrunModeOff.png"));
         this.retryButtonCheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/retry/RetryCounterOn.png"));
         this.retryButtonUncheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/retry/retryCounterOff.png"));
+        this.godButtonCheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/godmode/godModeOn.png"));
+        this.godButtonUncheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/godmode/godModeOff.png"));
 
         this.backButtonStyle = new ImageButtonStyle();
         this.backButtonStyle.up = backButtonDrawable;
@@ -59,15 +72,23 @@ public class OptionsMenu extends ScreenAdapter{
         this.speedrunButtonStyle.up = speedrunButtonUncheckedDrawable;
         this.retryButtonStyle = new ImageButtonStyle();
         this.retryButtonStyle.up = retryButtonUncheckedDrawable;
+        this.godButtonStyle = new ImageButtonStyle();
+        this.godButtonStyle.up = godButtonCheckedDrawable;
 
         this.backButton = new ImageButton(backButtonStyle);
         this.speedrunButton = new ImageButton(speedrunButtonStyle);
         this.retryButton = new ImageButton(retryButtonStyle);
+        this.godButton = new ImageButton(godButtonStyle);
+
+        this.speedrunDescription = new Texture("assets/buttons/speedrun/speedrunDescription.png");
+        this.retryDescription = new Texture("assets/buttons/retry/retryCounterDescription.png");
+        this.godDescription = new Texture("assets/buttons/godmode/godModeDescription.png");
 
         this.stage = new Stage();
         this.stage.addActor(backButton);
         this.stage.addActor(speedrunButton);
         this.stage.addActor(retryButton);
+        this.stage.addActor(godButton);
 
         this.backButton.center();
         this.backButton.addListener(new ClickListener(){
@@ -92,10 +113,20 @@ public class OptionsMenu extends ScreenAdapter{
                 handleRetryClick();
             }
         });
+        
+        this.godButton.center();
+        this.godButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent e, float x, float y){
+                handleGodModeClick();
+            }
+        });
 
         this.speedrunButton.setPosition(Gdx.graphics.getWidth() / 2 - 250, 900);
         this.retryButton.setPosition(Gdx.graphics.getWidth() / 2 - 250, 600);
+        this.godButton.setPosition(Gdx.graphics.getWidth() / 2 - 250, 300);
         this.backButton.setPosition(Gdx.graphics.getWidth() / 2 - 170, 100);
+        
     }
 
     private void handleBackClick(){
@@ -103,6 +134,7 @@ public class OptionsMenu extends ScreenAdapter{
         game.setScreen(mainMenu);
         Gdx.input.setInputProcessor(mainMenu.getStage());
         stage.dispose();
+        batch.dispose();
         this.dispose();
     }
 
@@ -115,7 +147,7 @@ public class OptionsMenu extends ScreenAdapter{
     }
 
     private void handleGodModeClick(){
-        //player starts with all abilities unlocked
+        options.updateOptions(2);
     }
 
     private void updateButtons(){
@@ -130,6 +162,18 @@ public class OptionsMenu extends ScreenAdapter{
         }else{
             retryButtonStyle.up = retryButtonUncheckedDrawable;
         }
+
+        if(options.godEnabled()){
+            godButtonStyle.up = godButtonCheckedDrawable;
+        }else{
+            godButtonStyle.up = godButtonUncheckedDrawable;
+        }
+    }
+
+    private void drawDescriptions(){
+        batch.draw(speedrunDescription, Gdx.graphics.getWidth() / 2 - 600, 850);
+        batch.draw(retryDescription, Gdx.graphics.getWidth() / 2 - 600, 550);
+        batch.draw(godDescription, Gdx.graphics.getWidth() / 2 - 600, 250);
     }
 
     public Stage getStage(){
@@ -140,6 +184,10 @@ public class OptionsMenu extends ScreenAdapter{
     public void render(float delta){
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        batch.begin();
+        drawDescriptions();
+        batch.end();
 
         updateButtons();
         stage.act(delta);
