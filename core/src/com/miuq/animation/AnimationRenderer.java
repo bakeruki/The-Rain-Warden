@@ -57,25 +57,25 @@ public class AnimationRenderer{
         this.mangos = new Array<Mango>();
 
         //player animations taken from assets/animmations/player
-        this.idle = new Animation(new TextureRegion(new Texture("assets/animations/player/idle.png")), 4, 4f); //idle animation
-        this.idleLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/idleLeft.png")), 4, 4f); //idle facing left animation
-        this.walk = new Animation(new TextureRegion(new Texture("assets/animations/player/walk.png")), 4, 0.5f); //walking animation
-        this.walkLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/walkLeft.png")), 4, 0.5f); //walking facing left animation
-        this.dash = new Animation(new TextureRegion(new Texture("assets/animations/player/dash.png")), 14, 0.58f); //dash animation
-        this.dashLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/dashleft.png")), 14, 0.58f); //dash facing left animation
-        this.jump = new Animation(new TextureRegion(new Texture("assets/animations/player/jump.png")), 8, 0.47f); //jump animation
-        this.jumpLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/jumpLeft.png")), 8, 0.47f); //jump facing left animation
-        this.doubleJump = new Animation(new TextureRegion(new Texture("assets/animations/player/doubleJump.png")), 6, 0.75f); //double jump animation
-        this.doubleJumpLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/doubleJumpLeft.png")), 6, 0.75f); //double jump facing left animation
-        this.fall = new Animation(new TextureRegion(new Texture("assets/animations/player/fall.png")), 3, 0.42f); //falling animation
-        this.fallLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/fallLeft.png")), 3, 0.42f); //falling facing left animation
-        this.death = new Animation(new TextureRegion(new Texture("assets/animations/player/death.png")), 12, 0.71f); //death animation
-        this.deathLeft = new Animation(new TextureRegion(new Texture("assets/animations/player/deathLeft.png")), 12, 0.71f); //death facing left animation
+        this.idle = new Animation(new TextureRegion(new Texture("animations/player/idle.png")), 4, 4f); //idle animation
+        this.idleLeft = new Animation(new TextureRegion(new Texture("animations/player/idleLeft.png")), 4, 4f); //idle facing left animation
+        this.walk = new Animation(new TextureRegion(new Texture("animations/player/walk.png")), 4, 0.5f); //walking animation
+        this.walkLeft = new Animation(new TextureRegion(new Texture("animations/player/walkLeft.png")), 4, 0.5f); //walking facing left animation
+        this.dash = new Animation(new TextureRegion(new Texture("animations/player/dash.png")), 14, 0.58f); //dash animation
+        this.dashLeft = new Animation(new TextureRegion(new Texture("animations/player/dashleft.png")), 14, 0.58f); //dash facing left animation
+        this.jump = new Animation(new TextureRegion(new Texture("animations/player/jump.png")), 8, 0.47f); //jump animation
+        this.jumpLeft = new Animation(new TextureRegion(new Texture("animations/player/jumpLeft.png")), 8, 0.47f); //jump facing left animation
+        this.doubleJump = new Animation(new TextureRegion(new Texture("animations/player/doubleJump.png")), 6, 0.75f); //double jump animation
+        this.doubleJumpLeft = new Animation(new TextureRegion(new Texture("animations/player/doubleJumpLeft.png")), 6, 0.75f); //double jump facing left animation
+        this.fall = new Animation(new TextureRegion(new Texture("animations/player/fall.png")), 3, 0.42f); //falling animation
+        this.fallLeft = new Animation(new TextureRegion(new Texture("animations/player/fallLeft.png")), 3, 0.42f); //falling facing left animation
+        this.death = new Animation(new TextureRegion(new Texture("animations/player/death.png")), 12, 0.71f); //death animation
+        this.deathLeft = new Animation(new TextureRegion(new Texture("animations/player/deathLeft.png")), 12, 0.71f); //death facing left animation
 
-        //object animations taken from assets/animations/objects
-        this.shinyRaindropAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/shinyRaindrop.png")), 5, 0.71f); //raindrop animation
-        this.raindropDestroyedAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/shinyRaindropDestroy.png")), 7, 0.54f); //raindrop being destroyed animation
-        this.mangoAnimation = new Animation(new TextureRegion(new Texture("assets/animations/objects/mango.png")), 2, 1f); //mango animation
+        //object animations taken from animations/objects
+        this.shinyRaindropAnimation = new Animation(new TextureRegion(new Texture("animations/objects/shinyRaindrop.png")), 5, 0.71f); //raindrop animation
+        this.raindropDestroyedAnimation = new Animation(new TextureRegion(new Texture("animations/objects/shinyRaindropDestroy.png")), 7, 0.54f); //raindrop being destroyed animation
+        this.mangoAnimation = new Animation(new TextureRegion(new Texture("animations/objects/mango.png")), 2, 1f); //mango animation
         //TODO mango destroyed animation
         //TODO wind current animation
         this.raindropDestroyed = false; //boolean for when the raindrop being destroyed animation should be played

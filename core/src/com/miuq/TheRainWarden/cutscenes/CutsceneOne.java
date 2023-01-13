@@ -12,9 +12,9 @@ public class CutsceneOne extends Cutscene{
     public CutsceneOne(OrthographicCamera camera, FitViewport viewport, TheRainWarden game, GameScreen gameScreen){
         super(camera, viewport, game, gameScreen);
 
-        this.cutsceneImages.add(new Texture(Gdx.files.internal("assets/cutscene/cutscene1/frame1.png")));
-        this.cutsceneImages.add(new Texture(Gdx.files.internal("assets/cutscene/cutscene1/frame2.png")));
-        this.cutsceneImages.add(new Texture(Gdx.files.internal("assets/cutscene/cutscene1/frame3.png")));
+        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/cutscene1/frame1.png")));
+        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/cutscene1/frame2.png")));
+        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/cutscene1/frame3.png")));
     
         this.cutsceneTexts.add(new AnimatedText("There is something I have been holding onto ever since I was a child...", 0.05f));
         this.cutsceneTexts.add(new AnimatedText("...", 0.3f));

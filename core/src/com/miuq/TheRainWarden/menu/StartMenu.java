@@ -69,14 +69,14 @@ public class StartMenu extends ScreenAdapter{
         this.save = new GameSaveHandler();
         this.options = new GameOptionsHandler();
         
-        this.newGame1Drawable = new TextureRegionDrawable(new Texture("assets/buttons/newGame1Button/newGame1NotHovered.png"));
-        this.newGame1DownDrawable = new TextureRegionDrawable(new Texture("assets/buttons/newGame1Button/newGame1Hovered.png"));
-        this.newGame2Drawable = new TextureRegionDrawable(new Texture("assets/buttons/newGame2Button/newGame2NotHovered.png"));
-        this.newGame2DownDrawable = new TextureRegionDrawable(new Texture("assets/buttons/newGame2Button/newGame2Hovered.png"));
-        this.newGame3Drawable = new TextureRegionDrawable(new Texture("assets/buttons/newGame3Button/newGame3NotHovered.png"));
-        this.newGame3DownDrawable = new TextureRegionDrawable(new Texture("assets/buttons/newGame3Button/newGame3Hovered.png"));
-        this.backButtonDrawable = new TextureRegionDrawable(new Texture("assets/buttons/backSaveButton/backButton.png"));
-        this.backButtonHoverDrawable = new TextureRegionDrawable(new Texture("assets/buttons/backSaveButton/backButtonHover.png"));
+        this.newGame1Drawable = new TextureRegionDrawable(new Texture("buttons/newGame1Button/newGame1NotHovered.png"));
+        this.newGame1DownDrawable = new TextureRegionDrawable(new Texture("buttons/newGame1Button/newGame1Hovered.png"));
+        this.newGame2Drawable = new TextureRegionDrawable(new Texture("buttons/newGame2Button/newGame2NotHovered.png"));
+        this.newGame2DownDrawable = new TextureRegionDrawable(new Texture("buttons/newGame2Button/newGame2Hovered.png"));
+        this.newGame3Drawable = new TextureRegionDrawable(new Texture("buttons/newGame3Button/newGame3NotHovered.png"));
+        this.newGame3DownDrawable = new TextureRegionDrawable(new Texture("buttons/newGame3Button/newGame3Hovered.png"));
+        this.backButtonDrawable = new TextureRegionDrawable(new Texture("buttons/backSaveButton/backButton.png"));
+        this.backButtonHoverDrawable = new TextureRegionDrawable(new Texture("buttons/backSaveButton/backButtonHover.png"));
 
         this.newGame1ButtonStyle = new ImageButtonStyle();
         this.newGame1ButtonStyle.up = newGame1Drawable;

@@ -55,14 +55,14 @@ public class OptionsMenu extends ScreenAdapter{
         this.options = new GameOptionsHandler();
         this.batch = new SpriteBatch();
         
-        this.backButtonDrawable = new TextureRegionDrawable(new Texture("assets/buttons/backSaveButton/backButton.png"));
-        this.backButtonHoverDrawable = new TextureRegionDrawable(new Texture("assets/buttons/backSaveButton/backButtonHover.png"));
-        this.speedrunButtonCheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/speedrun/speedrunModeOn.png"));
-        this.speedrunButtonUncheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/speedrun/speedrunModeOff.png"));
-        this.retryButtonCheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/retry/RetryCounterOn.png"));
-        this.retryButtonUncheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/retry/retryCounterOff.png"));
-        this.godButtonCheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/godmode/godModeOn.png"));
-        this.godButtonUncheckedDrawable = new TextureRegionDrawable(new Texture("assets/buttons/godmode/godModeOff.png"));
+        this.backButtonDrawable = new TextureRegionDrawable(new Texture("buttons/backSaveButton/backButton.png"));
+        this.backButtonHoverDrawable = new TextureRegionDrawable(new Texture("buttons/backSaveButton/backButtonHover.png"));
+        this.speedrunButtonCheckedDrawable = new TextureRegionDrawable(new Texture("buttons/speedrun/speedrunModeOn.png"));
+        this.speedrunButtonUncheckedDrawable = new TextureRegionDrawable(new Texture("buttons/speedrun/speedrunModeOff.png"));
+        this.retryButtonCheckedDrawable = new TextureRegionDrawable(new Texture("buttons/retry/retryCounterOn.png"));
+        this.retryButtonUncheckedDrawable = new TextureRegionDrawable(new Texture("buttons/retry/retryCounterOff.png"));
+        this.godButtonCheckedDrawable = new TextureRegionDrawable(new Texture("buttons/godmode/godModeOn.png"));
+        this.godButtonUncheckedDrawable = new TextureRegionDrawable(new Texture("buttons/godmode/godModeOff.png"));
 
         this.backButtonStyle = new ImageButtonStyle();
         this.backButtonStyle.up = backButtonDrawable;
@@ -80,9 +80,9 @@ public class OptionsMenu extends ScreenAdapter{
         this.retryButton = new ImageButton(retryButtonStyle);
         this.godButton = new ImageButton(godButtonStyle);
 
-        this.speedrunDescription = new Texture("assets/buttons/speedrun/speedrunDescription.png");
-        this.retryDescription = new Texture("assets/buttons/retry/retryCounterDescription.png");
-        this.godDescription = new Texture("assets/buttons/godmode/godModeDescription.png");
+        this.speedrunDescription = new Texture("buttons/speedrun/speedrunDescription.png");
+        this.retryDescription = new Texture("buttons/retry/retryCounterDescription.png");
+        this.godDescription = new Texture("buttons/godmode/godModeDescription.png");
 
         this.stage = new Stage();
         this.stage.addActor(backButton);

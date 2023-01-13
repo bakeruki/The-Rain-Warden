@@ -107,8 +107,8 @@ public abstract class Cutscene extends ScreenAdapter {
         this.frame = 0;
         this.stage = new Stage(viewport);
 
-        this.continueButtonUp = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/continueButton/continue.png")));
-        this.continueButtonHover = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/continueButton/continueHover.png")));
+        this.continueButtonUp = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/continueButton/continue.png")));
+        this.continueButtonHover = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/continueButton/continueHover.png")));
         this.continueButtonStyle = new ImageButtonStyle();
         this.continueButtonStyle.up = continueButtonUp;
         this.continueButtonStyle.over = continueButtonHover;

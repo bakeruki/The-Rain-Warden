@@ -48,31 +48,31 @@ public class MainMenu extends ScreenAdapter{
     public MainMenu(OrthographicCamera camera, FitViewport viewport, TheRainWarden game, boolean doFade){
         camera.setToOrtho(false, 0, 0);
 
-        this.startDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/startButton/start.png")));
-        this.startDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/startButton/startDown.png")));
+        this.startDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/startButton/start.png")));
+        this.startDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/startButton/startDown.png")));
         this.startStyle = new ImageButtonStyle();
         this.startStyle.up = startDrawable;
         this.startStyle.over = startDownDrawable;
         this.startButton = new ImageButton(startStyle);
         this.startButton.setPosition(870, 300);
 
-        this.optionsDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/optionsButton/optionsButton.png")));
-        this.optionsDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/optionsButton/optionsButtonDown.png")));
+        this.optionsDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/optionsButton/optionsButton.png")));
+        this.optionsDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/optionsButton/optionsButtonDown.png")));
         this.optionsStyle = new ImageButtonStyle();
         this.optionsStyle.up = optionsDrawable;
         this.optionsStyle.over = optionsDownDrawable;
         this.optionsButton = new ImageButton(optionsStyle);
         this.optionsButton.setPosition(1720, 20);
 
-        this.exitDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/exitButton/exitButton.png")));
-        this.exitDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("assets/buttons/exitButton/exitButtonDown.png")));
+        this.exitDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/exitButton/exitButton.png")));
+        this.exitDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/exitButton/exitButtonDown.png")));
         this.exitStyle = new ImageButtonStyle();
         this.exitStyle.up = exitDrawable;
         this.exitStyle.over = exitDownDrawable;
         this.exitButton = new ImageButton(exitStyle);
         this.exitButton.setPosition(startButton.getX(), startButton.getY() - 150);
 
-        this.backgroundImage = new Image(new Texture("assets/screens/menuScreen.png"));
+        this.backgroundImage = new Image(new Texture("screens/menuScreen.png"));
 
         this.game = game;
         // this.gameScreen = new GameScreen(camera, viewport, game); leave this here in case we get annoyed with watching the cutscene every time

@@ -13,10 +13,10 @@ public class CutsceneThree extends Cutscene{
     public CutsceneThree(OrthographicCamera camera, FitViewport viewport, TheRainWarden game, GameScreen gameScreen) {
         super(camera, viewport, game, gameScreen);
 
-        this.cutsceneImages.add(new Texture(Gdx.files.internal("assets/cutscene/cutscene3/frame7.png")));
-        this.cutsceneImages.add(new Texture(Gdx.files.internal("assets/cutscene/cutscene3/frame8.png")));
-        this.cutsceneImages.add(new Texture(Gdx.files.internal("assets/cutscene/cutscene3/frame9.png")));
-        this.cutsceneImages.add(new Texture(Gdx.files.internal("assets/cutscene/cutscene3/frame10.png")));
+        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/cutscene3/frame7.png")));
+        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/cutscene3/frame8.png")));
+        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/cutscene3/frame9.png")));
+        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/cutscene3/frame10.png")));
 
         this.cutsceneTexts.add(new AnimatedText("As I escape the cold, I am greeted with warmth and light.", 0.05f));
         this.cutsceneTexts.add(new AnimatedText("The bountiful fruits and lush trees welcome me with a warm presence.", 0.05f));

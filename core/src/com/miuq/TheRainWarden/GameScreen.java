@@ -191,10 +191,10 @@ public class GameScreen extends ScreenAdapter{
         this.switchingLevels = false;
         this.mapPaths = new Array<String>();
         //all map file paths
-        this.mapPaths.add("assets/maps/TutorialMap.tmx"); //world 0
-        this.mapPaths.add("assets/maps/SnowStage.tmx"); //world 1
-        this.mapPaths.add("assets/maps/ForestStage.tmx"); //world 2
-        this.mapPaths.add("assets/maps/SpringkeepStage.tmx"); //world 3
+        this.mapPaths.add("maps/TutorialMap.tmx"); //world 0
+        this.mapPaths.add("maps/SnowStage.tmx"); //world 1
+        this.mapPaths.add("maps/ForestStage.tmx"); //world 2
+        this.mapPaths.add("maps/SpringkeepStage.tmx"); //world 3
 
         //camera positions
         this.cameraPositions = new Array<Vector3>();
@@ -232,7 +232,7 @@ public class GameScreen extends ScreenAdapter{
         this.startPositions.add(new Vector2(2300 / Constants.PPM, 400 / Constants.PPM));//level 9
         this.startPositions.add(new Vector2(4142 / Constants.PPM, 400 / Constants.PPM));//level 10
 
-        this.pauseImage = new Texture("assets/screens/pauseScreen.png");
+        this.pauseImage = new Texture("screens/pauseScreen.png");
         this.batch = new SpriteBatch();
         this.world = new World(new Vector2(0, -35), false);
         this.game = game;
@@ -340,7 +340,6 @@ public class GameScreen extends ScreenAdapter{
             gameState = GAME_RUNNING;
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.Q)){
-            System.out.println("player deaths when saving: " + player.getDeathCounter());
             gameSaveHandler.updateSaveFiles(saveNum, level, mangosCollected, player.getDeathCounter());
             game.setScreen(new MainMenu(camera, viewport, game, true));
         }
@@ -716,7 +715,7 @@ public class GameScreen extends ScreenAdapter{
 
     private void levelSpecificDraw(){
         if(level == 0){
-            batch.draw(new Texture("assets/tutorial/WASD.png"), 250, 500);
+            batch.draw(new Texture("tutorial/WASD.png"), 250, 500);
         }
     }
 

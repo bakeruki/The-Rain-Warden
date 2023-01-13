@@ -19,9 +19,9 @@ public class GameSaveHandler {
 
     public GameSaveHandler(){
         this.savePaths = new ArrayList<FileHandle>();
-        this.savePaths.add(Gdx.files.local("assets/savegame/save1.txt"));
-        this.savePaths.add(Gdx.files.local("assets/savegame/save2.txt"));
-        this.savePaths.add(Gdx.files.local("assets/savegame/save3.txt"));
+        this.savePaths.add(Gdx.files.external("Documents/TRW/savegame/save1.txt"));
+        this.savePaths.add(Gdx.files.external("Documents/TRW/savegame/save2.txt"));
+        this.savePaths.add(Gdx.files.external("Documents/TRW/savegame/save3.txt"));
 
         createSaveFiles();
     }
@@ -31,7 +31,6 @@ public class GameSaveHandler {
      * @author Luqman Patel
      */
     private void createSaveFiles(){
-        System.out.println("loading game files");
         for(FileHandle save : savePaths){
             if(!save.exists()){
                 save.writeString("0@0@0", false);

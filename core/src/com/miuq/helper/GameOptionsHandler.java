@@ -7,12 +7,11 @@ public class GameOptionsHandler {
     private FileHandle options;
 
     public GameOptionsHandler(){
-        this.options = Gdx.files.local("assets/options/options.txt");
+        this.options = Gdx.files.external("Documents/TRW/options/options.txt");
         createOptionsFile();
     }
 
     private void createOptionsFile(){
-        System.out.println("loading game files");
         if(!options.exists()){
             options.writeString("0@0@0", false);
         }
