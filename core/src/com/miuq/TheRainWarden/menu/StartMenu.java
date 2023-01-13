@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.miuq.TheRainWarden.GameScreen;
 import com.miuq.TheRainWarden.TheRainWarden;
+import com.miuq.TheRainWarden.cutscenes.CutsceneFour;
 import com.miuq.TheRainWarden.cutscenes.CutsceneOne;
 import com.miuq.TheRainWarden.cutscenes.CutsceneThree;
 import com.miuq.TheRainWarden.cutscenes.CutsceneTwo;
@@ -209,6 +210,16 @@ public class StartMenu extends ScreenAdapter{
                 this.dispose();
             }else{
                 game.setScreen(new CutsceneThree(camera, viewport, game, gameScreen));
+                batch.dispose();
+                this.dispose();
+            }
+        }else if(level < 11){
+            if(options.cutscenesDisabled()){
+                game.setScreen(gameScreen);
+                batch.dispose();
+                this.dispose();
+            }else{
+                game.setScreen(new CutsceneFour(camera, viewport, game, gameScreen));
                 batch.dispose();
                 this.dispose();
             }

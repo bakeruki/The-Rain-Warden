@@ -189,6 +189,7 @@ public class GameScreen extends ScreenAdapter{
         this.mapPaths.add("assets/maps/TutorialMap.tmx"); //world 0
         this.mapPaths.add("assets/maps/SnowStage.tmx"); //world 1
         this.mapPaths.add("assets/maps/ForestStage.tmx"); //world 2
+        this.mapPaths.add("assets/maps/SpringkeepStage.tmx"); //world 3
 
         //camera positions
         this.cameraPositions = new Array<Vector3>();
@@ -200,9 +201,13 @@ public class GameScreen extends ScreenAdapter{
         this.cameraPositions.add(new Vector3(3080, 735, 0)); //level 3
         this.cameraPositions.add(new Vector3(5080, 735, 0)); //level 4
         //world 2 positions-------------------------------------
-        this.cameraPositions.add(new Vector3(1000,735,0)); //level 5
+        this.cameraPositions.add(new Vector3(1000, 735,0)); //level 5
         this.cameraPositions.add(new Vector3(3005, 735, 0));//level 6
         this.cameraPositions.add(new Vector3(4995, 735, 0));//level 7
+        //world 3 positions-------------------------------------
+        this.cameraPositions.add(new Vector3(960, 735,0)); //level 8
+        this.cameraPositions.add(new Vector3(3008, 735, 0));//level 9
+        this.cameraPositions.add(new Vector3(5056, 735, 0));//level 10
 
         //spawn positions
         this.startPositions = new Array<Vector2>();
@@ -217,6 +222,10 @@ public class GameScreen extends ScreenAdapter{
         this.startPositions.add(new Vector2(200 / Constants.PPM, 500 / Constants.PPM));//level 5
         this.startPositions.add(new Vector2(2300 / Constants.PPM, 400 / Constants.PPM));//level 6
         this.startPositions.add(new Vector2(4142 / Constants.PPM, 1100 / Constants.PPM));//level 7
+        //world 3 positions-------------------------------------
+        this.startPositions.add(new Vector2(256 / Constants.PPM, 400 / Constants.PPM));//level 8
+        this.startPositions.add(new Vector2(2300 / Constants.PPM, 400 / Constants.PPM));//level 9
+        this.startPositions.add(new Vector2(4142 / Constants.PPM, 400 / Constants.PPM));//level 10
 
         this.pauseImage = new Texture("assets/screens/pauseScreen.png");
         this.batch = new SpriteBatch();
@@ -367,6 +376,8 @@ public class GameScreen extends ScreenAdapter{
                 this.orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(1));
             }else if(level < 8){
                 this.orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(2));
+            }else if(level < 11){
+                this.orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(3));
             }
             player.body.setTransform(startPositions.get(level), player.body.getAngle()); 
             this.camera.position.set(cameraPositions.get(level));
@@ -394,6 +405,10 @@ public class GameScreen extends ScreenAdapter{
             }else if(level < 8){
                 System.out.println("switching to forest world");
                 setMap(mapPaths.get(2));
+                switchingLevels = false;
+            }else if(level < 11){
+                System.out.println("switching to springkeep");
+                setMap(mapPaths.get(3));
                 switchingLevels = false;
             }
         }
@@ -590,6 +605,9 @@ public class GameScreen extends ScreenAdapter{
                 switchingLevels = true;
                 break;
             case 5:
+                switchingLevels = true;
+                break;
+            case 8:
                 switchingLevels = true;
                 break;
             default:

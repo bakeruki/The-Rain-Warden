@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.miuq.TheRainWarden.GameScreen;
 import com.miuq.TheRainWarden.TheRainWarden;
+import com.miuq.TheRainWarden.cutscenes.CutsceneFour;
 import com.miuq.TheRainWarden.cutscenes.CutsceneThree;
 import com.miuq.TheRainWarden.cutscenes.CutsceneTwo;
 
@@ -65,6 +66,13 @@ public class GameCutsceneLoader {
             case 7:
                 recentlyLoadedSave = false;
                 break;
+            case 9:
+                cutscenePlayed = false;
+                recentlyLoadedSave = false;
+                break;
+            case 10:
+                recentlyLoadedSave = false;
+                break;
         }
     }
 
@@ -81,6 +89,9 @@ public class GameCutsceneLoader {
                 break;
             case 5:
                 loadCutscene(3, gameScreen);
+                break;
+            case 8:
+                loadCutscene(4, gameScreen);
                 break;
         }
     }
@@ -107,6 +118,13 @@ public class GameCutsceneLoader {
                     game.setScreen(cutscene2);
                     if(cutsceneDisabled){
                         cutscene2.disableCutscene();
+                    }
+                    break;
+                case 4:
+                    CutsceneFour cutscene3 = new CutsceneFour(camera, viewport, game, gameScreen);
+                    game.setScreen(cutscene3);
+                    if(cutsceneDisabled){
+                        cutscene3.disableCutscene();
                     }
                     break;
             }
