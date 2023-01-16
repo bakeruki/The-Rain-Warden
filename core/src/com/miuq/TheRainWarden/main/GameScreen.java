@@ -1,4 +1,4 @@
-package com.miuq.TheRainWarden;
+package com.miuq.TheRainWarden.main;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -23,21 +23,21 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.miuq.TheRainWarden.animation.AnimationRenderer;
+import com.miuq.TheRainWarden.helper.Constants;
+import com.miuq.TheRainWarden.helper.GameCutsceneLoader;
+import com.miuq.TheRainWarden.helper.GameDialogueHandler;
+import com.miuq.TheRainWarden.helper.GameOptionsHandler;
+import com.miuq.TheRainWarden.helper.GameSaveHandler;
+import com.miuq.TheRainWarden.helper.TileMapHelper;
+import com.miuq.TheRainWarden.helper.WorldContactListener;
 import com.miuq.TheRainWarden.menu.MainMenu;
-import com.miuq.animation.AnimationRenderer;
-import com.miuq.helper.Constants;
-import com.miuq.helper.GameCutsceneLoader;
-import com.miuq.helper.GameDialogueHandler;
-import com.miuq.helper.GameOptionsHandler;
-import com.miuq.helper.GameSaveHandler;
-import com.miuq.helper.TileMapHelper;
-import com.miuq.helper.WorldContactListener;
-import com.miuq.objects.entities.Player;
-import com.miuq.objects.gameObjects.CameraSwitchTrigger;
-import com.miuq.objects.gameObjects.Mango;
-import com.miuq.objects.gameObjects.ShinyRaindrop;
-import com.miuq.objects.gameObjects.Spike;
-import com.miuq.objects.gameObjects.WindCurrent;
+import com.miuq.TheRainWarden.objects.entities.Player;
+import com.miuq.TheRainWarden.objects.gameObjects.CameraSwitchTrigger;
+import com.miuq.TheRainWarden.objects.gameObjects.Mango;
+import com.miuq.TheRainWarden.objects.gameObjects.ShinyRaindrop;
+import com.miuq.TheRainWarden.objects.gameObjects.Spike;
+import com.miuq.TheRainWarden.objects.gameObjects.WindCurrent;
 
 /**
  * The GameScreen class holds, combines, and manages all logic for the game when 

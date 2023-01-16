@@ -1,10 +1,10 @@
-package com.miuq.helper;
+package com.miuq.TheRainWarden.helper;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.miuq.TheRainWarden.GameScreen;
-import com.miuq.objects.entities.npc.Mimir;
-import com.miuq.objects.entities.npc.NPC;
-import com.miuq.objects.entities.npc.Renni;
+import com.miuq.TheRainWarden.main.GameScreen;
+import com.miuq.TheRainWarden.objects.entities.npc.Mimir;
+import com.miuq.TheRainWarden.objects.entities.npc.NPC;
+import com.miuq.TheRainWarden.objects.entities.npc.Renni;
 
 public class GameDialogueHandler {
     private int dialogueCount;

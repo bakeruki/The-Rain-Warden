@@ -1,4 +1,4 @@
-package com.miuq.TheRainWarden;
+package com.miuq.TheRainWarden.main;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;

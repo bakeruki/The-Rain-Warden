@@ -1,12 +1,12 @@
-package com.miuq.helper;
+package com.miuq.TheRainWarden.helper;
 
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.miuq.objects.gameObjects.InteractiveTileObject;
-import com.miuq.objects.gameObjects.WindCurrent;
+import com.miuq.TheRainWarden.objects.gameObjects.InteractiveTileObject;
+import com.miuq.TheRainWarden.objects.gameObjects.WindCurrent;
 
 public class WorldContactListener implements ContactListener{
 

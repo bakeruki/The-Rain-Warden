@@ -1,4 +1,4 @@
-package com.miuq.animation;
+package com.miuq.TheRainWarden.animation;
 
 public class AnimatedText {
     private String text;

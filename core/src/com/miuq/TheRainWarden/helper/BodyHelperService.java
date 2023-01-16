@@ -1,4 +1,4 @@
-package com.miuq.helper;
+package com.miuq.TheRainWarden.helper;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;

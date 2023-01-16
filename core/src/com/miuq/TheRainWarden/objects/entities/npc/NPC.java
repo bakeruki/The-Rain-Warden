@@ -1,4 +1,4 @@
-package com.miuq.objects.entities.npc;
+package com.miuq.TheRainWarden.objects.entities.npc;
 
 import java.util.ArrayList;
 
@@ -12,8 +12,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Align;
-import com.miuq.animation.AnimatedText;
-import com.miuq.objects.gameObjects.InteractiveTileObject;
+import com.miuq.TheRainWarden.animation.AnimatedText;
+import com.miuq.TheRainWarden.objects.gameObjects.InteractiveTileObject;
 
 public abstract class NPC extends InteractiveTileObject{
     protected ArrayList<ArrayList<AnimatedText>> dialogue;

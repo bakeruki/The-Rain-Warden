@@ -1,11 +1,11 @@
-package com.miuq.objects.gameObjects;
+package com.miuq.TheRainWarden.objects.gameObjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
-import com.miuq.helper.Constants;
-import com.miuq.objects.entities.Player;
+import com.miuq.TheRainWarden.helper.Constants;
+import com.miuq.TheRainWarden.objects.entities.Player;
 
 public class ShinyRaindrop extends InteractiveTileObject {
 

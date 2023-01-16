@@ -1,4 +1,4 @@
-package com.miuq.helper;
+package com.miuq.TheRainWarden.helper;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -16,15 +16,15 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.miuq.TheRainWarden.GameScreen;
-import com.miuq.objects.entities.Player;
-import com.miuq.objects.entities.npc.Mimir;
-import com.miuq.objects.entities.npc.Renni;
-import com.miuq.objects.gameObjects.CameraSwitchTrigger;
-import com.miuq.objects.gameObjects.Mango;
-import com.miuq.objects.gameObjects.ShinyRaindrop;
-import com.miuq.objects.gameObjects.Spike;
-import com.miuq.objects.gameObjects.WindCurrent;
+import com.miuq.TheRainWarden.main.GameScreen;
+import com.miuq.TheRainWarden.objects.entities.Player;
+import com.miuq.TheRainWarden.objects.entities.npc.Mimir;
+import com.miuq.TheRainWarden.objects.entities.npc.Renni;
+import com.miuq.TheRainWarden.objects.gameObjects.CameraSwitchTrigger;
+import com.miuq.TheRainWarden.objects.gameObjects.Mango;
+import com.miuq.TheRainWarden.objects.gameObjects.ShinyRaindrop;
+import com.miuq.TheRainWarden.objects.gameObjects.Spike;
+import com.miuq.TheRainWarden.objects.gameObjects.WindCurrent;
 
 /**
  * Credit: Small Pixel Games on YouTube

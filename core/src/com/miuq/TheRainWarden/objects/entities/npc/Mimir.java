@@ -1,4 +1,4 @@
-package com.miuq.objects.entities.npc;
+package com.miuq.TheRainWarden.objects.entities.npc;
 
 import java.util.ArrayList;
 
@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
-import com.miuq.TheRainWarden.GameScreen;
-import com.miuq.animation.AnimatedText;
+import com.miuq.TheRainWarden.animation.AnimatedText;
+import com.miuq.TheRainWarden.main.GameScreen;
 
 public class Mimir extends NPC{
     private ArrayList<AnimatedText> eventOne;

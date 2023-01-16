@@ -1,4 +1,4 @@
-package com.miuq.helper;
+package com.miuq.TheRainWarden.helper;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

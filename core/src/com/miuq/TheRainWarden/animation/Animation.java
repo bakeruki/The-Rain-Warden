@@ -1,4 +1,4 @@
-package com.miuq.animation;
+package com.miuq.TheRainWarden.animation;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;

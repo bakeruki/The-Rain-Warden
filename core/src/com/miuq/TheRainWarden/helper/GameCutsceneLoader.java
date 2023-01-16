@@ -1,12 +1,12 @@
-package com.miuq.helper;
+package com.miuq.TheRainWarden.helper;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.miuq.TheRainWarden.GameScreen;
-import com.miuq.TheRainWarden.TheRainWarden;
 import com.miuq.TheRainWarden.cutscenes.CutsceneFour;
 import com.miuq.TheRainWarden.cutscenes.CutsceneThree;
 import com.miuq.TheRainWarden.cutscenes.CutsceneTwo;
+import com.miuq.TheRainWarden.main.GameScreen;
+import com.miuq.TheRainWarden.main.TheRainWarden;
 
 public class GameCutsceneLoader {
     private boolean cutscenePlayed;

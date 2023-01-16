@@ -1,4 +1,4 @@
-package com.miuq.objects.gameObjects;
+package com.miuq.TheRainWarden.objects.gameObjects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Body;
