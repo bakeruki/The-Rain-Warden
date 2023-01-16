@@ -18,6 +18,8 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.miuq.TheRainWarden.GameScreen;
 import com.miuq.objects.entities.Player;
+import com.miuq.objects.entities.npc.Mimir;
+import com.miuq.objects.entities.npc.Renni;
 import com.miuq.objects.gameObjects.CameraSwitchTrigger;
 import com.miuq.objects.gameObjects.Mango;
 import com.miuq.objects.gameObjects.ShinyRaindrop;
@@ -33,10 +35,12 @@ public class TileMapHelper {
     
     private TiledMap tiledMap;
     private GameScreen gameScreen;
+    private GameDialogueHandler dialogue;
     private Player player;
 
-    public TileMapHelper(GameScreen gameScreen){
+    public TileMapHelper(GameScreen gameScreen, GameDialogueHandler dialogue){
         this.gameScreen = gameScreen;
+        this.dialogue = dialogue;
     }
 
     public OrthogonalTiledMapRenderer setupMap(String mapPath){
@@ -135,6 +139,28 @@ public class TileMapHelper {
                     shape.dispose();
 
                     gameScreen.addWindCurrents(new WindCurrent(gameScreen.getWorld(), body, fixture, player));
+                }
+                if(rectangleName.equals("renni")){
+                    Body body = createBody(rectangle);
+
+                    PolygonShape shape = new PolygonShape();
+                    shape.setAsBox(rectangle.getWidth() / 2 / Constants.PPM, rectangle.getHeight() / 2 / Constants.PPM);
+
+                    Fixture fixture = createSensorFixture(shape, body);
+                    shape.dispose();
+                    System.out.println("making renni");
+                    dialogue.setRenni(new Renni(gameScreen.getWorld(), body, fixture, gameScreen));
+                }
+                if(rectangleName.equals("mimir")){
+                    Body body = createBody(rectangle);
+
+                    PolygonShape shape = new PolygonShape();
+                    shape.setAsBox(rectangle.getWidth() / 2 / Constants.PPM, rectangle.getHeight() / 2 / Constants.PPM);
+
+                    Fixture fixture = createSensorFixture(shape, body);
+                    shape.dispose();
+                    System.out.println("making mimir");
+                    dialogue.setMimir(new Mimir(gameScreen.getWorld(), body, fixture, gameScreen));
                 }
             }
         }

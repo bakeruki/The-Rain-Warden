@@ -28,12 +28,16 @@ public class GameSaveHandler {
 
     /**
      * Creates save files if they do not exist and defaults them to level 0.
+     * First number = current level
+     * Second number = number of mangos collected
+     * Third number = number of deaths
+     * Fourth number = dialogue number used internally
      * @author Luqman Patel
      */
     private void createSaveFiles(){
         for(FileHandle save : savePaths){
             if(!save.exists()){
-                save.writeString("0@0@0", false);
+                save.writeString("0@0@0@0", false);
             }
         }
     }
@@ -45,11 +49,12 @@ public class GameSaveHandler {
      * @param mangos The number of mangos that the player has collected.
      * @author Luqman Patel
      */
-    public void updateSaveFiles(int saveNum, int level, int mangos, int deaths){
+    public void updateSaveFiles(int saveNum, int level, int mangos, int deaths, int dialogueNum){
         String levelString = Integer.toString(level);
         String mangosString = Integer.toString(mangos);
         String deathsString = Integer.toString(deaths);
-        String data = levelString + "@" + mangosString + "@" + deathsString;
+        String dialogueString = Integer.toString(dialogueNum);
+        String data = levelString + "@" + mangosString + "@" + deathsString + "@" + dialogueString;
         this.savePaths.get(saveNum).writeString(data, false);
     }
 
@@ -81,5 +86,11 @@ public class GameSaveHandler {
         String[] data = savePaths.get(saveNum).readString().split("@");
         int deaths = Integer.parseInt(data[2]);
         return deaths;
+    }
+
+    public int getDialogueNumFromSave(int saveNum){
+        String[] data = savePaths.get(saveNum).readString().split("@");
+        int dialogueNum = Integer.parseInt(data[3]);
+        return dialogueNum;
     }
 }

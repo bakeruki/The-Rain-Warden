@@ -14,12 +14,20 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.miuq.TheRainWarden.menu.MainMenu;
 import com.miuq.animation.AnimationRenderer;
 import com.miuq.helper.Constants;
 import com.miuq.helper.GameCutsceneLoader;
+import com.miuq.helper.GameDialogueHandler;
 import com.miuq.helper.GameOptionsHandler;
 import com.miuq.helper.GameSaveHandler;
 import com.miuq.helper.TileMapHelper;
@@ -41,12 +49,17 @@ public class GameScreen extends ScreenAdapter{
     /**
      * Used to indicate that the game is in the run state.
      */
-    private final int GAME_RUNNING = 1;
+    public final int GAME_RUNNING = 1;
+
+    /**
+     * Used to indicate that the game is in a dialogue event.
+     */
+    public final int GAME_DIALOGUE = 2;
 
     /**
      * Used to indicate that the game is in the paused state.
      */
-    private final int GAME_PAUSED = 2;
+    public final int GAME_PAUSED = 0;
 
     /**
      * Keeps track of the current state of the game.
@@ -180,9 +193,17 @@ public class GameScreen extends ScreenAdapter{
      */
     private GameSaveHandler gameSaveHandler;
 
+    private GameDialogueHandler dialogue;
+
     private BitmapFont font;
 
     private boolean godMode;
+
+    private Stage dialogueStage;
+
+    private Drawable dialogueButtonDrawable;
+    private ImageButtonStyle dialogueButtonStyle;
+    private ImageButton dialogueContinueButton;
     
     public GameScreen(OrthographicCamera camera, FitViewport viewport2, TheRainWarden game, int level, int mangosCollected){
         this.camera = camera;
@@ -256,6 +277,8 @@ public class GameScreen extends ScreenAdapter{
 
         this.options = new GameOptionsHandler();
 
+        this.dialogue = new GameDialogueHandler(this);
+
         this.cutscene = new GameCutsceneLoader(camera, viewport2, game);
         this.cutscene.recentlyLoadedSave();
 
@@ -269,7 +292,21 @@ public class GameScreen extends ScreenAdapter{
             godMode = false;
         }
 
-        this.tileMapHelper = new TileMapHelper(this);
+        this.dialogueStage = new Stage();
+        this.dialogueButtonDrawable = new TextureRegionDrawable(new Texture(Gdx.files.internal("dialogue/border.png")));
+        this.dialogueButtonStyle = new ImageButtonStyle();
+        this.dialogueButtonStyle.up = dialogueButtonDrawable;
+        this.dialogueContinueButton = new ImageButton(dialogueButtonStyle);
+        this.dialogueStage.addActor(dialogueContinueButton);
+        this.dialogueContinueButton.setPosition(Gdx.graphics.getWidth()/2 - 600, 750);
+        this.dialogueContinueButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent e, float x, float y){
+                dialogue.nextFrame();
+            }
+        });
+
+        this.tileMapHelper = new TileMapHelper(this, dialogue);
         initializeMap(level);
 
         this.animationRenderer = new AnimationRenderer(player, batch);
@@ -282,6 +319,7 @@ public class GameScreen extends ScreenAdapter{
     public void setSaveNum(int saveNum){
         this.saveNum = saveNum;
         this.player.setDeathCounter(gameSaveHandler.getDeathsFromSave(saveNum));
+        this.dialogue.setDialogueCount(gameSaveHandler.getDialogueNumFromSave(saveNum));
     }
 
     /**
@@ -298,7 +336,18 @@ public class GameScreen extends ScreenAdapter{
             case GAME_PAUSED:
                 updatePaused();
                 break;
+            case GAME_DIALOGUE:
+                updateDialogue();
+                break;
         }
+    }
+
+    private void updateDialogue(){
+        if(dialogue.isDialogueEventFinished()){
+            gameState = GAME_RUNNING;
+        }
+
+        Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
     }
 
     /**
@@ -340,7 +389,7 @@ public class GameScreen extends ScreenAdapter{
             gameState = GAME_RUNNING;
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.Q)){
-            gameSaveHandler.updateSaveFiles(saveNum, level, mangosCollected, player.getDeathCounter());
+            gameSaveHandler.updateSaveFiles(saveNum, level, mangosCollected, player.getDeathCounter(), dialogue.getDialogueCount());
             game.setScreen(new MainMenu(camera, viewport, game, true));
         }
     }
@@ -417,13 +466,13 @@ public class GameScreen extends ScreenAdapter{
                 setMap(mapPaths.get(0));
                 switchingLevels = false;
             }else if(level < 5){
-                System.out.println("switching to forest world");
+                System.out.println("switching to ice world");
                 setMap(mapPaths.get(1));
                 switchingLevels = false;
             }else if(level < 8){
                 System.out.println("switching to forest world");
                 setMap(mapPaths.get(2));
-                switchingLevels = false;
+                switchingLevels = false;   
             }else if(level < 11){
                 System.out.println("switching to springkeep");
                 setMap(mapPaths.get(3));
@@ -466,6 +515,10 @@ public class GameScreen extends ScreenAdapter{
         updateAllObjectClasses(player, world);
     }
 
+    public void setGameState(int gameState){
+        this.gameState = gameState;
+    }
+
     /**
      * Updates all object classes with the most recent variables. Used when new map is loaded.
      * @param player The current player object.
@@ -497,6 +550,10 @@ public class GameScreen extends ScreenAdapter{
      */
     public World getWorld(){
         return world;
+    }
+
+    public int getLevel(){
+        return level;
     }
 
     /**
@@ -669,11 +726,22 @@ public class GameScreen extends ScreenAdapter{
             case GAME_PAUSED:
                 drawPaused();
                 break;
+            case GAME_DIALOGUE:
+                drawDialogue(delta);
+                break;
         }   
 
         batch.end();
         
         box2dDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
+    }
+
+    private void drawDialogue(float delta){
+        Gdx.input.setInputProcessor(dialogueStage);
+        dialogueStage.act();
+        dialogueStage.draw();
+        dialogue.draw(delta, batch);
+        animationRenderer.drawAnimations(delta);
     }
 
     /**
