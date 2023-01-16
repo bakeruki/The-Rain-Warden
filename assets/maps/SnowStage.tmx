@@ -104,7 +104,7 @@
   <object id="32" x="4480" y="704">
    <polygon points="0,0 0,-64 448,-64 448,0"/>
   </object>
-  <object id="34" name="spike" x="4352" y="576" width="576" height="64"/>
+  <object id="34" name="spike" x="4352" y="583" width="576" height="57"/>
   <object id="35" name="spike" x="4992" y="960" width="1024"/>
   <object id="37" name="cameraSwitch" x="5990" y="4" width="64" height="768"/>
   <object id="39" name="cameraSwitch" x="4003.64" y="3.0303" width="64" height="576"/>

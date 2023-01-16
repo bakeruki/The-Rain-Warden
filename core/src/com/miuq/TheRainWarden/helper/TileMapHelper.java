@@ -149,7 +149,14 @@ public class TileMapHelper {
                     Fixture fixture = createSensorFixture(shape, body);
                     shape.dispose();
                     System.out.println("making renni");
-                    dialogue.setRenni(new Renni(gameScreen.getWorld(), body, fixture, gameScreen));
+                    if(dialogue.getRenni() != null){
+                        Renni renni = dialogue.getRenni();
+                        renni.setBody(body);
+                        renni.setWorld(gameScreen.getWorld());
+                        renni.setFixture(fixture);
+                    }else{
+                        dialogue.setRenni(new Renni(gameScreen.getWorld(), body, fixture, gameScreen));
+                    }
                 }
                 if(rectangleName.equals("mimir")){
                     Body body = createBody(rectangle);
@@ -160,7 +167,14 @@ public class TileMapHelper {
                     Fixture fixture = createSensorFixture(shape, body);
                     shape.dispose();
                     System.out.println("making mimir");
-                    dialogue.setMimir(new Mimir(gameScreen.getWorld(), body, fixture, gameScreen));
+                    if(dialogue.getMimir() != null){
+                        Mimir mimir = dialogue.getMimir();
+                        mimir.setBody(body);
+                        mimir.setWorld(gameScreen.getWorld());
+                        mimir.setFixture(fixture);
+                    }else{
+                        dialogue.setMimir(new Mimir(gameScreen.getWorld(), body, fixture, gameScreen));
+                    }
                 }
             }
         }

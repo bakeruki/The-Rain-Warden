@@ -11,61 +11,84 @@ import com.miuq.TheRainWarden.animation.AnimatedText;
 import com.miuq.TheRainWarden.main.GameScreen;
 
 public class Renni extends NPC{
-    private ArrayList<AnimatedText> eventOne;
+    private ArrayList<AnimatedText> eventOneDialogue;
+    private ArrayList<Texture> eventOneExpressions;
+    private ArrayList<AnimatedText> eventTwoDialogue;
+    private ArrayList<Texture> eventTwoExpressions;
     private GameScreen gameScreen;
     private boolean collisionDisabled;
 
     public Renni(World world, Body body, Fixture sensorFixture, GameScreen gameScreen){
         super(world, body, sensorFixture);
         sensorFixture.setUserData(this);
-        this.eventOne = new ArrayList<>();
-        this.eventOne.add(new AnimatedText("Ugh.. that hurt. I am never doing that again.", 0.1f));
-        this.eventOne.add(new AnimatedText("Honestly, that was kind of fun.", 0.1f));
-        this.eventOne.add(new AnimatedText("??? Who said that??", 0.1f));
-        this.eventOne.add(new AnimatedText("Me.", 0.1f));
-        this.eventOne.add(new AnimatedText("What the..!!!?", 0.1f));
-        this.eventOne.add(new AnimatedText("Hehehe hi there fellow rain warden!", 0.1f));
-        this.eventOne.add(new AnimatedText("Rain warden..!!? What are you talking about !!?", 0.1f));
-        this.eventOne.add(new AnimatedText("You!", 0.1f));
-        this.eventOne.add(new AnimatedText("I know you're talking about me.. who else is here?", 0.1f));
-        this.eventOne.add(new AnimatedText("No one?", 0.1f));
-        this.eventOne.add(new AnimatedText("*Sigh*", 0.1f));
-        this.eventOne.add(new AnimatedText("I have no idea what you are or where you came from, but I'm no rain warden.", 0.1f));
-        this.eventOne.add(new AnimatedText("I see.. you don't know the meaning of having this necklace, do you?", 0.1f));
-        this.eventOne.add(new AnimatedText("Oh, you mean this necklace on my chest?", 0.1f));
-        this.eventOne.add(new AnimatedText("What other necklace is there?", 0.1f));
-        this.eventOne.add(new AnimatedText("...", 0.1f));
-        this.eventOne.add(new AnimatedText("Got you good huh?", 0.1f));
-        this.eventOne.add(new AnimatedText("Continue...", 0.1f));
-        this.eventOne.add(new AnimatedText("I'm sure you recall your necklace glowing in the rain. Long story short, you were chosen to be the next rain warden and I'm here to guide you!", 0.1f));
-        this.eventOne.add(new AnimatedText("Okay... guide me to what exactly?", 0.1f));
-        this.eventOne.add(new AnimatedText("You'll see as we go. Come on, time for an adventure!", 0.1f));
-        this.eventOne.add(new AnimatedText("Ugh... what a drag.", 0.1f));
+        this.eventOneDialogue = new ArrayList<>();
+        this.eventOneDialogue.add(new AnimatedText("Ugh.. that hurt. I am never doing that again.", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("Honestly, that was kind of fun.", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("??? Who said that??", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("Me.", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("What the..!!!?", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("Hehehe hi there fellow rain warden!", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("Rain warden..!!? What are you talking about !!?", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("You!", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("I know you're talking about me.. who else is here?", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("No one?", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("*Sigh*", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("I have no idea what you are or where you came from, but I'm no rain warden.", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("I see.. you don't know the meaning of having this necklace, do you?", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("Oh, you mean this necklace on my chest?", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("What other necklace is there?", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("...", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("Got you good huh?", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("Continue...", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("I'm sure you recall your necklace glowing in the rain. Long story short, you were chosen to be the next rain warden and I'm here to guide you!", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("Okay... guide me to what exactly?", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("You'll see as we go. Come on, time for an adventure!", 0.1f));
+        this.eventOneDialogue.add(new AnimatedText("Ugh... what a drag.", 0.1f));
 
-        this.expressions.add(new Texture("dialogue/expressions/lila/lilasad.png"));
-        this.expressions.add(new Texture("dialogue/expressions/renni/renni.png"));
-        this.expressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
-        this.expressions.add(new Texture("dialogue/expressions/renni/renni.png"));
-        this.expressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
-        this.expressions.add(new Texture("dialogue/expressions/renni/renni.png"));
-        this.expressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
-        this.expressions.add(new Texture("dialogue/expressions/renni/renni.png"));
-        this.expressions.add(new Texture("dialogue/expressions/lila/lilaneutral.png"));
-        this.expressions.add(new Texture("dialogue/expressions/renni/renni.png"));
-        this.expressions.add(new Texture("dialogue/expressions/lila/lilaneutral.png"));
-        this.expressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
-        this.expressions.add(new Texture("dialogue/expressions/renni/renni.png"));
-        this.expressions.add(new Texture("dialogue/expressions/lila/lilaneutral.png"));
-        this.expressions.add(new Texture("dialogue/expressions/renni/renni.png"));
-        this.expressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
-        this.expressions.add(new Texture("dialogue/expressions/renni/renni.png"));
-        this.expressions.add(new Texture("dialogue/expressions/lila/lilaneutral.png"));
-        this.expressions.add(new Texture("dialogue/expressions/renni/renni.png"));
-        this.expressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
-        this.expressions.add(new Texture("dialogue/expressions/renni/renni.png"));
-        this.expressions.add(new Texture("dialogue/expressions/lila/lilasad.png"));
+        this.eventOneExpressions = new ArrayList<>();
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilasad.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaneutral.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaneutral.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaneutral.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaneutral.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
+        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilasad.png"));
 
-        this.dialogue.add(eventOne);
+        this.eventTwoDialogue = new ArrayList<>();
+        this.eventTwoDialogue.add(new AnimatedText("Wow, this place is so pretty!", 0.1f));
+        this.eventTwoDialogue.add(new AnimatedText("...", 0.1f));
+        this.eventTwoDialogue.add(new AnimatedText("What's wrong?", 0.1f));
+        this.eventTwoDialogue.add(new AnimatedText("I'm not sure. As beautiful as it is, I feel like this place is fooling us.", 0.1f));
+        this.eventTwoDialogue.add(new AnimatedText("What do you mean?", 0.1f));
+        this.eventTwoDialogue.add(new AnimatedText("Not sure, just a feeling. Lets keep moving.", 0.1f));
+
+        this.eventTwoExpressions = new ArrayList<>();
+        this.eventTwoExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
+        this.eventTwoExpressions.add(new Texture("dialogue/expressions/lila/lilasad.png"));
+        this.eventTwoExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
+        this.eventTwoExpressions.add(new Texture("dialogue/expressions/lila/lilaneutral.png"));
+        this.eventTwoExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
+        this.eventTwoExpressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
+
+        this.dialogue.add(eventOneDialogue);
+        this.dialogue.add(eventTwoDialogue);
+        this.expressions.add(eventOneExpressions);
+        this.expressions.add(eventTwoExpressions);
 
         this.gameScreen = gameScreen;
     }
@@ -84,6 +107,19 @@ public class Renni extends NPC{
 
     private void disableCollision(){
         collisionDisabled = true;
+    }
+
+    public void setBody(Body body){
+        this.body = body;
+    }
+
+    public void setWorld(World world){
+        this.world = world;
+    }
+
+    public void setFixture(Fixture sensorFixture){
+        this.sensorFixture = sensorFixture;
+        sensorFixture.setUserData(this);
     }
 
     @Override

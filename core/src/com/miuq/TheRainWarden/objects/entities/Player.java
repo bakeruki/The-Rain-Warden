@@ -7,8 +7,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.miuq.TheRainWarden.helper.Constants;
 
+/**
+ * Note: Most of the player class was developed by us, however some code including the movement was
+ * borrowed from the following video.
+ * 
+ * Credit: Small Pixel Games on YouTube
+ * https://www.youtube.com/watch?v=6QKhSctuMcs&ab_channel=SmallPixelGames
+ * 
+ */
 public class Player extends GameEntity {
-
     private int jumpCounter = 0;
     private int dashCounter = 0;
     private int countDash = 0;

@@ -357,6 +357,8 @@ public class GameScreen extends ScreenAdapter{
     private void updateRunning(){
         world.step(1/60f, 6, 2);
         Gdx.graphics.setSystemCursor(SystemCursor.None);
+
+        checkLevelSwitch();
         cameraUpdate();
 
         orthoganalTiledMapRenderer.setView(camera);
@@ -374,6 +376,7 @@ public class GameScreen extends ScreenAdapter{
         loadMap(level);
         levelSpecificTasks(level);
         cutscene.update(level, this);
+        dialogue.update();
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
             gameState = GAME_PAUSED;
@@ -416,6 +419,12 @@ public class GameScreen extends ScreenAdapter{
         for(ShinyRaindrop shinyRaindrop : destroyedRaindrops){
             shinyRaindrop.respawn();
             shinyRaindrops.add(shinyRaindrop);
+        }
+    }
+
+    private void checkLevelSwitch(){
+        if(camera.position != cameraPositions.get(level)){
+            dialogue.enableDialogueEvent();
         }
     }
 

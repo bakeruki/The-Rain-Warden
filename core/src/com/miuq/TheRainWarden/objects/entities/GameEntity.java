@@ -2,7 +2,10 @@ package com.miuq.TheRainWarden.objects.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
-
+/**
+ * Credit: Small Pixel Games on YouTube
+ * https://www.youtube.com/watch?v=6QKhSctuMcs&ab_channel=SmallPixelGames
+ */
 public abstract class GameEntity {
     protected float x;
     protected float y;

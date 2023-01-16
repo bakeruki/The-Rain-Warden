@@ -8,8 +8,11 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.miuq.TheRainWarden.objects.gameObjects.InteractiveTileObject;
 import com.miuq.TheRainWarden.objects.gameObjects.WindCurrent;
 
+/**
+ * Credit: Brent Aureli Codes on YouTube
+ * https://www.youtube.com/watch?v=tcH6Mp03KC0&list=PLZm85UZQLd2SXQzsF-a0-pPF6IWDDdrXt&index=12&ab_channel=BrentAureliCodes
+ */
 public class WorldContactListener implements ContactListener{
-
     @Override
     public void beginContact(Contact contact) {
         Fixture fixA = contact.getFixtureA();

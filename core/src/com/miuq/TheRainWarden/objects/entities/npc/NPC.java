@@ -17,9 +17,9 @@ import com.miuq.TheRainWarden.objects.gameObjects.InteractiveTileObject;
 
 public abstract class NPC extends InteractiveTileObject{
     protected ArrayList<ArrayList<AnimatedText>> dialogue;
-    protected ArrayList<Texture> expressions;
+    protected ArrayList<ArrayList<Texture>> expressions;
     protected int eventCount;
-    private int frame;
+    protected int frame;
     private GlyphLayout layout;
     private BitmapFont font;
     private boolean hasIncremented;
@@ -37,6 +37,10 @@ public abstract class NPC extends InteractiveTileObject{
 
     public void increaseEventCount(){
         eventCount++;
+    }
+
+    public void setEventCount(int count){
+        eventCount = count;
     }
 
     public void nextFrame(){
@@ -60,7 +64,7 @@ public abstract class NPC extends InteractiveTileObject{
     }
 
     public void renderNPCDialogue(float delta, SpriteBatch batch){
-        batch.draw(expressions.get(frame), 400, 800);
+        batch.draw(expressions.get(eventCount).get(frame), 400, 800);
         dialogue.get(eventCount).get(frame).update(delta);
         layout.setText(font, dialogue.get(eventCount).get(frame).getText(), Color.WHITE, 700, Align.center, true);
         font.getData().setScale(2f);

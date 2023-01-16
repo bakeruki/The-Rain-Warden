@@ -31,6 +31,8 @@ public class GameDialogueHandler {
                 updateNPC(delta, batch);
                 break;
             case 2:
+                currentNPC = renni;
+                updateNPC(delta, batch);
                 break;
             case 3:
                 break;
@@ -54,9 +56,15 @@ public class GameDialogueHandler {
         switch(level){
             case 2:
                 dialogueCount = 0;
+                renni.setEventCount(0);
                 break;
             case 3:
                 dialogueCount = 1;
+                mimir.setEventCount(0);
+                break;
+            case 5:
+                dialogueCount = 2;
+                renni.setEventCount(1);
                 break;
         }
     }
@@ -74,11 +82,14 @@ public class GameDialogueHandler {
         currentNPC.nextFrame();
     }
 
+    public void update(){
+        updateDialogueCount(gameScreen.getLevel());
+    }
+
     public void draw(float delta, SpriteBatch batch){
         if(!currentEventFinished){
             drawCurrentEvent(delta, batch);
         }
-        updateDialogueCount(gameScreen.getLevel());
     }
 
     public void setMimir(Mimir mimir){
@@ -93,11 +104,23 @@ public class GameDialogueHandler {
         dialogueCount = count;
     }
 
+    public Renni getRenni(){
+        return renni;
+    }
+
+    public Mimir getMimir(){
+        return mimir;
+    }
+
     public int getDialogueCount(){
         return dialogueCount;
     }
 
     public boolean isDialogueEventFinished(){
         return currentEventFinished;
+    }
+
+    public void enableDialogueEvent(){
+        currentEventFinished = false;
     }
 }

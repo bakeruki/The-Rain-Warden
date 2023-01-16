@@ -5,9 +5,9 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
-	 * Abstract TileObject class. Used as superclass of all objects than can be interacted with by the player.
-     * @author Luqman Patel
-	 */
+ * Credit: Brent Aureli Codes on YouTube
+ * https://www.youtube.com/watch?v=tcH6Mp03KC0&list=PLZm85UZQLd2SXQzsF-a0-pPF6IWDDdrXt&index=12&ab_channel=BrentAureliCodes
+ */
 public abstract class InteractiveTileObject {
     
     protected Fixture sensorFixture;
