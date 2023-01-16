@@ -16,14 +16,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.miuq.TheRainWarden.GameScreen;
-import com.miuq.TheRainWarden.TheRainWarden;
 import com.miuq.TheRainWarden.cutscenes.CutsceneFour;
 import com.miuq.TheRainWarden.cutscenes.CutsceneOne;
 import com.miuq.TheRainWarden.cutscenes.CutsceneThree;
 import com.miuq.TheRainWarden.cutscenes.CutsceneTwo;
-import com.miuq.helper.GameOptionsHandler;
-import com.miuq.helper.GameSaveHandler;
+import com.miuq.TheRainWarden.helper.GameOptionsHandler;
+import com.miuq.TheRainWarden.helper.GameSaveHandler;
+import com.miuq.TheRainWarden.main.GameScreen;
+import com.miuq.TheRainWarden.main.TheRainWarden;
 
 public class StartMenu extends ScreenAdapter{
     private TheRainWarden game;

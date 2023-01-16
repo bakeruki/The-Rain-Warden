@@ -4,9 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.miuq.TheRainWarden.GameScreen;
-import com.miuq.TheRainWarden.TheRainWarden;
-import com.miuq.animation.AnimatedText;
+import com.miuq.TheRainWarden.animation.AnimatedText;
+import com.miuq.TheRainWarden.main.GameScreen;
+import com.miuq.TheRainWarden.main.TheRainWarden;
 
 public class CutsceneFour extends Cutscene{
     public CutsceneFour(OrthographicCamera camera, FitViewport viewport, TheRainWarden game, GameScreen gameScreen) {

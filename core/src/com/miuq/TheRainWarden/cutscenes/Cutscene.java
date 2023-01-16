@@ -23,9 +23,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.miuq.TheRainWarden.GameScreen;
-import com.miuq.TheRainWarden.TheRainWarden;
-import com.miuq.animation.AnimatedText;
+import com.miuq.TheRainWarden.animation.AnimatedText;
+import com.miuq.TheRainWarden.main.GameScreen;
+import com.miuq.TheRainWarden.main.TheRainWarden;
 
 /**
  * Cutscene is a superclass used to create cutscenes viewed by the player.
@@ -130,6 +130,38 @@ public abstract class Cutscene extends ScreenAdapter {
     }
 
     /**
+     * questions:
+     * should we use different arraylists for each cutscene or just have two
+     * giant arraylists that contains all of the text and images?
+     * 
+     * what is the best way to check/tell the program if the current cutscene has finished?
+     * 
+     * should we dispose of the cutscene 'screen' while the gamescreen is active? if so, how will we update
+     * and keep track of the cutsceneNum? (performance issue - having multiple screens instantiated has a huge
+     * impact on performance)
+     * 
+     * public void update(){
+     *      switch(cutsceneNum){
+     *          case 1:
+     *              draw cutscene 1 text arraylist and image arraylist
+     *          case 2:
+     *              draw cutscene 2 text arraylist and image arraylist
+     *          case 3:
+     *              draw cutscene 3 text arraylist and image arraylist
+     *      }
+     * 
+     *      checkCutsceneFinished();
+     * }
+     * 
+     * private void checkCutsceneFinished(){
+     *      if(frame >= cutscene length){
+     *          increase cutsceneNum
+     *          change back to game screen
+     *      }
+     * } 
+     */
+
+    /**
      * Handles code to be executed when the continue button is clicked.
      * @author Luqman Patel
      */
@@ -164,7 +196,7 @@ public abstract class Cutscene extends ScreenAdapter {
 
         batch.begin();
         font.getData().setScale(2f);
-        updateCutscene(delta);
+        drawCutscene(delta);
         batch.end();
 
         if(frame == cutsceneImages.size()){
@@ -185,7 +217,7 @@ public abstract class Cutscene extends ScreenAdapter {
      * @param delta Time since last render.
      * @author Luqman Patel
      */
-    private void updateCutscene(float delta){
+    private void drawCutscene(float delta){
         batch.setColor(1.0f, 1.0f, 1.0f, alpha);
         if(frame < cutsceneImages.size()){
             batch.draw(cutsceneImages.get(frame), Gdx.graphics.getWidth() / 2 - 640, 250);
