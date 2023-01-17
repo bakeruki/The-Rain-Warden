@@ -62,6 +62,11 @@ public class Mimir extends NPC{
         collisionDisabled = true;
     }
 
+    public void enableCollision(){
+        collisionDisabled = false;
+    }
+
+
     public void setBody(Body body){
         this.body = body;
     }

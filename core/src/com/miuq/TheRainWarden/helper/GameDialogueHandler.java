@@ -120,5 +120,12 @@ public class GameDialogueHandler {
 
     public void enableDialogueEvent(){
         currentEventFinished = false;
+        if(renni != null){
+            renni.enableCollision();
+        }
+        if(mimir != null){
+            mimir.enableCollision();
+        }
+        
     }
 }

@@ -109,6 +109,11 @@ public class Renni extends NPC{
         collisionDisabled = true;
     }
 
+    public void enableCollision(){
+        collisionDisabled = false;
+        frame = 0;
+    }
+
     public void setBody(Body body){
         this.body = body;
     }

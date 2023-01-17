@@ -105,6 +105,11 @@ public class GameScreen extends ScreenAdapter{
      * Keeps track of the current level that the player is on.
      */
     private int level;
+
+    /**
+     * Used to check if the level has been switched.
+     */
+    private int tempLevel;
     
     /**
      * Keeps track of the selected save file's number.
@@ -423,8 +428,10 @@ public class GameScreen extends ScreenAdapter{
     }
 
     private void checkLevelSwitch(){
-        if(camera.position != cameraPositions.get(level)){
+        if(tempLevel != level){
             dialogue.enableDialogueEvent();
+            System.out.println("level swtich");
+            tempLevel = level;
         }
     }
 
