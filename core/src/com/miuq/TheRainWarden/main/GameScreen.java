@@ -522,6 +522,8 @@ public class GameScreen extends ScreenAdapter{
     
         world.setContactListener(new WorldContactListener());
         updateAllObjectClasses(player, world);
+
+        dialogue.enableDialogueEvent();
     }
 
     public void setGameState(int gameState){
