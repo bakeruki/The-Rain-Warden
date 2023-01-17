@@ -49,11 +49,11 @@ public class Mimir extends NPC{
     @Override
     public void onCollision() {
         if(!collisionDisabled){
-            Gdx.app.log("Renni", "Begin Dialogue Event");
+            Gdx.app.log("Mimir", "Begin Dialogue Event");
             gameScreen.setGameState(gameScreen.GAME_DIALOGUE);
             disableCollision();
         }else{
-            Gdx.app.log("Renni", "Collisions are disabled!");
+            Gdx.app.log("Mimir", "Collisions are disabled!");
         }
         
     }

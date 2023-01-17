@@ -148,7 +148,6 @@ public class TileMapHelper {
 
                     Fixture fixture = createSensorFixture(shape, body);
                     shape.dispose();
-                    System.out.println("making renni");
                     if(dialogue.getRenni() != null){
                         Renni renni = dialogue.getRenni();
                         renni.setBody(body);
@@ -166,7 +165,6 @@ public class TileMapHelper {
 
                     Fixture fixture = createSensorFixture(shape, body);
                     shape.dispose();
-                    System.out.println("making mimir");
                     if(dialogue.getMimir() != null){
                         Mimir mimir = dialogue.getMimir();
                         mimir.setBody(body);

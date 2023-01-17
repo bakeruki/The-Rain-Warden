@@ -56,10 +56,8 @@ public abstract class NPC extends InteractiveTileObject{
 
     public boolean isDialogueEventFinished(){
         if(dialogue.get(eventCount).size() == frame){
-            System.out.println("dialoge event finished");
             return true;
         }
-        System.out.println("frame: " + frame + ", size: " + dialogue.get(eventCount).size());
         return false;
     }
 

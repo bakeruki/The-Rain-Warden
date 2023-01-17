@@ -43,12 +43,10 @@ public class GameDialogueHandler {
             case 6:
                 break;
         }
-        System.out.println("dialogue count:" + dialogueCount);
     }
 
     private void handleDialogueFinish(){
         currentEventFinished = true;
-        System.out.println("dialogue count:" + dialogueCount);
         gameScreen.setGameState(gameScreen.GAME_RUNNING);
     }
 
