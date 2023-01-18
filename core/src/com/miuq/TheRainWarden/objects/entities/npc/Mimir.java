@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.miuq.TheRainWarden.animation.AnimatedText;
+import com.miuq.TheRainWarden.helper.Constants;
 import com.miuq.TheRainWarden.main.GameScreen;
 
 public class Mimir extends NPC{
@@ -15,6 +16,9 @@ public class Mimir extends NPC{
     private ArrayList<Texture> eventOneExpressions;
     private GameScreen gameScreen;
     private boolean collisionDisabled;
+
+    private float x;
+    private float y;
     
     public Mimir(World world, Body body, Fixture sensorFixture, GameScreen gameScreen){
         super(world, body, sensorFixture);
@@ -44,6 +48,9 @@ public class Mimir extends NPC{
         this.eventOneExpressions.add(new Texture("dialogue/expressions/mimir/mimir.png"));
         this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilahappy.png"));
         this.expressions.add(eventOneExpressions);
+
+        this.x = body.getPosition().x * Constants.PPM;
+        this.y = body.getPosition().y * Constants.PPM;
     }
 
     @Override
@@ -78,6 +85,14 @@ public class Mimir extends NPC{
     public void setFixture(Fixture sensorFixture){
         this.sensorFixture = sensorFixture;
         sensorFixture.setUserData(this);
+    }
+
+    public float getX(){
+        return x;
+    }
+
+    public float getY(){
+        return y;
     }
 
     @Override

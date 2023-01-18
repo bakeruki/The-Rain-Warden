@@ -1,10 +1,14 @@
 package com.miuq.TheRainWarden.animation;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
+import com.miuq.TheRainWarden.helper.GameDialogueHandler;
 import com.miuq.TheRainWarden.objects.entities.Player;
+import com.miuq.TheRainWarden.objects.entities.npc.Mimir;
+import com.miuq.TheRainWarden.objects.entities.npc.Renni;
 import com.miuq.TheRainWarden.objects.gameObjects.Mango;
 import com.miuq.TheRainWarden.objects.gameObjects.ShinyRaindrop;
 
@@ -20,6 +24,8 @@ public class AnimationRenderer{
     private ShinyRaindrop destroyedRaindrop;
     private Array<ShinyRaindrop> shinyRaindrops;
     private Array<Mango> mangos;
+    private Renni renni;
+    private Mimir mimir;
 
     //player animations
     private Animation idle;
@@ -43,6 +49,9 @@ public class AnimationRenderer{
     private Animation mangoAnimation;
     private boolean raindropDestroyed;
     private boolean hasBeenCarried;
+
+    //npc animations
+    private Animation mimirIdle;
     
     /**
 	 * Constructor of the AnimationRenderer. Creates multiple animation objects for each animation that will be used.
@@ -79,10 +88,19 @@ public class AnimationRenderer{
         //TODO mango destroyed animation
         //TODO wind current animation
         this.raindropDestroyed = false; //boolean for when the raindrop being destroyed animation should be played
-        this.hasBeenCarried = false; //boolean for whether jump animation should keep playing (wind currents bug)   
+        this.hasBeenCarried = false; //boolean for whether jump animation should keep playing (wind currents bug) 
+        
+        //npc animations from animations/npc
+        this.mimirIdle = new Animation(new TextureRegion(new Texture(Gdx.files.internal("animations/npc/mimirIdle.png"))), 2, 1f);
     }
 
-    
+    public void setRenni(Renni renni){
+        this.renni = renni;
+    }
+
+    public void setMimir(Mimir mimir){
+        this.mimir = mimir;
+    }
 
     public void setPlayer(Player player){
         this.player = player;
@@ -141,6 +159,25 @@ public class AnimationRenderer{
         return false;
     }
 
+    public void drawDialogueAnimations(float delta, float x, float y){
+        drawNPCAnimations(delta);
+
+        if(player.isLeft()){
+            idleLeft.update(delta);
+            batch.draw(idleLeft.getFrame(), x, y);
+        }else{
+            idle.update(delta);
+            batch.draw(idle.getFrame(), x, y);
+        }
+    }
+
+    private void drawNPCAnimations(float delta){
+        if(mimir != null){
+            batch.draw(mimirIdle.getFrame(), mimir.getX() - 48, mimir.getY() - 52);
+            mimirIdle.update(delta);
+        }
+    }
+
     /**
 	 * Draws all animations using the GameScreen's SpriteBatch.
      * @param delta Time since last render.
@@ -149,6 +186,7 @@ public class AnimationRenderer{
     public void drawAnimations(float delta){
         shinyRaindropAnimation.update(delta);
         mangoAnimation.update(delta);
+        drawNPCAnimations(delta);
         
         for(ShinyRaindrop shinyRaindrop : shinyRaindrops){
             batch.draw(shinyRaindropAnimation.getFrame(), shinyRaindrop.getX() - 32, shinyRaindrop.getY() - 32);

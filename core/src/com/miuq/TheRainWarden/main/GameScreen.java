@@ -315,6 +315,7 @@ public class GameScreen extends ScreenAdapter{
         initializeMap(level);
 
         this.animationRenderer = new AnimationRenderer(player, batch);
+        this.animationRenderer.setMimir(dialogue.getMimir());
 
         world.setContactListener(new WorldContactListener());
 
@@ -377,7 +378,7 @@ public class GameScreen extends ScreenAdapter{
 
         player.update();
         updateGameObjects();
-
+        
         loadMap(level);
         levelSpecificTasks(level);
         cutscene.update(level, this);
@@ -759,7 +760,9 @@ public class GameScreen extends ScreenAdapter{
         dialogueStage.act();
         dialogueStage.draw();
         dialogue.draw(delta, batch);
-        animationRenderer.drawAnimations(delta);
+        float x = startPositions.get(level).x + 64;
+        float y = startPositions.get(level).y + 150;
+        animationRenderer.drawDialogueAnimations(delta, x, y);
     }
 
     /**

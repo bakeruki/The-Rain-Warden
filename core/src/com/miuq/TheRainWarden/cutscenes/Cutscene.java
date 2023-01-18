@@ -130,35 +130,10 @@ public abstract class Cutscene extends ScreenAdapter {
     }
 
     /**
-     * questions:
-     * should we use different arraylists for each cutscene or just have two
-     * giant arraylists that contains all of the text and images?
-     * 
-     * what is the best way to check/tell the program if the current cutscene has finished?
-     * 
-     * should we dispose of the cutscene 'screen' while the gamescreen is active? if so, how will we update
-     * and keep track of the cutsceneNum? (performance issue - having multiple screens instantiated has a huge
-     * impact on performance)
-     * 
-     * public void update(){
-     *      switch(cutsceneNum){
-     *          case 1:
-     *              draw cutscene 1 text arraylist and image arraylist
-     *          case 2:
-     *              draw cutscene 2 text arraylist and image arraylist
-     *          case 3:
-     *              draw cutscene 3 text arraylist and image arraylist
-     *      }
-     * 
-     *      checkCutsceneFinished();
-     * }
-     * 
-     * private void checkCutsceneFinished(){
-     *      if(frame >= cutscene length){
-     *          increase cutsceneNum
-     *          change back to game screen
-     *      }
-     * } 
+     * Turn this class into an object class that can be instantiated in the cutscene handler
+     * constructor takes a list of strings
+     * delete all the dumb subclasses
+     * make multiple cutscene objects in cutscene handler
      */
 
     /**
