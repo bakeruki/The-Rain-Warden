@@ -21,6 +21,8 @@ public class Renni extends NPC{
     public Renni(World world, Body body, Fixture sensorFixture, GameScreen gameScreen){
         super(world, body, sensorFixture);
         sensorFixture.setUserData(this);
+        this.gameScreen = gameScreen;
+        
         this.eventOneDialogue = new ArrayList<>();
         this.eventOneDialogue.add(new AnimatedText("Ugh.. that hurt. I am never doing that again.", 0.1f));
         this.eventOneDialogue.add(new AnimatedText("Honestly, that was kind of fun.", 0.1f));
@@ -89,8 +91,6 @@ public class Renni extends NPC{
         this.dialogue.add(eventTwoDialogue);
         this.expressions.add(eventOneExpressions);
         this.expressions.add(eventTwoExpressions);
-
-        this.gameScreen = gameScreen;
     }
 
     @Override
@@ -103,28 +103,6 @@ public class Renni extends NPC{
             Gdx.app.log("Renni", "Collisions are disabled!");
         }
         
-    }
-
-    private void disableCollision(){
-        collisionDisabled = true;
-    }
-
-    public void enableCollision(){
-        collisionDisabled = false;
-        frame = 0;
-    }
-
-    public void setBody(Body body){
-        this.body = body;
-    }
-
-    public void setWorld(World world){
-        this.world = world;
-    }
-
-    public void setFixture(Fixture sensorFixture){
-        this.sensorFixture = sensorFixture;
-        sensorFixture.setUserData(this);
     }
 
     @Override

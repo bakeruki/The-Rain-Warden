@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
-import com.miuq.TheRainWarden.helper.GameDialogueHandler;
+import com.miuq.TheRainWarden.main.GameScreen;
 import com.miuq.TheRainWarden.objects.entities.Player;
 import com.miuq.TheRainWarden.objects.entities.npc.Mimir;
 import com.miuq.TheRainWarden.objects.entities.npc.Renni;
@@ -18,7 +18,6 @@ import com.miuq.TheRainWarden.objects.gameObjects.ShinyRaindrop;
 	 */
 
 public class AnimationRenderer{
-
     private Player player;
     private SpriteBatch batch;
     private ShinyRaindrop destroyedRaindrop;
@@ -26,6 +25,7 @@ public class AnimationRenderer{
     private Array<Mango> mangos;
     private Renni renni;
     private Mimir mimir;
+    private GameScreen gameScreen;
 
     //player animations
     private Animation idle;
@@ -59,11 +59,12 @@ public class AnimationRenderer{
      * @param batch The SpriteBatch object. Uses the same SpriteBatch as the GameScreen class to save resources.
      * @author Michelle Vuong
 	 */
-    public AnimationRenderer(Player player, SpriteBatch batch){
+    public AnimationRenderer(Player player, SpriteBatch batch, GameScreen gameScreen){
         this.player = player;
         this.batch = batch;
         this.shinyRaindrops = new Array<ShinyRaindrop>();
         this.mangos = new Array<Mango>();
+        this.gameScreen = gameScreen;
 
         //player animations taken from assets/animmations/player
         this.idle = new Animation(new TextureRegion(new Texture("animations/player/idle.png")), 4, 4f); //idle animation
@@ -160,20 +161,27 @@ public class AnimationRenderer{
     }
 
     public void drawDialogueAnimations(float delta, float x, float y){
-        drawNPCAnimations(delta);
-
-        if(player.isLeft()){
+        if(gameScreen.getLevel() == 3){
+            mimirIdle.update(delta);
             idleLeft.update(delta);
-            batch.draw(idleLeft.getFrame(), x, y);
+            batch.draw(mimirIdle.getFrame(), 680, 250);
+            batch.draw(idleLeft.getFrame(), 730, 230);
         }else{
-            idle.update(delta);
-            batch.draw(idle.getFrame(), x, y);
+            if(player.isLeft()){
+                idleLeft.update(delta);
+                batch.draw(idleLeft.getFrame(), x, y);
+            }else{
+                idle.update(delta);
+                batch.draw(idle.getFrame(), x, y);
+            }
         }
     }
 
     private void drawNPCAnimations(float delta){
         if(mimir != null){
-            batch.draw(mimirIdle.getFrame(), mimir.getX() - 48, mimir.getY() - 52);
+            if(gameScreen.getLevel() == 3){
+                batch.draw(mimirIdle.getFrame(), mimir.getX() - 48, mimir.getY() - 52);
+            }
             mimirIdle.update(delta);
         }
     }

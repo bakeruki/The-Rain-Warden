@@ -16,15 +16,12 @@ public class Mimir extends NPC{
     private ArrayList<Texture> eventOneExpressions;
     private GameScreen gameScreen;
     private boolean collisionDisabled;
-
-    private float x;
-    private float y;
     
     public Mimir(World world, Body body, Fixture sensorFixture, GameScreen gameScreen){
         super(world, body, sensorFixture);
+        sensorFixture.setUserData(this);
         this.gameScreen = gameScreen;
         
-        sensorFixture.setUserData(this);
         this.eventOneDialogue = new ArrayList<>();
         this.eventOneDialogue.add(new AnimatedText("You there.. come here.", 0.1f));
         this.eventOneDialogue.add(new AnimatedText("I can feel that you possess great power. Oh that necklace...", 0.1f));
@@ -35,7 +32,6 @@ public class Mimir extends NPC{
         this.eventOneDialogue.add(new AnimatedText("*You received a new ability: thunder flash!*", 0.1f));
         this.eventOneDialogue.add(new AnimatedText("Good luck on your journey.", 0.1f));
         this.eventOneDialogue.add(new AnimatedText("Thank you!", 0.1f));
-        this.dialogue.add(eventOneDialogue);
 
         this.eventOneExpressions = new ArrayList<>();
         this.eventOneExpressions.add(new Texture("dialogue/expressions/mimir/mimir.png"));
@@ -47,10 +43,9 @@ public class Mimir extends NPC{
         this.eventOneExpressions.add(new Texture("dialogue/expressions/mimir/mimir.png"));
         this.eventOneExpressions.add(new Texture("dialogue/expressions/mimir/mimir.png"));
         this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilahappy.png"));
+        
         this.expressions.add(eventOneExpressions);
-
-        this.x = body.getPosition().x * Constants.PPM;
-        this.y = body.getPosition().y * Constants.PPM;
+        this.dialogue.add(eventOneDialogue);
     }
 
     @Override
@@ -62,41 +57,11 @@ public class Mimir extends NPC{
         }else{
             Gdx.app.log("Mimir", "Collisions are disabled!");
         }
-        
-    }
-
-    private void disableCollision(){
-        collisionDisabled = true;
-    }
-
-    public void enableCollision(){
-        collisionDisabled = false;
-    }
-
-
-    public void setBody(Body body){
-        this.body = body;
-    }
-
-    public void setWorld(World world){
-        this.world = world;
-    }
-
-    public void setFixture(Fixture sensorFixture){
-        this.sensorFixture = sensorFixture;
-        sensorFixture.setUserData(this);
-    }
-
-    public float getX(){
-        return x;
-    }
-
-    public float getY(){
-        return y;
     }
 
     @Override
     public void update() {
-
+        this.x = body.getPosition().x * Constants.PPM;
+        this.y = body.getPosition().y * Constants.PPM;
     }
 }

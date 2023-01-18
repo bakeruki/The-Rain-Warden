@@ -13,13 +13,17 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Align;
 import com.miuq.TheRainWarden.animation.AnimatedText;
+import com.miuq.TheRainWarden.helper.Constants;
 import com.miuq.TheRainWarden.objects.gameObjects.InteractiveTileObject;
 
 public abstract class NPC extends InteractiveTileObject{
     protected ArrayList<ArrayList<AnimatedText>> dialogue;
     protected ArrayList<ArrayList<Texture>> expressions;
+    protected boolean collisionDisabled;
     protected int eventCount;
     protected int frame;
+    protected float x;
+    protected float y;
     private GlyphLayout layout;
     private BitmapFont font;
     private boolean hasIncremented;
@@ -33,6 +37,9 @@ public abstract class NPC extends InteractiveTileObject{
 
         this.layout = new GlyphLayout();
         this.font = new BitmapFont();
+
+        this.x = body.getPosition().x * Constants.PPM;
+        this.y = body.getPosition().y * Constants.PPM;
     }
 
     public void increaseEventCount(){
@@ -69,5 +76,34 @@ public abstract class NPC extends InteractiveTileObject{
         font.draw(batch, layout, Gdx.graphics.getWidth()/2-300, 1000);
         dialogue.get(eventCount).get(frame).update(delta);
         hasIncremented = false;
+    }
+
+    protected void disableCollision(){
+        collisionDisabled = true;
+    }
+
+    public void enableCollision(){
+        collisionDisabled = false;
+    }
+
+    public void setBody(Body body){
+        this.body = body;
+    }
+
+    public void setWorld(World world){
+        this.world = world;
+    }
+
+    public float getX(){
+        return x;
+    }
+
+    public float getY(){
+        return y;
+    }
+
+    public void setFixture(Fixture sensorFixture){
+        this.sensorFixture = sensorFixture;
+        sensorFixture.setUserData(this);
     }
 }

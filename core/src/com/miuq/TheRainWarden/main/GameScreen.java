@@ -314,7 +314,7 @@ public class GameScreen extends ScreenAdapter{
         this.tileMapHelper = new TileMapHelper(this, dialogue);
         initializeMap(level);
 
-        this.animationRenderer = new AnimationRenderer(player, batch);
+        this.animationRenderer = new AnimationRenderer(player, batch, this);
         this.animationRenderer.setMimir(dialogue.getMimir());
 
         world.setContactListener(new WorldContactListener());
@@ -352,7 +352,6 @@ public class GameScreen extends ScreenAdapter{
         if(dialogue.isDialogueEventFinished()){
             gameState = GAME_RUNNING;
         }
-
         Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
     }
 
@@ -381,6 +380,7 @@ public class GameScreen extends ScreenAdapter{
         
         loadMap(level);
         levelSpecificTasks(level);
+        animationRenderer.setMimir(dialogue.getMimir());
         cutscene.update(level, this);
         dialogue.update();
 
@@ -449,6 +449,12 @@ public class GameScreen extends ScreenAdapter{
         
         if(level >= 4){
             player.unlockDash();
+        }
+
+        if(level >= 8 && level <= 10){
+            player.disableJump();
+        }else{
+            player.enableJump();
         }
     }
 
