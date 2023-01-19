@@ -20,8 +20,8 @@ public abstract class NPC extends InteractiveTileObject{
     protected ArrayList<ArrayList<AnimatedText>> dialogue;
     protected ArrayList<ArrayList<Texture>> expressions;
     protected boolean collisionDisabled;
-    protected int eventCount;
-    protected int frame;
+    private int eventCount;
+    private int frame;
     protected float x;
     protected float y;
     private GlyphLayout layout;
@@ -78,13 +78,7 @@ public abstract class NPC extends InteractiveTileObject{
         hasIncremented = false;
     }
 
-    protected void disableCollision(){
-        collisionDisabled = true;
-    }
-
-    public void enableCollision(){
-        collisionDisabled = false;
-    }
+    
 
     public void setBody(Body body){
         this.body = body;
@@ -102,8 +96,20 @@ public abstract class NPC extends InteractiveTileObject{
         return y;
     }
 
+    public int getFrame(){
+        return frame;
+    }
+
+    public int getEventCount(){
+        return eventCount;
+    }
+
     public void setFixture(Fixture sensorFixture){
         this.sensorFixture = sensorFixture;
         sensorFixture.setUserData(this);
+    }
+
+    public void setFrame(int frame){
+        this.frame = frame;
     }
 }

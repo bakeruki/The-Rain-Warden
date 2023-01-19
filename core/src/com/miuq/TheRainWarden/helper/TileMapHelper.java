@@ -18,8 +18,12 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.miuq.TheRainWarden.main.GameScreen;
 import com.miuq.TheRainWarden.objects.entities.Player;
+import com.miuq.TheRainWarden.objects.entities.npc.Lu;
+import com.miuq.TheRainWarden.objects.entities.npc.Manny;
 import com.miuq.TheRainWarden.objects.entities.npc.Mimir;
+import com.miuq.TheRainWarden.objects.entities.npc.Persephone;
 import com.miuq.TheRainWarden.objects.entities.npc.Renni;
+import com.miuq.TheRainWarden.objects.entities.npc.Rose;
 import com.miuq.TheRainWarden.objects.gameObjects.CameraSwitchTrigger;
 import com.miuq.TheRainWarden.objects.gameObjects.Mango;
 import com.miuq.TheRainWarden.objects.gameObjects.ShinyRaindrop;
@@ -172,6 +176,74 @@ public class TileMapHelper {
                         mimir.setFixture(fixture);
                     }else{
                         dialogue.setMimir(new Mimir(gameScreen.getWorld(), body, fixture, gameScreen));
+                    }
+                }
+                if(rectangleName.equals("persephone")){
+                    Body body = createBody(rectangle);
+
+                    PolygonShape shape = new PolygonShape();
+                    shape.setAsBox(rectangle.getWidth() / 2 / Constants.PPM, rectangle.getHeight() / 2 / Constants.PPM);
+
+                    Fixture fixture = createSensorFixture(shape, body);
+                    shape.dispose();
+                    if(dialogue.getPersephone() != null){
+                        Persephone persephone = dialogue.getPersephone();
+                        persephone.setBody(body);
+                        persephone.setWorld(gameScreen.getWorld());
+                        persephone.setFixture(fixture);
+                    }else{
+                        dialogue.setPersephone(new Persephone(gameScreen.getWorld(), body, fixture, gameScreen));
+                    }
+                }
+                if(rectangleName.equals("lu")){
+                    Body body = createBody(rectangle);
+
+                    PolygonShape shape = new PolygonShape();
+                    shape.setAsBox(rectangle.getWidth() / 2 / Constants.PPM, rectangle.getHeight() / 2 / Constants.PPM);
+
+                    Fixture fixture = createSensorFixture(shape, body);
+                    shape.dispose();
+                    if(dialogue.getLu() != null){
+                        Lu lu = dialogue.getLu();
+                        lu.setBody(body);
+                        lu.setWorld(gameScreen.getWorld());
+                        lu.setFixture(fixture);
+                    }else{
+                        dialogue.setLu(new Lu(gameScreen.getWorld(), body, fixture, gameScreen));
+                    }
+                }
+                if(rectangleName.equals("manny")){
+                    Body body = createBody(rectangle);
+
+                    PolygonShape shape = new PolygonShape();
+                    shape.setAsBox(rectangle.getWidth() / 2 / Constants.PPM, rectangle.getHeight() / 2 / Constants.PPM);
+
+                    Fixture fixture = createSensorFixture(shape, body);
+                    shape.dispose();
+                    if(dialogue.getManny() != null){
+                        Manny manny = dialogue.getManny();
+                        manny.setBody(body);
+                        manny.setWorld(gameScreen.getWorld());
+                        manny.setFixture(fixture);
+                    }else{
+                        dialogue.setManny(new Manny(gameScreen.getWorld(), body, fixture, gameScreen));
+                    }
+                }
+                if(rectangleName.equals("rose")){
+                    Body body = createBody(rectangle);
+
+                    PolygonShape shape = new PolygonShape();
+                    shape.setAsBox(rectangle.getWidth() / 2 / Constants.PPM, rectangle.getHeight() / 2 / Constants.PPM);
+
+                    Fixture fixture = createSensorFixture(shape, body);
+                    shape.dispose();
+                    if(dialogue.getRose() != null){
+                        Rose rose = dialogue.getRose();
+                        rose.setBody(body);
+                        rose.setWorld(gameScreen.getWorld());
+                        rose.setFixture(fixture);
+                    }else{
+                        dialogue.setRose(new Rose(gameScreen.getWorld(), body, fixture, gameScreen));
                     }
                 }
             }

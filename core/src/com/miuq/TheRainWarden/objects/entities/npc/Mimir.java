@@ -64,4 +64,11 @@ public class Mimir extends NPC{
         this.x = body.getPosition().x * Constants.PPM;
         this.y = body.getPosition().y * Constants.PPM;
     }
+    protected void disableCollision(){
+        collisionDisabled = true;
+    }
+
+    public void enableCollision(){
+        collisionDisabled = false;
+    }
 }

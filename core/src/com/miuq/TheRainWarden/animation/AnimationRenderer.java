@@ -8,7 +8,6 @@ import com.badlogic.gdx.utils.Array;
 import com.miuq.TheRainWarden.main.GameScreen;
 import com.miuq.TheRainWarden.objects.entities.Player;
 import com.miuq.TheRainWarden.objects.entities.npc.Mimir;
-import com.miuq.TheRainWarden.objects.entities.npc.Renni;
 import com.miuq.TheRainWarden.objects.gameObjects.Mango;
 import com.miuq.TheRainWarden.objects.gameObjects.ShinyRaindrop;
 
@@ -23,7 +22,6 @@ public class AnimationRenderer{
     private ShinyRaindrop destroyedRaindrop;
     private Array<ShinyRaindrop> shinyRaindrops;
     private Array<Mango> mangos;
-    private Renni renni;
     private Mimir mimir;
     private GameScreen gameScreen;
 
@@ -93,10 +91,6 @@ public class AnimationRenderer{
         
         //npc animations from animations/npc
         this.mimirIdle = new Animation(new TextureRegion(new Texture(Gdx.files.internal("animations/npc/mimirIdle.png"))), 2, 1f);
-    }
-
-    public void setRenni(Renni renni){
-        this.renni = renni;
     }
 
     public void setMimir(Mimir mimir){

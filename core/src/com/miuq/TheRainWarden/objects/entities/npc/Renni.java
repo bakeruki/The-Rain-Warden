@@ -32,16 +32,8 @@ public class Renni extends NPC{
         this.eventOneDialogue.add(new AnimatedText("Hehehe hi there fellow rain warden!", 0.1f));
         this.eventOneDialogue.add(new AnimatedText("Rain warden..!!? What are you talking about !!?", 0.1f));
         this.eventOneDialogue.add(new AnimatedText("You!", 0.1f));
-        this.eventOneDialogue.add(new AnimatedText("I know you're talking about me.. who else is here?", 0.1f));
-        this.eventOneDialogue.add(new AnimatedText("No one?", 0.1f));
-        this.eventOneDialogue.add(new AnimatedText("*Sigh*", 0.1f));
         this.eventOneDialogue.add(new AnimatedText("I have no idea what you are or where you came from, but I'm no rain warden.", 0.1f));
         this.eventOneDialogue.add(new AnimatedText("I see.. you don't know the meaning of having this necklace, do you?", 0.1f));
-        this.eventOneDialogue.add(new AnimatedText("Oh, you mean this necklace on my chest?", 0.1f));
-        this.eventOneDialogue.add(new AnimatedText("What other necklace is there?", 0.1f));
-        this.eventOneDialogue.add(new AnimatedText("...", 0.1f));
-        this.eventOneDialogue.add(new AnimatedText("Got you good huh?", 0.1f));
-        this.eventOneDialogue.add(new AnimatedText("Continue...", 0.1f));
         this.eventOneDialogue.add(new AnimatedText("I'm sure you recall your necklace glowing in the rain. Long story short, you were chosen to be the next rain warden and I'm here to guide you!", 0.1f));
         this.eventOneDialogue.add(new AnimatedText("Okay... guide me to what exactly?", 0.1f));
         this.eventOneDialogue.add(new AnimatedText("You'll see as we go. Come on, time for an adventure!", 0.1f));
@@ -56,18 +48,12 @@ public class Renni extends NPC{
         this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
         this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
         this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
-        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaneutral.png"));
-        this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
-        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaneutral.png"));
         this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
         this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
-        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaneutral.png"));
         this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
         this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
         this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
         this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaneutral.png"));
-        this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
-        this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilaconfused.png"));
         this.eventOneExpressions.add(new Texture("dialogue/expressions/renni/renni.png"));
         this.eventOneExpressions.add(new Texture("dialogue/expressions/lila/lilasad.png"));
 
@@ -108,5 +94,12 @@ public class Renni extends NPC{
     @Override
     public void update() {
 
+    }
+    protected void disableCollision(){
+        collisionDisabled = true;
+    }
+
+    public void enableCollision(){
+        collisionDisabled = false;
     }
 }

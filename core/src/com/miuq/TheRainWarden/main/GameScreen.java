@@ -349,9 +349,9 @@ public class GameScreen extends ScreenAdapter{
     }
 
     private void updateDialogue(){
-        if(dialogue.isDialogueEventFinished()){
-            gameState = GAME_RUNNING;
-        }
+        // if(dialogue.isDialogueEventFinished()){
+        //     gameState = GAME_RUNNING;
+        // }
         Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
     }
 
