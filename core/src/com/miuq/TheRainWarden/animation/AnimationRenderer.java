@@ -263,6 +263,15 @@ public class AnimationRenderer{
             idle.update(delta);
             batch.draw(persephoneIdle.getFrame(), 1125, 170);
             batch.draw(idle.getFrame(), 1050, 170);
+        }else if(gameScreen.getLevel() == 9){
+            luIdle.update(delta);
+            mannyIdle.update(delta);
+            roseIdle.update(delta);
+            idle.update(delta);
+            batch.draw(luIdle.getFrame(), 375, 170);
+            batch.draw(mannyIdle.getFrame(), 1100, 170);
+            batch.draw(idle.getFrame(), 300, 170);
+            batch.draw(roseIdle.getFrame(), 1500, 170);
         }else{
             if(player.isLeft()){
                 idleLeft.update(delta);

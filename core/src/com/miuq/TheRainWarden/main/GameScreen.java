@@ -259,9 +259,10 @@ public class GameScreen extends ScreenAdapter{
         this.cameraPositions.add(new Vector3(3008, 735, 0));//level 12
         this.cameraPositions.add(new Vector3(5056, 735, 0));//level 13
         //world 5 positions-------------------------------------
-        //level 14
-        //level 15
-        //level 16
+        this.cameraPositions.add(new Vector3(960, 735,0)); //level 14
+        this.cameraPositions.add(new Vector3(3008, 735, 0)); //level 15
+        this.cameraPositions.add(new Vector3(5056, 735, 0));  //level 16
+        
 
         //spawn positions
         this.startPositions = new Array<Vector2>();
@@ -285,9 +286,11 @@ public class GameScreen extends ScreenAdapter{
         this.startPositions.add(new Vector2(2150 / Constants.PPM, 400 / Constants.PPM));//level 12
         this.startPositions.add(new Vector2(4142 / Constants.PPM, 1100 / Constants.PPM));//level 13
         //world 5 positions-------------------------------------
-        //level 14
-        //level 15
-        //level 16
+        this.startPositions.add(new Vector2(960 / Constants.PPM, 500 / Constants.PPM)); //level 14
+        this.startPositions.add(new Vector2(2150 / Constants.PPM, 400 / Constants.PPM)); //level 15
+        this.startPositions.add(new Vector2(4142 / Constants.PPM, 1100 / Constants.PPM)); //level 16
+        
+        
         this.pauseImage = new Texture("screens/pauseScreen.png");
         this.batch = new SpriteBatch();
         this.world = new World(new Vector2(0, -35), false);
@@ -858,7 +861,7 @@ public class GameScreen extends ScreenAdapter{
 
         batch.end();
         
-        box2dDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
+        // box2dDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
     }
 
     /**

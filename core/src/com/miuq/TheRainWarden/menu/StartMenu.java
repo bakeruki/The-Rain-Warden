@@ -253,6 +253,10 @@ public class StartMenu extends ScreenAdapter{
                 game.setScreen(new CutsceneFive(camera, viewport, game, gameScreen));
                 batch.dispose();
                 this.dispose();
+            }else if(level < 17){
+                game.setScreen(new GameScreen(camera, viewport, game, level, mangos));
+                batch.dispose();
+                this.dispose();
             }
         }
     }
