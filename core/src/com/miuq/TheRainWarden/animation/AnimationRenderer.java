@@ -93,14 +93,30 @@ public class AnimationRenderer{
         this.mimirIdle = new Animation(new TextureRegion(new Texture(Gdx.files.internal("animations/npc/mimirIdle.png"))), 2, 1f);
     }
 
+    /**
+     * Sets the mimir variable to the current mimir object
+     * @param mimir Current mimir object
+     * @author Michelle Vuong
+     */
     public void setMimir(Mimir mimir){
         this.mimir = mimir;
     }
 
+    /**
+     * Sets the player variable to the current player object
+     * @param player Current player object
+     * @author Michelle Vuong
+     */
     public void setPlayer(Player player){
         this.player = player;
     }
 
+    /**
+     * Updates the shiny raindrop and mango objects with new shiny raindrops and mango objects
+     * @param shinyRaindrops ArrayList of new shinyraindrops to be animated.
+     * @param mangos ArrayList of new mangos to be animated.
+     * @author Michelle Vuong 
+     */
     public void updateGameObjects(Array<ShinyRaindrop> shinyRaindrops, Array<Mango> mangos){
         clearRaindrops();
 
@@ -115,16 +131,23 @@ public class AnimationRenderer{
         }
     }
 
+    /**
+     * Clears shiny raindrop array.
+     * @author Michelle Vuong
+     */
     private void clearRaindrops(){
         shinyRaindrops.clear();
     }
 
+    /**
+     * Clears mango array.
+     */
     private void clearMangos(){
         mangos.clear();
     }
 
     /**
-	 * Adds all game ShinyRaindrop objects into an array so that animations can be drawn for each raindrop.
+	 * Adds a ShinyRaindrop object to the shinyraindrop arraylist
      * @param shinyRaindrop The shinyRaindrop object to be added to the array.
      * @author Michelle Vuong
 	 */
@@ -132,9 +155,15 @@ public class AnimationRenderer{
         shinyRaindrops.add(shinyRaindrop);
     }
 
+    /**
+     * Adds a Mango object to the mango arraylist
+     * @param mango The mango object to be added to the array.
+     * @author Michelle Vuong.
+     */
     private void addMangos(Mango mango){
         mangos.add(mango);
     }
+
     /**
 	 * Tells the program which raindrop has been destroyed, and that it should start playing the destroyed raindrop animation.
      * @param delta Universal game time (GameScreen render method).
@@ -145,6 +174,11 @@ public class AnimationRenderer{
         raindropDestroyed = true;
     }
 
+    /**
+     * Checks if the players death animation has finished playing
+     * @return True if the animation has finished, false if the animation has not finished
+     * @author Michelle Vuong
+     */
     public boolean isDeathAnimationFinished(){
         if(deathLeft.getFrameCount()-1 == deathLeft.getFrameNum() || death.getFrameCount()-1 == death.getFrameNum()){
             deathLeft.setFrame(0);
@@ -154,6 +188,14 @@ public class AnimationRenderer{
         return false;
     }
 
+    /**
+     * Draws all animations that should be drawn during NPC events (keeps player and NPC in the correct spot
+     * during dialogue gamestate).
+     * @param delta Time since last render.
+     * @param x X position to draw at.
+     * @param y Y position to draw at.
+     * @author Michelle Vuong
+     */
     public void drawDialogueAnimations(float delta, float x, float y){
         if(gameScreen.getLevel() == 3){
             mimirIdle.update(delta);
@@ -171,6 +213,11 @@ public class AnimationRenderer{
         }
     }
 
+    /**
+     * Draws NPC idle animations while game is running.
+     * @param delta Time since last render.
+     * @author Michelle Vuong
+     */
     private void drawNPCAnimations(float delta){
         if(mimir != null){
             if(gameScreen.getLevel() == 3){

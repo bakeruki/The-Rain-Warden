@@ -17,13 +17,34 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.miuq.TheRainWarden.helper.GameOptionsHandler;
 import com.miuq.TheRainWarden.main.TheRainWarden;
 
+/**
+ * This class holds the option menu which allows the player to change 
+ * certain settings that affect how the game runs.
+ * @author Michelle Vuong
+ */
 public class OptionsMenu extends ScreenAdapter{
+    /**
+     * Holds the game used to switch screens.
+     */
     private TheRainWarden game;
+    /**
+     * Holds the viewport of the game.
+     */
     private FitViewport viewport;
+    /**
+     * Holds the camera of the game.
+     */
     private OrthographicCamera camera;
+    /**
+     * Helper class used to load and save options so that they remain the same after the game is restarted.
+     */
     private GameOptionsHandler options;
+    /**
+     * Batch used to draw textures.
+     */
     private SpriteBatch batch;
 
+    //initialize button assets
     private Drawable backButtonDrawable;
     private Drawable backButtonHoverDrawable;
     private Drawable speedrunButtonCheckedDrawable;
@@ -46,6 +67,9 @@ public class OptionsMenu extends ScreenAdapter{
     private Texture retryDescription;
     private Texture godDescription;
 
+    /**
+     * Holds the stage for the options menu.
+     */
     private Stage stage;
 
     public OptionsMenu(TheRainWarden game, OrthographicCamera camera, FitViewport viewport){
@@ -129,6 +153,10 @@ public class OptionsMenu extends ScreenAdapter{
         
     }
 
+    /**
+     * Code to be executed when the back button is clicked.
+     * @author Michelle Vuong
+     */
     private void handleBackClick(){
         MainMenu mainMenu = new MainMenu(camera, viewport, game, false);
         game.setScreen(mainMenu);
@@ -138,18 +166,35 @@ public class OptionsMenu extends ScreenAdapter{
         this.dispose();
     }
 
+    /**
+     * Code to be executed when the speedrun toggle button is clicked.
+     * @author Michelle Vuong
+     */
     private void handleSpeedrunClick(){
         options.updateOptions(0);
     }
 
+    /**
+     * Code to be executed when the retry toggle button is clicked.
+     * @author Michelle Vuong
+     */
     private void handleRetryClick(){
         options.updateOptions(1);
     }
 
+    /**
+     * Code to be executed when the godmode toggle button is clicked.
+     * @author Michelle Vuong
+     */
     private void handleGodModeClick(){
         options.updateOptions(2);
     }
 
+    /**
+     * Updates all buttons so that they display the correct image based on what the option
+     * is currently set to.
+     * @author Michelle Vuong
+     */
     private void updateButtons(){
         if(options.cutscenesDisabled()){
             speedrunButtonStyle.up = speedrunButtonCheckedDrawable;
@@ -170,12 +215,21 @@ public class OptionsMenu extends ScreenAdapter{
         }
     }
 
+    /**
+     * Draws descriptions for all settings.
+     * @author Michelle Vuong
+     */
     private void drawDescriptions(){
         batch.draw(speedrunDescription, Gdx.graphics.getWidth() / 2 - 600, 850);
         batch.draw(retryDescription, Gdx.graphics.getWidth() / 2 - 600, 550);
         batch.draw(godDescription, Gdx.graphics.getWidth() / 2 - 600, 250);
     }
 
+    /**
+     * Gets the stage of the options menu.
+     * @return Stage of options menu.
+     * @author Michelle Vuong
+     */
     public Stage getStage(){
         return stage;
     }

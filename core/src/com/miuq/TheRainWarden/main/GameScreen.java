@@ -198,14 +198,27 @@ public class GameScreen extends ScreenAdapter{
      */
     private GameSaveHandler gameSaveHandler;
 
+    /**
+     * Helper class used to render all game dialogue events.
+     */
     private GameDialogueHandler dialogue;
 
+    /**
+     * Font used to draw dialogue text.
+     */
     private BitmapFont font;
 
+    /**
+     * Tells whether the player has godmode active.
+     */
     private boolean godMode;
 
+    /**
+     * Stage that renders the dialogue window and text.
+     */
     private Stage dialogueStage;
-
+    
+    //dialogue button
     private Drawable dialogueButtonDrawable;
     private ImageButtonStyle dialogueButtonStyle;
     private ImageButton dialogueContinueButton;
@@ -322,6 +335,10 @@ public class GameScreen extends ScreenAdapter{
         updateAllObjectClasses(player, world);
     }
 
+    /**
+     * Sets the number of the save file to read from.
+     * @author Luqman Patel
+     */
     public void setSaveNum(int saveNum){
         this.saveNum = saveNum;
         this.player.setDeathCounter(gameSaveHandler.getDeathsFromSave(saveNum));
@@ -348,10 +365,11 @@ public class GameScreen extends ScreenAdapter{
         }
     }
 
+    /**
+     * Updates the dialogue state of the game.
+     * @author Luqman Patel
+     */
     private void updateDialogue(){
-        // if(dialogue.isDialogueEventFinished()){
-        //     gameState = GAME_RUNNING;
-        // }
         Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
     }
 
@@ -428,6 +446,10 @@ public class GameScreen extends ScreenAdapter{
         }
     }
 
+    /**
+     * Checks if the level was recently switched so that dialogue events can be re-enabled.
+     * @author Luqman Patel
+     */
     private void checkLevelSwitch(){
         if(tempLevel != level){
             dialogue.enableDialogueEvent();
@@ -458,6 +480,11 @@ public class GameScreen extends ScreenAdapter{
         }
     }
 
+    /**
+     * This function sets up the map SPECIFICALLY WHEN THE GAME SCREEN WAS NEWLY CREATED.
+     * @param level The level that the player is currently on.
+     * @author Luqman Patel
+     */
     private void initializeMap(int level){
         if(level != 0){
             if(level < 2){
@@ -540,6 +567,11 @@ public class GameScreen extends ScreenAdapter{
         dialogue.enableDialogueEvent();
     }
 
+    /**
+     * Updates the gamestate
+     * @param gameState GameState to be switched to
+     * @author Luqman Patel
+     */
     public void setGameState(int gameState){
         this.gameState = gameState;
     }
@@ -638,6 +670,7 @@ public class GameScreen extends ScreenAdapter{
 
     /**
      * Updates all game objects in the world.
+     * @author Luqman Patel
      */
     public void updateGameObjects(){
         animationRenderer.updateGameObjects(shinyRaindrops, mangos);
@@ -703,6 +736,7 @@ public class GameScreen extends ScreenAdapter{
      * ensures that the game will not try to switch worlds multiple times in the 
      * update methods)
      * @param level The current level.
+     * @author Luqman Patel
      */
     private void checkWorldSwitch(int level){
         switch(level){
@@ -761,6 +795,11 @@ public class GameScreen extends ScreenAdapter{
         box2dDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
     }
 
+    /**
+     * Draws all assets required for dialogue events
+     * @param delta Time since last render.
+     * @author Luqman Patel
+     */
     private void drawDialogue(float delta){
         Gdx.input.setInputProcessor(dialogueStage);
         dialogueStage.act();
@@ -782,6 +821,10 @@ public class GameScreen extends ScreenAdapter{
         batch.draw(pauseImage, x - 600, y - 300);
     }
 
+    /**
+     * Clears all object arrays.
+     * @author Luqman Patel
+     */
     private void clearObjectArrays(){
         shinyRaindrops.clear();
         destroyedRaindrops.clear();
@@ -808,6 +851,10 @@ public class GameScreen extends ScreenAdapter{
         }
     }
 
+    /**
+     * Draws level specific assets.
+     * @author Luqman Patel
+     */
     private void levelSpecificDraw(){
         if(level == 0){
             batch.draw(new Texture("tutorial/WASD.png"), 250, 500);

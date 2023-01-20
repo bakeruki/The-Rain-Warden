@@ -36,7 +36,6 @@ import com.miuq.TheRainWarden.objects.gameObjects.WindCurrent;
  * Code is not the exactly the same, but was mainly taken from this video.
  */
 public class TileMapHelper {
-    
     private TiledMap tiledMap;
     private GameScreen gameScreen;
     private GameDialogueHandler dialogue;
@@ -47,6 +46,11 @@ public class TileMapHelper {
         this.dialogue = dialogue;
     }
 
+    /**
+     * Generates and parses a map file.
+     * @param mapPath The filepath of the map file to create.
+     * @return A new tile map renderer object.
+     */
     public OrthogonalTiledMapRenderer setupMap(String mapPath){
         tiledMap = new TmxMapLoader().load(mapPath);
         parseMapObjects(tiledMap.getLayers().get("Object Layer 1").getObjects());
@@ -63,8 +67,10 @@ public class TileMapHelper {
     private void parseMapObjects(MapObjects mapObjects){
         for(MapObject mapObject : mapObjects){
             if(mapObject instanceof PolygonMapObject){
+                //creates floors / walls from the polygon objects in the map file
                 createMapBounds((PolygonMapObject)mapObject);
             }
+            //creates interactive objects from the rectangle objects in the map file based on their names
             if(mapObject instanceof RectangleMapObject){
                 Rectangle rectangle = ((RectangleMapObject) mapObject).getRectangle();
                 String rectangleName = mapObject.getName();
@@ -250,6 +256,10 @@ public class TileMapHelper {
         }
     }
 
+    /**
+     * Creates the floors, walls, and ceilings from polygon map objects.
+     * @param polygonMapObject Polygon object to turn into map bound.
+     */
     private void createMapBounds(PolygonMapObject polygonMapObject){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -259,6 +269,10 @@ public class TileMapHelper {
         shape.dispose();
     }
 
+    /**
+     * Creates a body for an object.
+     * @param rectangle Rectangle to turn into a body.
+     */
     private Body createBody(Rectangle rectangle){
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyType.StaticBody;
@@ -267,6 +281,11 @@ public class TileMapHelper {
         return gameScreen.getWorld().createBody(bodyDef);
     }
 
+    /**
+     * Creates a fixture that is used as a sensor rather than a collider.
+     * @param shape Shape to create the fixture from.
+     * @param body Body to apply the fixture to.
+     */
     private Fixture createSensorFixture(PolygonShape shape, Body body){
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
@@ -275,6 +294,11 @@ public class TileMapHelper {
         return body.createFixture(fixtureDef);
     }
 
+    /**
+     * Turns polygon object into polygon shape.
+     * @param polygonMapObject Polygon map object to convert.
+     * @return Returns new shape created from polygon map object.
+     */
     private Shape createPolygonShape(PolygonMapObject polygonMapObject){
         float[] verticies = polygonMapObject.getPolygon().getTransformedVertices();
         Vector2[] worldVerticies = new Vector2[verticies.length/2];

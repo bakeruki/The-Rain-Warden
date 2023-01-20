@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.miuq.TheRainWarden.cutscenes.CutsceneFive;
 import com.miuq.TheRainWarden.cutscenes.CutsceneFour;
 import com.miuq.TheRainWarden.cutscenes.CutsceneOne;
 import com.miuq.TheRainWarden.cutscenes.CutsceneThree;
@@ -25,19 +26,56 @@ import com.miuq.TheRainWarden.helper.GameSaveHandler;
 import com.miuq.TheRainWarden.main.GameScreen;
 import com.miuq.TheRainWarden.main.TheRainWarden;
 
+/**
+ * This class holds the start menu that the player sees when they press the start button
+ * on the main menu. This menu allows the player to select which save file they would like to load,
+ * and then puts them into the game.
+ * @author Luqman Patel
+ */
 public class StartMenu extends ScreenAdapter{
+    /**
+     * Holds the game object.
+     */
     private TheRainWarden game;
+    /**
+     * Holds the start menu's stage.
+     */
     private Stage stage;
+    /**
+     * Helper class used to load and update save files.
+     */
     private GameSaveHandler save;
+    /**
+     * The game's camera.
+     */
     private OrthographicCamera camera;
+    /**
+     * The game's viewport.
+     */
     private FitViewport viewport;
+    /**
+     * Transparency variable used for fade effect.
+     */
     private float alpha;
+    /**
+     * Determines if fade effect is active.
+     */
     private boolean fadingOut;
+    /**
+     * Helper class used to load the game's options.
+     */
     private GameOptionsHandler options;
 
+    /**
+     * Font used to draw save progress.
+     */
     private BitmapFont font;
+    /**
+     * Batch used to draw textures.
+     */
     private SpriteBatch batch;
 
+    //intialize button assets
     private ImageButton newGame1Button;
     private ImageButton newGame2Button;
     private ImageButton newGame3Button;
@@ -167,6 +205,10 @@ public class StartMenu extends ScreenAdapter{
         return stage;
     }
 
+    /**
+     * Code to be executed when the back button is clicked.
+     * @author Luqman Patel
+     */
     private void handleBackClick(){
         MainMenu mainMenu = new MainMenu(camera, viewport, game, false);
         game.setScreen(mainMenu);
@@ -175,52 +217,53 @@ public class StartMenu extends ScreenAdapter{
         this.dispose();
     }
 
+    /**
+     * Plays a cutscene based on which level the player is on in that save file.
+     * @param level Level that the player is on (from save file).
+     * @param mangos Number of mangos that the player has collected.
+     * @param saveNum The number of the save that is being loaded.
+     * @author Luqman Patel
+     */
     private void playCutscene(int level, int mangos, int saveNum){
         GameScreen gameScreen = new GameScreen(camera, viewport, game, level, mangos);
         gameScreen.setSaveNum(saveNum);
-        if(level < 2){
-            if(options.cutscenesDisabled()){
-                game.setScreen(gameScreen);
-                batch.dispose();
-                this.dispose();
-            }else{
+
+        if(options.cutscenesDisabled()){
+            game.setScreen(gameScreen);
+            batch.dispose();
+            this.dispose();
+        }else{
+            if(level < 2){
                 game.setScreen(new CutsceneOne(camera, viewport, game, gameScreen));
                 batch.dispose();
                 this.dispose();
-            }
-        }else if(level < 5){
-            if(options.cutscenesDisabled()){
-                game.setScreen(gameScreen);
-                batch.dispose();
-                this.dispose();
-            }else{
+            }else if(level < 5){
                 game.setScreen(new CutsceneTwo(camera, viewport, game, gameScreen));
                 batch.dispose();
                 this.dispose();
-            }
-        }else if(level < 8){
-            if(options.cutscenesDisabled()){
-                game.setScreen(gameScreen);
-                batch.dispose();
-                this.dispose();
-            }else{
+            }else if(level < 8){
                 game.setScreen(new CutsceneThree(camera, viewport, game, gameScreen));
                 batch.dispose();
                 this.dispose();
-            }
-        }else if(level < 11){
-            if(options.cutscenesDisabled()){
-                game.setScreen(gameScreen);
+            }else if(level < 11){
+                game.setScreen(new CutsceneFour(camera, viewport, game, gameScreen));
                 batch.dispose();
                 this.dispose();
-            }else{
-                game.setScreen(new CutsceneFour(camera, viewport, game, gameScreen));
+            }else if(level < 14){
+                game.setScreen(new CutsceneFive(camera, viewport, game, gameScreen));
                 batch.dispose();
                 this.dispose();
             }
         }
     }
     
+    /**
+     * Draws all save text (tells game completion).
+     * @param saveNum The number of the save file.
+     * @param x X position that the text should be drawn at.
+     * @param y Y position that the text should be drawn at.
+     * @author Luqman Patel
+     */
     private void drawSaveText(int saveNum, float x, float y){
         font.getData().setScale(2f);
         float level = save.getLevelFromSave(saveNum);

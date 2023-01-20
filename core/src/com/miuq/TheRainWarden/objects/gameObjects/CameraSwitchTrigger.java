@@ -7,9 +7,9 @@ import com.badlogic.gdx.physics.box2d.World;
 
 
 /**
-	 * Invisible sensor object that the player can collide with. Will change the location of the camera when hit.
-     * @author Luqman Patel
-	 */
+ * Invisible sensor object that the player can collide with. Will change the location of the camera when hit.
+ * @author Luqman Patel
+ */
 public class CameraSwitchTrigger extends InteractiveTileObject {
 
     private boolean isRemoved;

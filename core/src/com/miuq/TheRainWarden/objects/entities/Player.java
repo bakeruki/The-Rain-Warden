@@ -54,6 +54,7 @@ public class Player extends GameEntity {
             }
         }
 
+        //all code after this made by Michelle Vuong
         if(Gdx.input.isKeyJustPressed(Input.Keys.SHIFT_LEFT) && dashCounter < 1 && dashUnlocked){
             countDash = 1;
             dashCounter++;
@@ -187,6 +188,11 @@ public class Player extends GameEntity {
         jumpEnabled = false;
     }
 
+    /**
+     * The player's dash ability.
+     * @param distance How far the dash should take the player.
+     * @author Michelle Vuong
+     */
     private void dash(int distance){
         if(countDash < distance){
             if(left){

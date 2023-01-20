@@ -19,13 +19,24 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.miuq.TheRainWarden.main.TheRainWarden;
 
+/**
+ * This class holds the main menu that the player sees when they first start the game.
+ * The main menu screen gives access to all other menus that are used to configure
+ * and play the game.
+ * @author Michelle Vuong
+ */
 public class MainMenu extends ScreenAdapter{
+    /**
+     * Stores game object use to switch screens.
+     */
     private TheRainWarden game;
 
+    //button assets
     private ImageButton startButton;
     private ImageButton optionsButton;
     private ImageButton exitButton;
 
+    //button assets
     private Drawable startDownDrawable;
     private Drawable startDrawable;
     private Drawable optionsDrawable;
@@ -33,21 +44,35 @@ public class MainMenu extends ScreenAdapter{
     private Drawable exitDownDrawable;
     private Drawable exitDrawable;
 
+    //button assets
     private ImageButtonStyle startStyle;
     private ImageButtonStyle optionsStyle;
     private ImageButtonStyle exitStyle;
 
+    //backdrop of menu
     private Image backgroundImage;
 
+    /**
+     * Stage used to add interactivity to buttons
+     */
     private Stage stage;
-    // private GameScreen gameScreen;
+    /**
+     * Holds current main menu.
+     */
     private MainMenu menuScreen;
+    /**
+     * Holds options menu.
+     */
     private OptionsMenu optionsMenu;
+    /*
+     * Holds start menu.
+     */
     private StartMenu startMenu;
 
     public MainMenu(OrthographicCamera camera, FitViewport viewport, TheRainWarden game, boolean doFade){
         camera.setToOrtho(false, 0, 0);
 
+        //initialize button assets
         this.startDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/startButton/start.png")));
         this.startDownDrawable = new TextureRegionDrawable(new TextureRegion(new Texture("buttons/startButton/startDown.png")));
         this.startStyle = new ImageButtonStyle();
@@ -75,7 +100,6 @@ public class MainMenu extends ScreenAdapter{
         this.backgroundImage = new Image(new Texture("screens/menuScreen.png"));
 
         this.game = game;
-        // this.gameScreen = new GameScreen(camera, viewport, game); leave this here in case we get annoyed with watching the cutscene every time
         this.menuScreen = this;
         this.startMenu = new StartMenu(game, camera, viewport);
         this.optionsMenu = new OptionsMenu(game, camera, viewport);
@@ -111,16 +135,22 @@ public class MainMenu extends ScreenAdapter{
             }
         });
 
+        /**
+         * Causes the screen to fade in if the constructor tells it to.
+         */
         if(doFade){
             this.stage.addAction(Actions.sequence(Actions.alpha(0), Actions.fadeIn(1)));
         }
-        
 
         Gdx.input.setInputProcessor(stage);
         Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
         Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
     }
 
+    /**
+     * Executes code for when the start button is clicked.
+     * @author Michelle Vuong
+     */
     private void handleStartClick(){
         game.setScreen(startMenu);
         Gdx.input.setInputProcessor(startMenu.getStage());
@@ -128,6 +158,10 @@ public class MainMenu extends ScreenAdapter{
         menuScreen.dispose();
     }
 
+    /**
+     * Executes code for when the options button is clicked.
+     * @author Michelle Vuong
+     */
     private void handleOptionsClick(){
         game.setScreen(optionsMenu);
         Gdx.input.setInputProcessor(optionsMenu.getStage());
@@ -135,10 +169,19 @@ public class MainMenu extends ScreenAdapter{
         menuScreen.dispose();
     }
 
+    /**
+     * Executes code for when the exit button is clicked.
+     * @author Michelle Vuong
+     */
     private void handleExitClick(){
         Gdx.app.exit();
     }
 
+    /**
+     * Gets the stage of the menu screen.
+     * @return Stage of menu screen.
+     * @author Michelle Vuong
+     */
     public Stage getStage(){
         return stage;
     }

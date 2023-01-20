@@ -2,6 +2,7 @@ package com.miuq.TheRainWarden.helper;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.miuq.TheRainWarden.cutscenes.CutsceneFive;
 import com.miuq.TheRainWarden.cutscenes.CutsceneFour;
 import com.miuq.TheRainWarden.cutscenes.CutsceneThree;
 import com.miuq.TheRainWarden.cutscenes.CutsceneTwo;
@@ -93,6 +94,8 @@ public class GameCutsceneLoader {
             case 8:
                 loadCutscene(4, gameScreen);
                 break;
+            case 11:
+                loadCutscene(5, gameScreen);
         }
     }
 
@@ -125,6 +128,13 @@ public class GameCutsceneLoader {
                     game.setScreen(cutscene3);
                     if(cutsceneDisabled){
                         cutscene3.disableCutscene();
+                    }
+                    break;
+                case 5:
+                    CutsceneFive cutscene4 = new CutsceneFive(camera, viewport, game, gameScreen);
+                    game.setScreen(cutscene4);
+                    if(cutsceneDisabled){
+                        cutscene4.disableCutscene();   
                     }
                     break;
             }

@@ -32,6 +32,12 @@ import com.miuq.TheRainWarden.main.TheRainWarden;
  * The superclass handles all operations and logic of the cutscene, meaning
  * that actually creating a cutscene is as simple as adding the images to
  * the cutsceneImages and cutsceneTexts ArrayLists of the child class.
+ * 
+ * We chose to structure the cutscenes this way because each of them is an individual
+ * libGDX screen object. If we had used an array of instantiated cutscene objects, the
+ * games performance would suffer greatly from having that many screens active at once.
+ * Although it adds an unnecessary amount of classes, we can easily keep track of which 
+ * screen is created, active, and should be disposed of after each cutscene.
  * @author Luqman Patel
  */
 public abstract class Cutscene extends ScreenAdapter {
@@ -48,16 +54,22 @@ public abstract class Cutscene extends ScreenAdapter {
      */
     private GameScreen gameScreen;
 
+    /**
+     * Holds current transparency, used for fade in effect.
+     */
     private float alpha;
 
+    /**
+     * Used to disable cutscene from options menu.
+     */
     private boolean cutscenesDisabled;
 
     /**
-     * Access by child classes to add Images for the cutscene.
+     * Accessed by child classes to add Images for the cutscene.
      */
     protected ArrayList<Texture> cutsceneImages;
     /**
-     * Access by child classes to add Text for the cutscene.
+     * Accessed by child classes to add Text for the cutscene.
      */
     protected ArrayList<AnimatedText> cutsceneTexts;
 
@@ -128,13 +140,6 @@ public abstract class Cutscene extends ScreenAdapter {
         Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
         Gdx.input.setInputProcessor(stage);
     }
-
-    /**
-     * Turn this class into an object class that can be instantiated in the cutscene handler
-     * constructor takes a list of strings
-     * delete all the dumb subclasses
-     * make multiple cutscene objects in cutscene handler
-     */
 
     /**
      * Handles code to be executed when the continue button is clicked.
@@ -212,10 +217,18 @@ public abstract class Cutscene extends ScreenAdapter {
         return stage;
     }
 
+    /**
+     * Disables this cutscene.
+     * @author Luqman Patel
+     */
     public void disableCutscene(){
         cutscenesDisabled = true;
     }
 
+    /**
+     * Enables this cutscene.
+     * @author Luqman Patel
+     */
     public void enableCutscene(){
         cutscenesDisabled = false;
     }
