@@ -12,13 +12,13 @@ public class CutsceneFour extends Cutscene{
     public CutsceneFour(OrthographicCamera camera, FitViewport viewport, TheRainWarden game, GameScreen gameScreen) {
         super(camera, viewport, game, gameScreen);
 
-        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/filler.png")));
-        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/filler.png")));
-        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/filler.png")));
+        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/cutscene4/frame1.png")));
+        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/cutscene4/frame2.png")));
+        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/cutscene4/frame3.png")));
 
-        this.cutsceneTexts.add(new AnimatedText("filler text 1", 0.05f));
-        this.cutsceneTexts.add(new AnimatedText("filler text 2", 0.05f));
-        this.cutsceneTexts.add(new AnimatedText("filler text 3", 0.05f));
+        this.cutsceneTexts.add(new AnimatedText("As I exit the forest, a set of houses strike my eyes.", 0.05f));
+        this.cutsceneTexts.add(new AnimatedText("Pink leaves gather in my hand as I approach the village.", 0.05f));
+        this.cutsceneTexts.add(new AnimatedText("They lead me to the base of a brilliant pink tree, where a girl awaits me...", 0.05f));
     }
 
     @Override

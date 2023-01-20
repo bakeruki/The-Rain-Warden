@@ -7,7 +7,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.miuq.TheRainWarden.main.GameScreen;
 import com.miuq.TheRainWarden.objects.entities.Player;
+import com.miuq.TheRainWarden.objects.entities.npc.Lu;
+import com.miuq.TheRainWarden.objects.entities.npc.Manny;
 import com.miuq.TheRainWarden.objects.entities.npc.Mimir;
+import com.miuq.TheRainWarden.objects.entities.npc.Persephone;
+import com.miuq.TheRainWarden.objects.entities.npc.Rose;
 import com.miuq.TheRainWarden.objects.gameObjects.Mango;
 import com.miuq.TheRainWarden.objects.gameObjects.ShinyRaindrop;
 
@@ -23,6 +27,10 @@ public class AnimationRenderer{
     private Array<ShinyRaindrop> shinyRaindrops;
     private Array<Mango> mangos;
     private Mimir mimir;
+    private Persephone persephone;
+    private Lu lu;
+    private Manny manny;
+    private Rose rose;
     private GameScreen gameScreen;
 
     //player animations
@@ -38,6 +46,8 @@ public class AnimationRenderer{
     private Animation doubleJumpLeft;
     private Animation fall;
     private Animation fallLeft;
+    private Animation umbrella;
+    private Animation umbrellaLeft;
     private Animation death;
     private Animation deathLeft;
 
@@ -50,6 +60,10 @@ public class AnimationRenderer{
 
     //npc animations
     private Animation mimirIdle;
+    private Animation mannyIdle;
+    private Animation luIdle;
+    private Animation persephoneIdle;
+    private Animation roseIdle;
     
     /**
 	 * Constructor of the AnimationRenderer. Creates multiple animation objects for each animation that will be used.
@@ -77,6 +91,8 @@ public class AnimationRenderer{
         this.doubleJumpLeft = new Animation(new TextureRegion(new Texture("animations/player/doubleJumpLeft.png")), 6, 0.75f); //double jump facing left animation
         this.fall = new Animation(new TextureRegion(new Texture("animations/player/fall.png")), 3, 0.42f); //falling animation
         this.fallLeft = new Animation(new TextureRegion(new Texture("animations/player/fallLeft.png")), 3, 0.42f); //falling facing left animation
+        this.umbrella = new Animation(new TextureRegion(new Texture("animations/player/umbrella.png")), 2, 1f); //umbrella animation
+        this.umbrellaLeft = new Animation(new TextureRegion(new Texture("animations/player/umbrellaLeft.png")), 2, 1f); //umbrella facing left animation
         this.death = new Animation(new TextureRegion(new Texture("animations/player/death.png")), 12, 0.71f); //death animation
         this.deathLeft = new Animation(new TextureRegion(new Texture("animations/player/deathLeft.png")), 12, 0.71f); //death facing left animation
 
@@ -91,6 +107,10 @@ public class AnimationRenderer{
         
         //npc animations from animations/npc
         this.mimirIdle = new Animation(new TextureRegion(new Texture(Gdx.files.internal("animations/npc/mimirIdle.png"))), 2, 1f);
+        this.persephoneIdle = new Animation(new TextureRegion(new Texture(Gdx.files.internal("animations/npc/persephoneIdle.png"))), 2, 1f);
+        this.luIdle = new Animation(new TextureRegion(new Texture(Gdx.files.internal("animations/npc/luIdle.png"))), 2, 1f);
+        this.mannyIdle = new Animation(new TextureRegion(new Texture(Gdx.files.internal("animations/npc/mannyIdle.png"))), 2, 1f);
+        this.roseIdle = new Animation(new TextureRegion(new Texture(Gdx.files.internal("animations/npc/roseIdle.png"))), 2, 1f);
     }
 
     /**
@@ -100,6 +120,42 @@ public class AnimationRenderer{
      */
     public void setMimir(Mimir mimir){
         this.mimir = mimir;
+    }
+
+    /**
+     * Sets the manny variable to the current manny object
+     * @param manny Current manny object
+     * @author Michelle Vuong
+     */
+    public void setManny(Manny manny){
+        this.manny = manny;
+    }
+
+    /**
+     * Sets the persephone variable to the current persephone object
+     * @param persephone Current persephone object
+     * @author Michelle Vuong
+     */
+    public void setPersephone(Persephone persephone){
+        this.persephone = persephone;
+    }
+
+    /**
+     * Sets the lu variable to the current lu object
+     * @param lu Current lu object
+     * @author Michelle Vuong
+     */
+    public void setLu(Lu lu){
+        this.lu = lu;
+    }
+
+    /**
+     * Sets the rose variable to the current rose object
+     * @param rose Current rose object
+     * @author Michelle Vuong
+     */
+    public void setRose(Rose rose){
+        this.rose = rose;
     }
 
     /**
@@ -202,6 +258,11 @@ public class AnimationRenderer{
             idleLeft.update(delta);
             batch.draw(mimirIdle.getFrame(), 680, 250);
             batch.draw(idleLeft.getFrame(), 730, 230);
+        }else if(gameScreen.getLevel() == 8){
+            persephoneIdle.update(delta);
+            idle.update(delta);
+            batch.draw(persephoneIdle.getFrame(), 1125, 170);
+            batch.draw(idle.getFrame(), 1050, 170);
         }else{
             if(player.isLeft()){
                 idleLeft.update(delta);
@@ -222,8 +283,36 @@ public class AnimationRenderer{
         if(mimir != null){
             if(gameScreen.getLevel() == 3){
                 batch.draw(mimirIdle.getFrame(), mimir.getX() - 48, mimir.getY() - 52);
+                mimirIdle.update(delta);
             }
-            mimirIdle.update(delta);
+        }
+
+        if(persephone != null){
+            if(gameScreen.getLevel() == 8){
+                batch.draw(persephoneIdle.getFrame(), persephone.getX() - 48, persephone.getY() - 48);
+                persephoneIdle.update(delta);
+            }
+        }
+
+        if(rose != null){
+            if(gameScreen.getLevel() == 9){
+                batch.draw(roseIdle.getFrame(), rose.getX() - 48, rose.getY() - 48);
+                roseIdle.update(delta);
+            }
+        }
+
+        if(lu != null){
+            if(gameScreen.getLevel() == 9){
+                batch.draw(luIdle.getFrame(), lu.getX() - 48, lu.getY() - 48);
+                luIdle.update(delta);
+            }
+        }
+
+        if(manny != null){
+            if(gameScreen.getLevel() == 9){
+                batch.draw(mannyIdle.getFrame(), manny.getX() - 32, manny.getY() - 40);
+                mannyIdle.update(delta);
+            }
         }
     }
 
@@ -269,7 +358,7 @@ public class AnimationRenderer{
         }
         if(!player.isDead()){
             //idle animation - if player is not moving
-            if(player.getVelX() == 0 && player.getVelY() == 0){ 
+            if(player.getVelX() == 0 && player.getVelY() == 0 && player.getDashCounter() == 0 && !player.isCarried()){ 
                 if(hasBeenCarried){
                     hasBeenCarried = false;
                 }
@@ -285,7 +374,7 @@ public class AnimationRenderer{
                 idleLeft.setFrame(0);
             }
             //walk animation - if player is moving
-            if(player.getVelX() != 0 && player.getVelY() == 0){
+            if(player.getVelX() != 0 && player.getVelY() == 0 && player.getDashCounter() == 0 && !player.isCarried()){
                 if(player.isLeft()){
                     walkLeft.update(delta);
                     batch.draw(walkLeft.getFrame(), player.getX() - 64, player.getY() - 64);
@@ -345,7 +434,7 @@ public class AnimationRenderer{
             }
 
             //fall animation - if player y velocity is less than 0
-            if(player.getVelY() < 0){
+            if(player.getVelY() < 0 && !player.isCarried()){
                 if(player.isLeft()){
                     fallLeft.update(delta);
                     batch.draw(fallLeft.getFrame(), player.getX()-64, player.getY()-64);
@@ -359,11 +448,24 @@ public class AnimationRenderer{
                 fallLeft.setFrame(0);
             }
 
+            //draws fall animation if the player recently exited a wind current without jumping
+            if(player.getVelY() > 0 && !player.isCarried() && player.getJumpCount() == 0){
+                if(player.isLeft()){
+                    fallLeft.update(delta);
+                    batch.draw(fallLeft.getFrame(), player.getX()-64, player.getY()-64);
+                }else{
+                    fall.update(delta);
+                    batch.draw(fall.getFrame(), player.getX()-64, player.getY()-64);
+                }
+            }
+
             if(player.isCarried()){
                 if(player.isLeft()){
-                    //TODO left umbrella animation
+                    umbrellaLeft.update(delta);
+                    batch.draw(umbrellaLeft.getFrame(), player.getX() - 64, player.getY() - 64);
                 }else{
-                    //TODO right umbrella animation
+                    umbrella.update(delta);
+                    batch.draw(umbrella.getFrame(), player.getX() - 64, player.getY() - 64);
                 }
             }
         }

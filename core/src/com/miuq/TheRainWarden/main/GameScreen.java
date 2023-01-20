@@ -234,6 +234,8 @@ public class GameScreen extends ScreenAdapter{
         this.mapPaths.add("maps/SnowStage.tmx"); //world 1
         this.mapPaths.add("maps/ForestStage.tmx"); //world 2
         this.mapPaths.add("maps/SpringkeepStage.tmx"); //world 3
+        this.mapPaths.add("maps/MountainStage.tmx"); //world 4
+        this.mapPaths.add("maps/SkyStage.tmx"); //world 5
 
         //camera positions
         this.cameraPositions = new Array<Vector3>();
@@ -252,6 +254,14 @@ public class GameScreen extends ScreenAdapter{
         this.cameraPositions.add(new Vector3(960, 735,0)); //level 8
         this.cameraPositions.add(new Vector3(3008, 735, 0));//level 9
         this.cameraPositions.add(new Vector3(5056, 735, 0));//level 10
+        //world 4 positions-------------------------------------
+        this.cameraPositions.add(new Vector3(960, 735,0)); //level 11
+        this.cameraPositions.add(new Vector3(3008, 735, 0));//level 12
+        this.cameraPositions.add(new Vector3(5056, 735, 0));//level 13
+        //world 5 positions-------------------------------------
+        //level 14
+        //level 15
+        //level 16
 
         //spawn positions
         this.startPositions = new Array<Vector2>();
@@ -270,7 +280,14 @@ public class GameScreen extends ScreenAdapter{
         this.startPositions.add(new Vector2(256 / Constants.PPM, 400 / Constants.PPM));//level 8
         this.startPositions.add(new Vector2(2300 / Constants.PPM, 400 / Constants.PPM));//level 9
         this.startPositions.add(new Vector2(4142 / Constants.PPM, 400 / Constants.PPM));//level 10
-
+        //world 4 positions-------------------------------------
+        this.startPositions.add(new Vector2(100 / Constants.PPM, 500 / Constants.PPM));//level 11
+        this.startPositions.add(new Vector2(2150 / Constants.PPM, 400 / Constants.PPM));//level 12
+        this.startPositions.add(new Vector2(4142 / Constants.PPM, 1100 / Constants.PPM));//level 13
+        //world 5 positions-------------------------------------
+        //level 14
+        //level 15
+        //level 16
         this.pauseImage = new Texture("screens/pauseScreen.png");
         this.batch = new SpriteBatch();
         this.world = new World(new Vector2(0, -35), false);
@@ -329,7 +346,10 @@ public class GameScreen extends ScreenAdapter{
 
         this.animationRenderer = new AnimationRenderer(player, batch, this);
         this.animationRenderer.setMimir(dialogue.getMimir());
-
+        this.animationRenderer.setManny(dialogue.getManny());
+        this.animationRenderer.setRose(dialogue.getRose());
+        this.animationRenderer.setLu(dialogue.getLu());
+        this.animationRenderer.setPersephone(dialogue.getPersephone());
         world.setContactListener(new WorldContactListener());
 
         updateAllObjectClasses(player, world);
@@ -399,6 +419,10 @@ public class GameScreen extends ScreenAdapter{
         loadMap(level);
         levelSpecificTasks(level);
         animationRenderer.setMimir(dialogue.getMimir());
+        animationRenderer.setManny(dialogue.getManny());
+        animationRenderer.setRose(dialogue.getRose());
+        animationRenderer.setLu(dialogue.getLu());
+        animationRenderer.setPersephone(dialogue.getPersephone());
         cutscene.update(level, this);
         dialogue.update();
 
@@ -495,6 +519,10 @@ public class GameScreen extends ScreenAdapter{
                 this.orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(2));
             }else if(level < 11){
                 this.orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(3));
+            }else if(level < 14){
+                this.orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(4));
+            }else if(level < 17){
+                this.orthoganalTiledMapRenderer = tileMapHelper.setupMap(mapPaths.get(5));
             }
             player.body.setTransform(startPositions.get(level), player.body.getAngle()); 
             this.camera.position.set(cameraPositions.get(level));
@@ -526,6 +554,14 @@ public class GameScreen extends ScreenAdapter{
             }else if(level < 11){
                 System.out.println("switching to springkeep");
                 setMap(mapPaths.get(3));
+                switchingLevels = false;
+            }else if(level < 14){
+                System.out.println("switching to mountain");
+                setMap(mapPaths.get(4));
+                switchingLevels = false;
+            }else if(level < 17){
+                System.out.println("switching to sky");
+                setMap(mapPaths.get(5));
                 switchingLevels = false;
             }
         }
@@ -588,6 +624,14 @@ public class GameScreen extends ScreenAdapter{
         for(Spike spike : spikes){
             spike.setPlayer(player);
         }
+
+        for(WindCurrent windCurrent : windCurrents){
+            windCurrent.setPlayer(player);
+        }
+
+        for(ShinyRaindrop raindrop : shinyRaindrops){
+            raindrop.setPlayer(player);
+        }
     }
 
     //getters
@@ -609,6 +653,11 @@ public class GameScreen extends ScreenAdapter{
         return world;
     }
 
+    /**
+     * Returns the current level.
+     * @return The current level.
+     * @author Luqman Patel
+     */
     public int getLevel(){
         return level;
     }
@@ -678,6 +727,17 @@ public class GameScreen extends ScreenAdapter{
         updateMangos();
         updateCameraSwitches();
         updateSpikes();
+        updateWindCurrents();
+    }
+
+    /**
+     * Loops through each wind current and calls its update method.
+     * @author Luqman Patel
+     */
+    private void updateWindCurrents(){
+        for(WindCurrent windCurrent: windCurrents){
+            windCurrent.update();
+        }
     }
 
     /**
@@ -732,6 +792,16 @@ public class GameScreen extends ScreenAdapter{
     }
 
     /**
+     * Loops through each spike and calls its update method.
+     * @author Luqman Patel
+     */
+    private void updateSpikes(){
+        for(Spike spike: spikes){
+            spike.update();
+        }
+    }
+
+    /**
      * Checks whether it is time to switch maps (using this function as a buffer
      * ensures that the game will not try to switch worlds multiple times in the 
      * update methods)
@@ -749,19 +819,15 @@ public class GameScreen extends ScreenAdapter{
             case 8:
                 switchingLevels = true;
                 break;
+            case 11:
+                switchingLevels = true;
+                break;
+            case 14:
+                switchingLevels = true;
+                break;
             default:
                 switchingLevels = false;
                 break;
-        }
-    }
-
-    /**
-     * Loops through each spike and calls its update method.
-     * @author Luqman Patel
-     */
-    private void updateSpikes(){
-        for(Spike spike: spikes){
-            spike.update();
         }
     }
 

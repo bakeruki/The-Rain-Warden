@@ -3,13 +3,13 @@
  <tileset firstgid="1" source="V3.tsx"/>
  <tileset firstgid="101" source="V4.tsx"/>
  <imagelayer id="4" name="Image Layer 1" offsetx="64" offsety="0">
-  <image source="BountifulValleyBackground.png" width="1920" height="1080"/>
+  <image source="backgrounds/valley/BountifulValleyBackground.png" width="1920" height="1080"/>
  </imagelayer>
  <imagelayer id="5" name="Copy of Image Layer 1" offsetx="2048" offsety="0">
-  <image source="BountifulValleyBackground.png" width="1920" height="1080"/>
+  <image source="backgrounds/valley/BountifulValleyBackground.png" width="1920" height="1080"/>
  </imagelayer>
  <imagelayer id="6" name="Copy of Copy of Image Layer 1" offsetx="4032" offsety="0">
-  <image source="BountifulValleyBackground.png" width="1920" height="1080"/>
+  <image source="backgrounds/valley/BountifulValleyBackground.png" width="1920" height="1080"/>
  </imagelayer>
  <layer id="1" name="Tile Layer 1" width="100" height="20">
   <data encoding="csv">

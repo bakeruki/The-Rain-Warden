@@ -27,6 +27,10 @@ public class WindCurrent extends InteractiveTileObject{
         Gdx.app.log("Wind Current", "End Collision");
     }
 
+    public void setPlayer(Player player){
+        this.player = player;
+    }
+
     @Override
     public void update() {
         

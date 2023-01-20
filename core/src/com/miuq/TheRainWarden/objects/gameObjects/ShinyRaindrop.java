@@ -71,4 +71,8 @@ public class ShinyRaindrop extends InteractiveTileObject {
     public void removeBody(Body body){
         toBeDestroyed = body;
     }
+
+    public void setPlayer(Player player){
+        this.player = player;
+    }
 }
