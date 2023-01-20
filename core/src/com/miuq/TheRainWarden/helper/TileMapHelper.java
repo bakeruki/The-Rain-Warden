@@ -47,8 +47,8 @@ public class TileMapHelper {
     }
 
     /**
-     * Generates and parses a map file.
-     * @param mapPath The filepath of the map file to create.
+     * Generates a map renderer by parsing a map file.
+     * @param mapPath The filepath of the map file to parse.
      * @return A new tile map renderer object.
      */
     public OrthogonalTiledMapRenderer setupMap(String mapPath){

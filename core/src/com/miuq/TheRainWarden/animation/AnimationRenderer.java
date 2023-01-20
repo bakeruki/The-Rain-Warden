@@ -16,10 +16,9 @@ import com.miuq.TheRainWarden.objects.gameObjects.Mango;
 import com.miuq.TheRainWarden.objects.gameObjects.ShinyRaindrop;
 
 /**
-	 * Handles all animations and when they should be played based on world events.
-     * @author Michelle Vuong
-	 */
-
+ * Handles all animations and when they should be played based on world events.
+ * @author Michelle Vuong
+ */
 public class AnimationRenderer{
     private Player player;
     private SpriteBatch batch;
@@ -65,12 +64,6 @@ public class AnimationRenderer{
     private Animation persephoneIdle;
     private Animation roseIdle;
     
-    /**
-	 * Constructor of the AnimationRenderer. Creates multiple animation objects for each animation that will be used.
-     * @param player The player object, passed when Animation Renderer is created. Used to observe the action the player is currently performing.
-     * @param batch The SpriteBatch object. Uses the same SpriteBatch as the GameScreen class to save resources.
-     * @author Michelle Vuong
-	 */
     public AnimationRenderer(Player player, SpriteBatch batch, GameScreen gameScreen){
         this.player = player;
         this.batch = batch;
@@ -197,6 +190,7 @@ public class AnimationRenderer{
 
     /**
      * Clears mango array.
+     * @author Michelle Vuong
      */
     private void clearMangos(){
         mangos.clear();

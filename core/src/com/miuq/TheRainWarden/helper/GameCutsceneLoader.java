@@ -6,6 +6,7 @@ import com.miuq.TheRainWarden.cutscenes.CutsceneFive;
 import com.miuq.TheRainWarden.cutscenes.CutsceneFour;
 import com.miuq.TheRainWarden.cutscenes.CutsceneThree;
 import com.miuq.TheRainWarden.cutscenes.CutsceneTwo;
+import com.miuq.TheRainWarden.main.EndScreen;
 import com.miuq.TheRainWarden.main.GameScreen;
 import com.miuq.TheRainWarden.main.TheRainWarden;
 
@@ -74,6 +75,10 @@ public class GameCutsceneLoader {
             case 10:
                 recentlyLoadedSave = false;
                 break;
+            case 16:
+                recentlyLoadedSave = false;
+                cutscenePlayed = false;
+                break;
         }
     }
 
@@ -96,6 +101,10 @@ public class GameCutsceneLoader {
                 break;
             case 11:
                 loadCutscene(5, gameScreen);
+                break;
+            case 17:
+                loadCutscene(6, gameScreen);
+                break;
         }
     }
 
@@ -136,6 +145,11 @@ public class GameCutsceneLoader {
                     if(cutsceneDisabled){
                         cutscene4.disableCutscene();   
                     }
+                    break;
+                case 6:
+                    EndScreen end = new EndScreen(camera, viewport, game);
+                    game.setScreen(end);
+                    gameScreen.dispose();
                     break;
             }
         }

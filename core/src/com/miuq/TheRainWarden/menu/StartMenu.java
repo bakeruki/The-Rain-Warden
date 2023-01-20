@@ -272,8 +272,8 @@ public class StartMenu extends ScreenAdapter{
         font.getData().setScale(2f);
         float level = save.getLevelFromSave(saveNum);
         font.setColor(1,1,1, alpha);
-        font.draw(batch, "Level: " + ((int)level + 1) + "/17", x, y);
-        font.draw(batch, "Mangos Collected: " + save.getMangosFromSave(saveNum) + "/2", x, y-75);
+        font.draw(batch, "Level: " + ((int)level + 1) + "/18", x, y);
+        font.draw(batch, "Mangos Collected: " + save.getMangosFromSave(saveNum) + "/4", x, y-75);
 
         float completion = level / 17;
         completion = completion * 100;

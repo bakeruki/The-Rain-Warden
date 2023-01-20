@@ -17,7 +17,6 @@ public class Lu extends NPC{
     private GameScreen gameScreen;
     private boolean collisionDisabled;
     
-    
     public Lu(World world, Body body, Fixture sensorFixture, GameScreen gameScreen){
         super(world, body, sensorFixture);
         sensorFixture.setUserData(this);

@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+//import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -129,7 +129,7 @@ public class GameScreen extends ScreenAdapter{
     /**
      * Used for debugging (draws collision boxes).
      */
-    private Box2DDebugRenderer box2dDebugRenderer;
+    //private Box2DDebugRenderer box2dDebugRenderer;
 
     /**
      * Draws tile map.
@@ -262,7 +262,8 @@ public class GameScreen extends ScreenAdapter{
         this.cameraPositions.add(new Vector3(960, 735,0)); //level 14
         this.cameraPositions.add(new Vector3(3008, 735, 0)); //level 15
         this.cameraPositions.add(new Vector3(5056, 735, 0));  //level 16
-        
+        //end game----------------------------------------------
+        this.cameraPositions.add(new Vector3(0, 0, 0));
 
         //spawn positions
         this.startPositions = new Array<Vector2>();
@@ -289,7 +290,8 @@ public class GameScreen extends ScreenAdapter{
         this.startPositions.add(new Vector2(960 / Constants.PPM, 500 / Constants.PPM)); //level 14
         this.startPositions.add(new Vector2(2150 / Constants.PPM, 400 / Constants.PPM)); //level 15
         this.startPositions.add(new Vector2(4142 / Constants.PPM, 1100 / Constants.PPM)); //level 16
-        
+        //end game----------------------------------------------
+        this.startPositions.add(new Vector2(0, 0));
         
         this.pauseImage = new Texture("screens/pauseScreen.png");
         this.batch = new SpriteBatch();
@@ -298,7 +300,7 @@ public class GameScreen extends ScreenAdapter{
         this.gameState = GAME_RUNNING;
         this.font = new BitmapFont();
         
-        this.box2dDebugRenderer = new Box2DDebugRenderer();
+        //this.box2dDebugRenderer = new Box2DDebugRenderer();
 
         //objects
         this.shinyRaindrops = new Array<ShinyRaindrop>();
@@ -481,6 +483,7 @@ public class GameScreen extends ScreenAdapter{
         if(tempLevel != level){
             dialogue.enableDialogueEvent();
             System.out.println("level swtich");
+            System.out.println("level: " + level);
             tempLevel = level;
         }
     }
@@ -565,6 +568,10 @@ public class GameScreen extends ScreenAdapter{
             }else if(level < 17){
                 System.out.println("switching to sky");
                 setMap(mapPaths.get(5));
+                switchingLevels = false;
+            }else if(level == 17){
+                System.out.println("switching to end");
+                gameSaveHandler.updateSaveFiles(saveNum, level, mangosCollected, player.getDeathCounter(), dialogue.getDialogueCount());
                 switchingLevels = false;
             }
         }
@@ -826,6 +833,9 @@ public class GameScreen extends ScreenAdapter{
                 switchingLevels = true;
                 break;
             case 14:
+                switchingLevels = true;
+                break;
+            case 17:
                 switchingLevels = true;
                 break;
             default:

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="53">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="20" tilewidth="64" tileheight="64" infinite="0" nextlayerid="8" nextobjectid="54">
  <tileset firstgid="1" source="V4.tsx"/>
  <imagelayer id="3" name="Image Layer 1">
   <image source="backgrounds/mountain/mountainstage1980x1080.png" width="1920" height="1080"/>
@@ -98,9 +98,6 @@
   <object id="27" x="4032" y="0">
    <polygon points="0,0 64,0 64,1088 0,1088"/>
   </object>
-  <object id="29" x="3968" y="256">
-   <polygon points="0,0 64,0 64,64 0,64"/>
-  </object>
   <object id="30" x="1920" y="1024">
    <polygon points="0,0 0,-64 64,-64 64,0"/>
   </object>
@@ -145,6 +142,9 @@
   <object id="51" name="mango" x="3456" y="704" width="64" height="64"/>
   <object id="52" x="1920" y="192">
    <polygon points="0,0 64,0 64,64 0,64"/>
+  </object>
+  <object id="53" x="3968" y="320">
+   <polygon points="0,0 64,0 64,64 0,64 0,0"/>
   </object>
  </objectgroup>
 </map>

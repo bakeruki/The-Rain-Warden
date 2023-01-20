@@ -54,11 +54,11 @@ public class CameraSwitchTrigger extends InteractiveTileObject {
         }
 
     }
-     /**
-	 * Tells the code that the current object should be destroyed (calling in update method gives error, 
+    /**
+     * Tells the code that the current object should be destroyed (calling in update method gives error, 
      * using this method ensures that one full game cycle finishes before it is destroyed)
      * @author Luqman Patel
-	 */
+     */
     private void removeBody(Body body){
         toBeDestroyed = body;
     }

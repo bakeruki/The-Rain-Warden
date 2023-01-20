@@ -8,6 +8,10 @@ import com.miuq.TheRainWarden.animation.AnimatedText;
 import com.miuq.TheRainWarden.main.GameScreen;
 import com.miuq.TheRainWarden.main.TheRainWarden;
 
+/**
+ * Cutscene number 4 screen.
+ * @author Michelle Vuong
+ */
 public class CutsceneFour extends Cutscene{
     public CutsceneFour(OrthographicCamera camera, FitViewport viewport, TheRainWarden game, GameScreen gameScreen) {
         super(camera, viewport, game, gameScreen);
