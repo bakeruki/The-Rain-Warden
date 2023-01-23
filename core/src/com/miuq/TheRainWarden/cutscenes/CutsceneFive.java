@@ -16,13 +16,9 @@ public class CutsceneFive extends Cutscene{
     public CutsceneFive(OrthographicCamera camera, FitViewport viewport, TheRainWarden game, GameScreen gameScreen) {
         super(camera, viewport, game, gameScreen);
         
-        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/filler.png")));
-        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/filler.png")));
-        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/filler.png")));
+        this.cutsceneImages.add(new Texture(Gdx.files.internal("cutscene/cutscene5/frame1.png")));
 
-        this.cutsceneTexts.add(new AnimatedText("filler text 1", 0.05f));
-        this.cutsceneTexts.add(new AnimatedText("filler text 2", 0.05f));
-        this.cutsceneTexts.add(new AnimatedText("filler text 3", 0.05f));
+        this.cutsceneTexts.add(new AnimatedText("Up the mountain we go...", 0.05f));
     }
 
     @Override
