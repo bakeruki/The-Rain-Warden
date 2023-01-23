@@ -158,6 +158,7 @@ public class TileMapHelper {
 
                     Fixture fixture = createSensorFixture(shape, body);
                     shape.dispose();
+                    //if an npc has already been created, simply update the body with the new body, fixture, and world. otherwise, make an entirely new object.
                     if(dialogue.getRenni() != null){
                         Renni renni = dialogue.getRenni();
                         renni.setBody(body);
@@ -175,6 +176,7 @@ public class TileMapHelper {
 
                     Fixture fixture = createSensorFixture(shape, body);
                     shape.dispose();
+                    //if an npc has already been created, simply update the body with the new body, fixture, and world. otherwise, make an entirely new object.
                     if(dialogue.getMimir() != null){
                         Mimir mimir = dialogue.getMimir();
                         mimir.setBody(body);
@@ -192,6 +194,7 @@ public class TileMapHelper {
 
                     Fixture fixture = createSensorFixture(shape, body);
                     shape.dispose();
+                    //if an npc has already been created, simply update the body with the new body, fixture, and world. otherwise, make an entirely new object.
                     if(dialogue.getPersephone() != null){
                         Persephone persephone = dialogue.getPersephone();
                         persephone.setBody(body);
@@ -209,6 +212,7 @@ public class TileMapHelper {
 
                     Fixture fixture = createSensorFixture(shape, body);
                     shape.dispose();
+                    //if an npc has already been created, simply update the body with the new body, fixture, and world. otherwise, make an entirely new object.
                     if(dialogue.getLu() != null){
                         Lu lu = dialogue.getLu();
                         lu.setBody(body);
@@ -226,6 +230,7 @@ public class TileMapHelper {
 
                     Fixture fixture = createSensorFixture(shape, body);
                     shape.dispose();
+                    //if an npc has already been created, simply update the body with the new body, fixture, and world. otherwise, make an entirely new object.
                     if(dialogue.getManny() != null){
                         Manny manny = dialogue.getManny();
                         manny.setBody(body);
@@ -243,6 +248,7 @@ public class TileMapHelper {
 
                     Fixture fixture = createSensorFixture(shape, body);
                     shape.dispose();
+                    //if an npc has already been created, simply update the body with the new body, fixture, and world. otherwise, make an entirely new object.
                     if(dialogue.getRose() != null){
                         Rose rose = dialogue.getRose();
                         rose.setBody(body);

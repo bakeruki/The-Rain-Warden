@@ -38,6 +38,7 @@ public class GameSaveHandler {
      * @author Luqman Patel
      */
     private void createSaveFiles(){
+        //loops through each save path and checks to see if there is a save file there
         for(FileHandle save : savePaths){
             if(!save.exists()){
                 save.writeString("0@0@0@0", false);
@@ -53,11 +54,14 @@ public class GameSaveHandler {
      * @author Luqman Patel
      */
     public void updateSaveFiles(int saveNum, int level, int mangos, int deaths, int dialogueNum){
+        //turn all game data into a string
         String levelString = Integer.toString(level);
         String mangosString = Integer.toString(mangos);
         String deathsString = Integer.toString(deaths);
         String dialogueString = Integer.toString(dialogueNum);
+        //combine string with preset seperator
         String data = levelString + "@" + mangosString + "@" + deathsString + "@" + dialogueString;
+        //write string into save file
         this.savePaths.get(saveNum).writeString(data, false);
     }
 

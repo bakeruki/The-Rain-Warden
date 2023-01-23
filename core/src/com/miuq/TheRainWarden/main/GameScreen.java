@@ -396,6 +396,7 @@ public class GameScreen extends ScreenAdapter{
      */
     private void updateDialogue(){
         Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
+        Gdx.input.setInputProcessor(dialogueStage);
     }
 
     /**
@@ -405,6 +406,7 @@ public class GameScreen extends ScreenAdapter{
     private void updateRunning(){
         world.step(1/60f, 6, 2);
         Gdx.graphics.setSystemCursor(SystemCursor.None);
+        Gdx.input.setInputProcessor(null);
 
         checkLevelSwitch();
         cameraUpdate();
@@ -423,11 +425,15 @@ public class GameScreen extends ScreenAdapter{
         
         loadMap(level);
         levelSpecificTasks(level);
+
+        //update NPC animations
         animationRenderer.setMimir(dialogue.getMimir());
         animationRenderer.setManny(dialogue.getManny());
         animationRenderer.setRose(dialogue.getRose());
         animationRenderer.setLu(dialogue.getLu());
         animationRenderer.setPersephone(dialogue.getPersephone());
+
+        //update helper classes
         cutscene.update(level, this);
         dialogue.update();
 
@@ -482,8 +488,6 @@ public class GameScreen extends ScreenAdapter{
     private void checkLevelSwitch(){
         if(tempLevel != level){
             dialogue.enableDialogueEvent();
-            System.out.println("level swtich");
-            System.out.println("level: " + level);
             tempLevel = level;
         }
     }
@@ -544,33 +548,32 @@ public class GameScreen extends ScreenAdapter{
      */
     private void loadMap(int level){
         if(switchingLevels){
-            System.out.println("switching levels");
             if(level < 2){
-                System.out.println("switching to tutorial world");
+                //System.out.println("switching to tutorial world");
                 setMap(mapPaths.get(0));
                 switchingLevels = false;
             }else if(level < 5){
-                System.out.println("switching to ice world");
+                //System.out.println("switching to ice world");
                 setMap(mapPaths.get(1));
                 switchingLevels = false;
             }else if(level < 8){
-                System.out.println("switching to forest world");
+                //System.out.println("switching to forest world");
                 setMap(mapPaths.get(2));
                 switchingLevels = false;   
             }else if(level < 11){
-                System.out.println("switching to springkeep");
+                //System.out.println("switching to springkeep");
                 setMap(mapPaths.get(3));
                 switchingLevels = false;
             }else if(level < 14){
-                System.out.println("switching to mountain");
+                //System.out.println("switching to mountain");
                 setMap(mapPaths.get(4));
                 switchingLevels = false;
             }else if(level < 17){
-                System.out.println("switching to sky");
+                //System.out.println("switching to sky");
                 setMap(mapPaths.get(5));
                 switchingLevels = false;
             }else if(level == 17){
-                System.out.println("switching to end");
+                //System.out.println("switching to end");
                 gameSaveHandler.updateSaveFiles(saveNum, level, mangosCollected, player.getDeathCounter(), dialogue.getDialogueCount());
                 switchingLevels = false;
             }

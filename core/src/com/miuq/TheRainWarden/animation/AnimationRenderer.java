@@ -93,8 +93,6 @@ public class AnimationRenderer{
         this.shinyRaindropAnimation = new Animation(new TextureRegion(new Texture("animations/objects/shinyRaindrop.png")), 5, 0.71f); //raindrop animation
         this.raindropDestroyedAnimation = new Animation(new TextureRegion(new Texture("animations/objects/shinyRaindropDestroy.png")), 7, 0.54f); //raindrop being destroyed animation
         this.mangoAnimation = new Animation(new TextureRegion(new Texture("animations/objects/mango.png")), 2, 1f); //mango animation
-        //TODO mango destroyed animation
-        //TODO wind current animation
         this.raindropDestroyed = false; //boolean for when the raindrop being destroyed animation should be played
         this.hasBeenCarried = false; //boolean for whether jump animation should keep playing (wind currents bug) 
         
